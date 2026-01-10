@@ -49,79 +49,30 @@ async function seedDatabase() {
     
     await storage.createSubsection({ 
       sectionId: pos.id, 
-      title: "F1", 
-      content: "Client cash in\nThis is used to deposit money into clients(fortebet customer with an account)\nFortebets account.\n\nClient cash out\nThis is used to withdraw from clients fortebet account after the customer has initiated a withdrawal and brought the four digits authorization code to the counter for withdrawal.\n\nSlot in\nThis is used to deposit into the black or vip slot cards...\nThe black cards are regular cards any customer registered or unregistered customers can use it to play slots at the branch.\nThe vip card are unique card assigned to a particular customer, this card is given to only registered customers and it's only one per account.\nThe vip cards are more secure 🔐 meaning fund cannot be withdrawn without the authorization code sent to the owner of the account phone number.", 
+      title: "F1 🔘", 
+      content: "Client cash in: This is used to deposit money into clients (Fortebet customer with an account) Fortebet account.\n\nClient cash out: This is used to withdraw from clients Fortebet account after the customer has initiated a withdrawal and brought the four digits authorization code to the counter for withdrawal.\n\nSlot in: This is used to deposit into the black or VIP slot cards. The black cards are regular cards any customer (registered or unregistered) can use at the branch. The VIP card is unique, assigned to a particular customer, given to registered customers only, and more secure 🔐 (fund cannot be withdrawn without authorization code).\n\nLoad (I) ticket: Used to load the booking number of already booked prematch games. Customer is given a code number (expires in 1 hour) which the operator inserts using \"I\" to display the selection.\n\nLoad (T) ticket: Used to rebet already placed prematch games. Operator presses \"T\" and scans the former ticket or inserts code manually.\n\nLast (L) ticket: Displays the last prematch game played on the terminal/POS.\n\nF12 finish transactions: Clears all transactions on the homepage.\n\nEdit: View customer info and assign VIP cards.\n\nLetter N: Enter customer username to make deposit, withdrawal, or check info.\n\nLetter K: Enter slot card numbers.\n\nNOTE: You can never know a customer account balance from the POS/terminal, only VIP points balance and slot account balance.", 
       displayOrder: 1 
     });
 
     await storage.createSubsection({ 
       sectionId: pos.id, 
-      title: "Load (I) ticket", 
-      content: "This is used to load the booking number of already booked prematch games...\nCustomer can make selections from their personal device or the company Ntbs(the laptops inside the branch),after doing so they are given a number that expires in one hour,the customer are to give you the code number i.e 14 which the operator press the I and insert the number and the selection are displayed on the terminal screen..", 
+      title: "F2 🔘 (PAYOUT / CANCEL TICKETS)", 
+      content: "Used to pay out winning tickets and cancel both prematch and virtual tickets. Operator can scan barcode or enter code manually. After confirming, a popup shows successful payout/cancel.\n\nPrematch ticket: Can only be cancelled within 10 minutes of placing the bet; once an event starts it can no longer be cancelled.\n\nVirtual ticket: Can be cancelled anytime as long as none of the events have started.\n\nMethods to cancel:\n• Prematch: Scan and cancel, or enter code manually.\n• Virtual: Scan and cancel, enter code manually, or cancel last.\n\nPaid out and cancelled tickets must be trashed and not returned to customers.", 
       displayOrder: 2 
     });
 
     await storage.createSubsection({ 
       sectionId: pos.id, 
-      title: "Load (T) ticket", 
-      content: "This is used to Rebet already bet prematch games.\nIn a scenario whereby a customer has already placed a bet at the counter but for some reasons the customer wants to play the same game the operator or the customer doesn't need to go to the trouble of selecting each option again as he or she can just hand over the formerly place bet to the operator, the operator press the letter T scans the former ticket or insert the code manually and all selection will be shown on the terminal which the operator can now proceed to bet the game.", 
+      title: "F4 🔘", 
+      content: "To collect: Shows total balance in shop and used for collection reports.\n\nCash in POS: Receive money from head office or company sources.\n\nCash out POS: Send reports and money to head office.\n\nTransfer: Send money between POS at branch.\n\nDay report: Shows highlighted summary of POS transactions and POS balance.\n\nShow: Displays full transactions done on POS.", 
       displayOrder: 3 
     });
 
     await storage.createSubsection({ 
       sectionId: pos.id, 
-      title: "Last (l) ticket", 
-      content: "This is used to display the last prematch game played on the terminal/POS.\nthis shows the last prematch tickets played on that particular terminal.", 
-      displayOrder: 4 
-    });
-
-    await storage.createSubsection({ 
-      sectionId: pos.id, 
-      title: "F12 finish transactions", 
-      content: "This is used to clear all transactions done on the homepage.", 
-      displayOrder: 5 
-    });
-
-    await storage.createSubsection({ 
-      sectionId: pos.id, 
-      title: "Edit", 
-      content: "This is used to view customers information and assign vip cards to customers", 
-      displayOrder: 6 
-    });
-
-    await storage.createSubsection({ 
-      sectionId: pos.id, 
-      title: "Letter N", 
-      content: "this is used to enter customers username in case the customer wants to make a deposit or withdrawal at the branch.\nThe operator starts by entering the letter N \nThen he inserts the customer username and clicks on enter after then the customer information is displayed then he can now ask what the customer wants if it's a deposit, withdrawal or information check and edit.", 
-      displayOrder: 7 
-    });
-
-    await storage.createSubsection({ 
-      sectionId: pos.id, 
-      title: "LETTER K", 
-      content: "this is used to enter slot cards numbers.\n\nNOTE you can never know a customer account balance from the POS/ terminal \nYou can only know a customer vip points balance and slot account balance...", 
-      displayOrder: 8 
-    });
-
-    await storage.createSubsection({ 
-      sectionId: pos.id, 
-      title: "F2 BUTTON 🔘 ( PAYOUT/CANCEL TICKETS)", 
-      content: "This is used to pay out winning tickets and cancel both prematch and virtual tickets..\nthe operator can payout/cancel a ticket by either scanning the barcode on the ticket or entering the code manually.\nOnce he enters the code and clicks on enters the operator then proceeds to click on the space bar then a little confirmation message popups to show that the ticket has been paid out/cancel successfully.\n\nA prematch ticked can only be cancelled within ten minutes of placing the bet,after 10 minutes it can no longer be cancelled.\nAnd even within that ten minutes if any events starts the ticket can no longer be cancelled..\nA virtual ticket can be cancelled anytime as long as none of the events on the ticket has started..\n\nA prematch ticket can be cancelled in two ways.\nScan and cancel\nEnter the code manually on f2\nA virtual ticket can be cancelled in three ways\nScan and cancel \nEnter code manually \nCancel last..\n\nPaid out tickets and cancelled tickets are expected to be trashed and not returned to customers..", 
-      displayOrder: 9 
-    });
-
-    await storage.createSubsection({ 
-      sectionId: pos.id, 
-      title: "F4 BUTTON 🔘", 
-      content: "To collect \nthis shows the total balance available in the shop and it's also used for the collection of reports.\n\nCash in pos..\nThis is used to receive money from the head office and other sources that concern the company...\n\nCash out POS\nThis is used to send reports, and also send money to the head office..\n\nTransfer \nThis is used to send money in-between POS at the branch \n\nDay report\nThis show the highlighted summary of transactions done on the POS and it's also shows the POS balance.\n\nShow \nThis displays the full transaction Done on the POS.", 
-      displayOrder: 10 
-    });
-
-    await storage.createSubsection({ 
-      sectionId: pos.id, 
-      title: "F6 virtual 🔘", 
+      title: "F6 Virtual 🔘", 
       content: "Coming soon", 
-      displayOrder: 11 
+      displayOrder: 4 
     });
 
     // SECTION: WORK ETHICS
@@ -129,7 +80,7 @@ async function seedDatabase() {
     await storage.createSubsection({
       sectionId: ethics.id,
       title: "Guidelines",
-      content: "DAY SHIFT OPERATORS ARE EXPECTED TO BE IN THE BRANCH AS EARKY AS 7:00AM\nBRANCH SHOULD BE CLEAN,TIDY AND ONLINE AS AT 7:30AM.\nALL EQUIPMENTS MUST BE CHECKED DURING DAYBREAK INCLUDING THE INTERIORS AND EXTERIOR EQUIPMENTS.\nYOUR SLOTS MANCHINES SHOULD BE ONLINE AS EARLY AS POSSIBLE, BEST AT 7:30..\nCASHING OUT YOUR PRESENCE SHOULD BE DONE BEFORE 7:30 AM\nON NO ACCOUNT SHOULD A CUSTOMER BE FOUND SLEEPING INSIDE THE VIEWING CENTER..\nTHE DAY SHIFT OPERATORS REQUEST FOR FUEL WHEN THE GEN IS HALF TANK AND THERE'S NO RESERVE.\nPLAYING VIRTUAL,OR ANY GAMES AS AN OPERATOR ON DUTY IS PROHIBITED 🚫 \nSLEEPING/FIGHTING AT THE BRANCH IS STRICTLY PROHIBITED..\nDISRESPECTFUL ACTS TOWARDS YOUR COLLEAGUES,MANAGERS AND SUPERVISORS IS PROHIBITED.\nIF YOUR COLLEAGUES/SUPERIORS IS IN THE WRONG OR DOING SOMETHING BAD KINDLY REACH OUT TO THE CUSTOMER SUPPORT LINE 0800 009 009 009 FOR ASSISTANCE..\nTHE SHOP CASH MUST NOT GO ABOVE 250K UNLESS THERE'S A VALID REASON WHY.\nBEFORE CASHING OUT ANY MONEY ON THE POS, YOU MUST FIRST SEEK APPROVAL..\nBRANCH OPERATIONS CLOSED AT OR AFTER 11:30...\nTHE CUG PHONE LINE MUST NEVER LEAVE THE BRANCH...\nMISUSE OF COMPANY EQUIPMENTS IS A SERIOUS OFFENCE..\nNEGLIGENCE OF COMPANY EQUIPMENTS IS A SERIOUS OFFENCE..\nYOUR BALANCE ON YOUR POS AND INSIDE YOUR LOCKER MUST BE BALANCED AT ALL TIMES..\nANY MONEY SENT BUT NOT RECEIVED INTO THE POS IS NOT A DEPOSIT YET, so ONLY FUNDS SUCCESSFULLY CREDITED INTO THE OPAY DEVICE ARE TO BE PLAYED FOR CUSTOMERS.",
+      content: "DAY SHIFT OPERATORS ARE EXPECTED TO BE IN THE BRANCH AS EARLY AS 7:00AM.\nBRANCH SHOULD BE CLEAN, TIDY AND ONLINE AS AT 7:30AM.\nALL EQUIPMENTS MUST BE CHECKED DURING DAYBREAK INCLUDING INTERIOR AND EXTERIOR EQUIPMENTS.\nYOUR SLOTS MACHINES SHOULD BE ONLINE AS EARLY AS POSSIBLE, BEST AT 7:30.\nCASHING OUT YOUR PRESENCE SHOULD BE DONE BEFORE 7:30AM.\nON NO ACCOUNT SHOULD A CUSTOMER BE FOUND SLEEPING INSIDE THE VIEWING CENTER.\nTHE DAY SHIFT OPERATORS REQUEST FOR FUEL WHEN THE GEN IS HALF TANK AND THERE'S NO RESERVE.\nPLAYING VIRTUAL OR ANY GAMES AS AN OPERATOR ON DUTY IS PROHIBITED 🚫.\nSLEEPING/FIGHTING AT THE BRANCH IS STRICTLY PROHIBITED.\nDISRESPECTFUL ACTS TOWARDS COLLEAGUES, MANAGERS AND SUPERVISORS IS PROHIBITED.\nIF COLLEAGUES/SUPERIORS ARE IN THE WRONG, REACH OUT TO CUSTOMER SUPPORT: 0800 009 009 009.\nTHE SHOP CASH MUST NOT GO ABOVE 250K UNLESS VALID REASON EXISTS.\nBEFORE CASHING OUT MONEY ON POS, SEEK APPROVAL.\nBRANCH OPERATIONS CLOSED AT OR AFTER 11:30.\nCUG PHONE LINE MUST NEVER LEAVE THE BRANCH.\nMISUSE OR NEGLIGENCE OF COMPANY EQUIPMENTS IS A SERIOUS OFFENCE.\nPOS AND LOCKER BALANCE MUST BE CHECKED AND BALANCED AT ALL TIMES.\nFUNDS ONLY COUNT AS DEPOSIT WHEN SUCCESSFULLY CREDITED TO OPAY DEVICE.",
       displayOrder: 1
     });
 
@@ -138,7 +89,7 @@ async function seedDatabase() {
     await storage.createSubsection({
       sectionId: issues.id,
       title: "Troubleshooting",
-      content: "WHEN A CUSTOMER IS NOT RECEIVING OTP.\nRestart the phone\nCheck if the SIM card number matches the number on the number on the account.\nCheck if the phone isn't on DND\nCheck if the phone storage isn't full\nIf all above process has been done and customer isn't receiving otp then you out pick up the CUG(the company phone inside the branch)and make report in the issue group.\n\nYou make a report like this\n\nFirst your branch name\nThe customer phone number \nThe customer service provider \nThe customer username \n\nThen state the issue.\n\n\nWHEN A TICKET FAILED TO PRINT OUT COMPLETELY ...\n\nYou make a report like this\nThe branch name\nThe POS id\nThe type of ticket (prematch or virtual)\nThe ticket id\nThe reason why the ticket failed to print out completely.(Pre match ticket failed to print out completely due to network 🛜 glitch kindly assist).\n\n\nWHEN THE NETWORK 🛜 AT THE BRANCH IS NOT STABLE \n\nYou make a report like this\nThe branch name\n\nThen you state the issue.(Branch is currently offline because the router at the branch isn't receiving network)\nKindly assist.\n\n\nWHEN A NEW ITEM IS PURCHASED AT THR BRANCH.\nYou take a picture of the purchasee item and the receipt if available and post it with description in the problem group.\n\n\nHOW TO SEND TO COLLECT\nThe operator on the main terminal prints out the collection by going to the To collect print it's out and send a report of the total cash, opay balance, and total balance available in the shop to his manager who sent it to the manager group.\n\n\nHOW TO CHECK TICKET THAT FAILED TO PRINT OUT..\n\n\nControl + alternate+p\n\n\nHOW TO LOG OUT\n\n\nAlternate+ F4",
+      content: "When a customer is not receiving OTP:\n• Restart phone.\n• Check if SIM matches account number.\n• Check phone is not on DND.\n• Check phone storage is not full.\n• If still not receiving OTP, pick up CUG phone and report in issue group:\n  - Branch name\n  - Customer phone number\n  - Customer service provider\n  - Customer username\n  Then describe the issue.\n\nWhen a ticket failed to print completely:\nReport with:\n• Branch name\n• POS ID\n• Type of ticket (prematch/virtual)\n• Ticket ID\n• Reason (e.g., network 🛜 glitch)\n\nWhen network 🛜 at the branch is not stable:\nReport with:\n• Branch name\n• State the issue (e.g., router not receiving network)\n\nWhen a new item is purchased at the branch:\nTake picture of item and receipt (if available) and post in problem group with description.\n\nHow to send to collect:\nOperator on main terminal prints collection and sends report of total cash, OPAY balance, and total shop balance to manager group.\n\nHow to check ticket that failed to print:\nPress Control + Alt + P\n\nHow to log out:\nPress Alt + F4",
       displayOrder: 1
     });
   }
