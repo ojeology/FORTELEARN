@@ -4,35 +4,30 @@ import { storage } from "./storage";
 import { api } from "@shared/routes";
 
 async function seedDatabase() {
-  const existingSections = await storage.getSections();
+  const existingSections = await storage.getSectionsWithSubsections();
   if (existingSections.length === 0) {
-    const sections = [
-      {
-        title: "BONUSES",
-        content: "Details about current bonus schemes, eligibility criteria, and how to claim them. Check daily for new offers.",
-        displayOrder: 1,
-      },
-      {
-        title: "POS / TERMINAL KNOWLEDGE",
-        content: "Instructions on operating the POS terminal, troubleshooting connection errors, and processing tickets efficiently.",
-        displayOrder: 2,
-      },
-      {
-        title: "WORK ETHICS",
-        content: "Company code of conduct, punctuality requirements, dress code policy, and customer service guidelines.",
-        displayOrder: 3,
-      },
-      {
-        title: "COMMON BRANCH ISSUES",
-        content: "Solutions for printer jams, network outages, cash handling discrepancies, and reporting maintenance requests.",
-        displayOrder: 4,
-      },
-    ];
+    // Section: BONUSES
+    const bonuses = await storage.createSection({ title: "BONUSES", displayOrder: 1 });
+    await storage.createSubsection({ sectionId: bonuses.id, title: "Welcome Bonus", content: "Details about the Welcome Bonus scheme.", displayOrder: 1 });
+    await storage.createSubsection({ sectionId: bonuses.id, title: "Multiple Booster Bonus", content: "Details about the Multiple Booster Bonus scheme.", displayOrder: 2 });
+    await storage.createSubsection({ sectionId: bonuses.id, title: "Cashback Bonus", content: "Details about the Cashback Bonus scheme.", displayOrder: 3 });
+    await storage.createSubsection({ sectionId: bonuses.id, title: "Online Virtual Bonus", content: "Details about the Online Virtual Bonus scheme.", displayOrder: 4 });
+    await storage.createSubsection({ sectionId: bonuses.id, title: "VIP Points", content: "Details about the VIP Points scheme.", displayOrder: 5 });
 
-    for (const section of sections) {
-      await storage.createSection(section);
-    }
-    console.log("Database seeded with default sections");
+    // Section: POS / TERMINAL KNOWLEDGE
+    const pos = await storage.createSection({ title: "POS / TERMINAL KNOWLEDGE", displayOrder: 2 });
+    await storage.createSubsection({ sectionId: pos.id, title: "F1", content: "Details about F1 function.", displayOrder: 1 });
+    await storage.createSubsection({ sectionId: pos.id, title: "F2", content: "Details about F2 function.", displayOrder: 2 });
+    await storage.createSubsection({ sectionId: pos.id, title: "F4", content: "Details about F4 function.", displayOrder: 3 });
+    await storage.createSubsection({ sectionId: pos.id, title: "F6", content: "Details about F6 function.", displayOrder: 4 });
+
+    // Section: WORK ETHICS
+    await storage.createSection({ title: "WORK ETHICS", displayOrder: 3 });
+
+    // Section: COMMON BRANCH ISSUES
+    await storage.createSection({ title: "COMMON BRANCH ISSUES", displayOrder: 4 });
+    
+    console.log("Database seeded with exact sections and placeholders for content");
   }
 }
 
@@ -40,12 +35,11 @@ export async function registerRoutes(
   httpServer: Server,
   app: Express
 ): Promise<Server> {
-  // Seed the database on startup
   await seedDatabase();
 
   app.get(api.sections.list.path, async (_req, res) => {
-    const sections = await storage.getSections();
-    res.json(sections);
+    const data = await storage.getSectionsWithSubsections();
+    res.json(data);
   });
 
   return httpServer;

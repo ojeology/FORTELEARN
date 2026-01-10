@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { sections } from './schema';
+import { sections, subsections } from './schema';
 
 export const api = {
   sections: {
@@ -7,7 +7,7 @@ export const api = {
       method: 'GET' as const,
       path: '/api/sections',
       responses: {
-        200: z.array(z.custom<typeof sections.$inferSelect>()),
+        200: z.array(z.custom<any>()), // Using any temporarily for the joined type
       },
     },
   },
