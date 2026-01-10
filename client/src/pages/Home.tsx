@@ -78,16 +78,16 @@ export default function Home() {
           <section className="bg-neutral-900 text-white rounded-lg p-6 shadow-xl border border-neutral-800">
             <h2 className="text-2xl font-black mb-4 tracking-tighter uppercase border-b border-neutral-700 pb-2 flex items-center">
               <span className="w-2 h-6 bg-primary mr-3 rounded-full"></span>
-              Shortcuts
+              HOW TO CHECK TICKET THAT FAILED TO PRINT OUT
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="flex items-center justify-between p-3 bg-neutral-800 rounded-md border border-neutral-700">
-                <span className="font-bold text-neutral-400">Check failed print</span>
-                <kbd className="px-2 py-1 bg-neutral-700 rounded text-primary font-mono text-sm">Ctrl + Alt + P</kbd>
+                <span className="font-bold text-neutral-400">Shortcut</span>
+                <kbd className="px-2 py-1 bg-neutral-700 rounded text-primary font-mono text-sm">Control + alternate + p</kbd>
               </div>
               <div className="flex items-center justify-between p-3 bg-neutral-800 rounded-md border border-neutral-700">
-                <span className="font-bold text-neutral-400">Logout</span>
-                <kbd className="px-2 py-1 bg-neutral-700 rounded text-primary font-mono text-sm">Alt + F4</kbd>
+                <span className="font-bold text-neutral-400">HOW TO LOG OUT</span>
+                <kbd className="px-2 py-1 bg-neutral-700 rounded text-primary font-mono text-sm">Alternate + F4</kbd>
               </div>
             </div>
           </section>

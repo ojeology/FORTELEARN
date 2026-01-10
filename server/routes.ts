@@ -12,35 +12,35 @@ async function seedDatabase() {
   await storage.createSubsection({ 
     sectionId: bonuses.id, 
     title: "Welcome Bonus", 
-    content: "Welcome bonus is a bonus given to newly registered customers of Fortebet.\nIt is 3× their total deposit (300 percent of their account balance) at the moment of placing their first eligible bet.\nA customer’s first eligible bet is either:\nA prematch game, or\nAn I-Play (live) game.\nOnce this is met, the customer is given 3× their deposit, which is stored inside their Fortebet Welcome Bonus account.\nThis bonus is not redeemable immediately.\nTo redeem this bonus, the customer must:\nPlay a prematch or I-Play game\nWith a minimum of three selections\nAnd total odds of 3.00 or more\nWhenever a customer does this:\n2% of the customer’s stake is deducted from the Welcome Bonus balance\nThat amount is credited to the customer’s main account\nThe credited amount can be withdrawn or used to place bets\nNOTE:\nThe maximum Welcome Bonus a customer can get is ₦1,000,000\nNo matter the deposit amount, the bonus cannot exceed ₦1,000,000\nThe Welcome Bonus lasts for 90 days starting from the day of first deposit", 
+    content: "Welcome bonus is a bonus given to newly registered customers of fortebet.\nIt is 3x their total deposit or 300 percent of their account balance at the moment of placing their first eligible bet.\nA customer first eligible bet is either a prematch game or I play(live) game...\nOnce this is met the customers are given 3x of their deposits which is stored inside their fortebet welcome bonus account which is not redeemable yet.\nFor a customer to redeem this bonus, the customers needs to play a prematch or I play game with a minimum of three selections and total odds of 3.00 or more,\nWhenever a customer does this (2) percent of the customers stake is deducted from the customer welcome bonus balance and credited to the customer main account balance which the customer can withdraw, or used to place bets...\nNOTE the maximum a customer can get on his welcome bonus account is 1million naira.\nmeaning no matter the amount the customer deposit he will not be getting more than 1million naira.\nLastly welcome bonus lasts for 90days starting from the day the customer made his first deposit...", 
     displayOrder: 1 
   });
 
   await storage.createSubsection({ 
     sectionId: bonuses.id, 
     title: "Multiple Booster Bonus", 
-    content: "This is a bonus given to all Fortebet customers, both:\nRegistered online customers\nRegular customers who play at the branch\nIt applies to prematch and in-play games and increases the chances of winning big.\nTo qualify:\nA customer must select a minimum of five events\nEach event must have odds of 1.25 or more\nOnce this requirement is met, the customer gets a 5% Multiple Booster Bonus.\nMaximum number of events per ticket: 150\nOnce a customer reaches 50 events with odds of 1.25 or more, they receive the maximum booster of 250%\nEven if all 150 events meet the odds requirement, the booster remains 250% maximum\nMultiple Booster Chart:\n5 events → 5%\n6 events\n8 events\n9 events\n10 events\n12 events\n14 events\n16 events\n18 events\n20 events\n25 events\n30 events\n35 events\n40 events\n45 events\n50 events → 250% (Maximum)", 
+    content: "this is a bonus given to all customers of fortebet (registered online and regular customers who play at the branch)who plays prematch and Inplay games, it increases their chances of winning big..\nTo get multiple booster bonus a customer must select a minimum of five events and each event must have odds of 1.25 or more \nOnce this requirements is met the customers get a (5) percent multiple booster bonus..and for a maximum of events \n(the maximum number of events on a single ticket is (150))\n but once you have 50 events on your ticket with odds of 1.25 you will get the maximum multiple booster bonus which is 250 percent and that's the maximum.\nNOTE even if all your 150 events have odds of 1.25 or more you will still be getting 250 percent multiple booster bonus.\n\nHERE IS THE CHART OF THE MULTIPLE BOOSTER BONUSE\n\n5 EVENTS    5 PERCENT BOOSTER BONUS\n6 \n8\n9\n10\n12\n14\n16\n18\n20\n25\n30\n35\n40\n45\n50", 
     displayOrder: 2 
   });
 
   await storage.createSubsection({ 
     sectionId: bonuses.id, 
     title: "Cashback Bonus", 
-    content: "This bonus is given only to registered Fortebet customers who play prematch and in-play games online.\nIt allows customers to reclaim up to 3× their stake after final evaluation of their bets with only one selection lost.\nTo qualify:\nCustomer must select a minimum of two events\nExactly one event must be lost\nThe odds of the remaining events must fall within the ranges below:\n0 – 74.99 → No cashback\n75 – 149.99 → 1× stake back\n150 – 299.99 → 2× stake back\n300 and above → 3× stake back (maximum cashback)", 
+    content: "This is a bonus given to only registered customers of fortebet (customer who have an account and plays prematch and Inplay online).\nThis bonus allows customers to reclaim up to 3x of their stake after final evaluation of their bets with only one selection lost.\nFor a customer to be eligible for cash back bonus, the customer must select a minimum of two events or more, exactly One event must be lost and the odds of the remaining events must fall into the range below 👇 \n0 - 74.99 the customer isn't getting any cash back\n75 - 149.99 the customer gets 1x his stake(bet) amount back.\n150-299.99 the customer gets 2x his\nStake amount back.\n300 and above the customer get 3x his stake back and that the highest amount of CASHBACK BONUS...", 
     displayOrder: 3 
   });
 
   await storage.createSubsection({ 
     sectionId: bonuses.id, 
     title: "Online Virtual Bonus", 
-    content: "This bonus is given to registered Fortebet customers who play virtual games online.\nBonus structure:\n1 event → 1% bonus\n2 events → 2% bonus\n3 events → 3% bonus (maximum)\nNOTE:\nMaximum number of virtual events selectable is three\nEach event starts five minutes apart\nThere are 288 virtual matches every 24 hours", 
+    content: "This is a bonus given to only registered customers of fortebet (customer that have accounts with fortebet and plays virtual online)it also increases their chances of winning big as it adds to their total payout..\n\nFor one event selected and staked on customer get one percent online virtual bonus \nFor two events selected customers get two percent online virtual bonus\nFor three events selected customers get three percent online virtual bonus which is the maximum.\n\nNOTE, the maximum number of virtual events you can select once is three events and each event starts five minutes after the each one.\n288 virtual matches per 24hours.", 
     displayOrder: 4 
   });
 
   await storage.createSubsection({ 
     sectionId: bonuses.id, 
     title: "VIP Points", 
-    content: "VIP points are given to registered Fortebet customers who play online games including:\nPrematch\nIn-play\nAviator\nSlots\nCustomers who:\nPlay slots at the branch using VIP cards, or\nVerify their email address\nalso receive VIP points.\nEmail verification reward:\nInstant 20,000 VIP points\nVIP Points Conversion:\n25,000 → ₦200\n110,000 → ₦1,000\n1,000,000 → ₦10,000\nVIP points can be converted to cash, used to place bets, or withdrawn.", 
+    content: "These are bonus points given to only registered customers of fortebet (customers with an account with fortebet and plays online) who plays all games online.(Prematch,Inplay, aviator,slots)\nCustomers who plays slot at the branch with their vip cards,and customer who registered an account with and verify their email adress also get vip points.(An instant 20,000 vip points is given to customers who verify their email adress.)\n\nVip points conversion \n\n25,000 can be converted to 200 naira\n\n110,000 can be converted to 1,000\n\n1,000,000 vip points can be converted to 10,000 naira \n\nVip points can be converted to cash that can be used to play bets or withdrawn.", 
     displayOrder: 5 
   });
 
@@ -50,77 +50,77 @@ async function seedDatabase() {
   await storage.createSubsection({ 
     sectionId: pos.id, 
     title: "F1", 
-    content: "Client Cash In\nUsed to deposit money into a customer’s Fortebet account.\nClient Cash Out\nUsed to withdraw money after the customer provides the four-digit authorization code.\nSlot In\nUsed to deposit into:\nBlack slot cards (regular cards for any customer)\nVIP slot cards (unique cards assigned to registered customers)\nVIP cards are more secure and funds cannot be withdrawn without an authorization code sent to the customer’s phone.", 
+    content: "Client cash in\nThis is used to deposit money into clients(fortebet customer with an account)\nFortebets account.\n\nClient cash out\nThis is used to withdraw from clients fortebet account after the customer has initiated a withdrawal and brought the four digits authorization code to the counter for withdrawal.\n\nSlot in\nThis is used to deposit into the black or vip slot cards...\nThe black cards are regular cards any customer registered or unregistered customers can use it to play slots at the branch.\nThe vip card are unique card assigned to a particular customer, this card is given to only registered customers and it's only one per account.\nThe vip cards are more secure 🔐 meaning fund cannot be withdrawn without the authorization code sent to the owner of the account phone number.", 
     displayOrder: 1 
   });
 
   await storage.createSubsection({ 
     sectionId: pos.id, 
-    title: "Load (I) Ticket", 
-    content: "Used to load booking numbers of already booked prematch games.\nCustomers can book games from:\nPersonal devices\nBranch NTBS laptops\nThe booking number expires in one hour.", 
+    title: "Load (I) ticket", 
+    content: "This is used to load the booking number of already booked prematch games...\nCustomer can make selections from their personal device or the company Ntbs(the laptops inside the branch),after doing so they are given a number that expires in one hour,the customer are to give you the code number i.e 14 which the operator press the I and insert the number and the selection are displayed on the terminal screen..", 
     displayOrder: 2 
   });
 
   await storage.createSubsection({ 
     sectionId: pos.id, 
-    title: "Load (T) Ticket", 
-    content: "Used to rebet already played prematch games.\nThe operator scans or enters the old ticket code and all selections appear automatically.", 
+    title: "Load (T) ticket", 
+    content: "This is used to Rebet already bet prematch games.\nIn a scenario whereby a customer has already placed a bet at the counter but for some reasons the customer wants to play the same game the operator or the customer doesn't need to go to the trouble of selecting each option again as he or she can just hand over the formerly place bet to the operator, the operator press the letter T scans the former ticket or insert the code manually and all selection will be shown on the terminal which the operator can now proceed to bet the game.", 
     displayOrder: 3 
   });
 
   await storage.createSubsection({ 
     sectionId: pos.id, 
-    title: "Last (L) Ticket", 
-    content: "Displays the last prematch ticket played on the terminal.", 
+    title: "Last (l) ticket", 
+    content: "This is used to display the last prematch game played on the terminal/POS.\nthis shows the last prematch tickets played on that particular terminal.", 
     displayOrder: 4 
   });
 
   await storage.createSubsection({ 
     sectionId: pos.id, 
-    title: "F12", 
-    content: "Used to finish and clear all transactions.", 
+    title: "F12 finish transactions", 
+    content: "This is used to clear all transactions done on the homepage.", 
     displayOrder: 5 
   });
 
   await storage.createSubsection({ 
     sectionId: pos.id, 
     title: "Edit", 
-    content: "Used to view customer information and assign VIP cards.", 
+    content: "This is used to view customers information and assign vip cards to customers", 
     displayOrder: 6 
   });
 
   await storage.createSubsection({ 
     sectionId: pos.id, 
     title: "Letter N", 
-    content: "Used to enter customer usernames for deposits or withdrawals.", 
+    content: "this is used to enter customers username in case the customer wants to make a deposit or withdrawal at the branch.\nThe operator starts by entering the letter N \nThen he inserts the customer username and clicks on enter after then the customer information is displayed then he can now ask what the customer wants if it's a deposit, withdrawal or information check and edit.", 
     displayOrder: 7 
   });
 
   await storage.createSubsection({ 
     sectionId: pos.id, 
-    title: "Letter K", 
-    content: "Used to enter slot card numbers.\nNOTE:\nCustomer account balance cannot be viewed on POS — only VIP points and slot balances.", 
+    title: "LETTER K", 
+    content: "this is used to enter slot cards numbers.\n\nNOTE you can never know a customer account balance from the POS/ terminal \nYou can only know a customer vip points balance and slot account balance...", 
     displayOrder: 8 
   });
 
   await storage.createSubsection({ 
     sectionId: pos.id, 
-    title: "F2 (Payout / Cancel Tickets)", 
-    content: "Used to pay out or cancel prematch and virtual tickets.\nPrematch tickets:\nCan only be cancelled within 10 minutes\nCannot be cancelled if any event has started\nVirtual tickets:\nCan be cancelled anytime before events start\nPaid and cancelled tickets must be trashed.", 
+    title: "F2 BUTTON 🔘 ( PAYOUT/CANCEL TICKETS)", 
+    content: "This is used to pay out winning tickets and cancel both prematch and virtual tickets..\nthe operator can payout/cancel a ticket by either scanning the barcode on the ticket or entering the code manually.\nOnce he enters the code and clicks on enters the operator then proceeds to click on the space bar then a little confirmation message popups to show that the ticket has been paid out/cancel successfully.\n\nA prematch ticked can only be cancelled within ten minutes of placing the bet,after 10 minutes it can no longer be cancelled.\nAnd even within that ten minutes if any events starts the ticket can no longer be cancelled..\nA virtual ticket can be cancelled anytime as long as none of the events on the ticket has started..\n\nA prematch ticket can be cancelled in two ways.\nScan and cancel\nEnter the code manually on f2\nA virtual ticket can be cancelled in three ways\nScan and cancel \nEnter code manually \nCancel last..\n\nPaid out tickets and cancelled tickets are expected to be trashed and not returned to customers..", 
     displayOrder: 9 
   });
 
   await storage.createSubsection({ 
     sectionId: pos.id, 
-    title: "F4", 
-    content: "To Collect\nCash In POS\nCash Out POS\nTransfer between POS\nDay Report\nShow full transactions", 
+    title: "F4 BUTTON 🔘", 
+    content: "To collect \nthis shows the total balance available in the shop and it's also used for the collection of reports.\n\nCash in pos..\nThis is used to receive money from the head office and other sources that concern the company...\n\nCash out POS\nThis is used to send reports, and also send money to the head office..\n\nTransfer \nThis is used to send money in-between POS at the branch \n\nDay report\nThis show the highlighted summary of transactions done on the POS and it's also shows the POS balance.\n\nShow \nThis displays the full transaction Done on the POS.", 
     displayOrder: 10 
   });
 
   await storage.createSubsection({ 
     sectionId: pos.id, 
-    title: "F6 Virtual", 
-    content: "Coming soon.", 
+    title: "F6 virtual 🔘", 
+    content: "Coming soon", 
     displayOrder: 11 
   });
 
@@ -128,21 +128,21 @@ async function seedDatabase() {
   const ethics = await storage.createSection({ title: "WORK ETHICS", displayOrder: 3 });
   await storage.createSubsection({
     sectionId: ethics.id,
-    title: "General Guidelines",
-    content: "Employees must maintain professional conduct at all times. Punctuality is mandatory. Dress code: Official Fortebet branded uniforms must be clean and worn properly during all working hours.",
+    title: "Guidelines",
+    content: "DAY SHIFT OPERATORS ARE EXPECTED TO BE IN THE BRANCH AS EARKY AS 7:00AM\nBRANCH SHOULD BE CLEAN,TIDY AND ONLINE AS AT 7:30AM.\nALL EQUIPMENTS MUST BE CHECKED DURING DAYBREAK INCLUDING THE INTERIORS AND EXTERIOR EQUIPMENTS.\nYOUR SLOTS MANCHINES SHOULD BE ONLINE AS EARLY AS POSSIBLE, BEST AT 7:30..\nCASHING OUT YOUR PRESENCE SHOULD BE DONE BEFORE 7:30 AM\nON NO ACCOUNT SHOULD A CUSTOMER BE FOUND SLEEPING INSIDE THE VIEWING CENTER..\nTHE DAY SHIFT OPERATORS REQUEST FOR FUEL WHEN THE GEN IS HALF TANK AND THERE'S NO RESERVE.\nPLAYING VIRTUAL,OR ANY GAMES AS AN OPERATOR ON DUTY IS PROHIBITED 🚫 \nSLEEPING/FIGHTING AT THE BRANCH IS STRICTLY PROHIBITED..\nDISRESPECTFUL ACTS TOWARDS YOUR COLLEAGUES,MANAGERS AND SUPERVISORS IS PROHIBITED.\nIF YOUR COLLEAGUES/SUPERIORS IS IN THE WRONG OR DOING SOMETHING BAD KINDLY REACH OUT TO THE CUSTOMER SUPPORT LINE 0800 009 009 009 FOR ASSISTANCE..\nTHE SHOP CASH MUST NOT GO ABOVE 250K UNLESS THERE'S A VALID REASON WHY.\nBEFORE CASHING OUT ANY MONEY ON THE POS, YOU MUST FIRST SEEK APPROVAL..\nBRANCH OPERATIONS CLOSED AT OR AFTER 11:30...\nTHE CUG PHONE LINE MUST NEVER LEAVE THE BRANCH...\nMISUSE OF COMPANY EQUIPMENTS IS A SERIOUS OFFENCE..\nNEGLIGENCE OF COMPANY EQUIPMENTS IS A SERIOUS OFFENCE..\nYOUR BALANCE ON YOUR POS AND INSIDE YOUR LOCKER MUST BE BALANCED AT ALL TIMES..\nANY MONEY SENT BUT NOT RECEIVED INTO THE POS IS NOT A DEPOSIT YET, so ONLY FUNDS SUCCESSFULLY CREDITED INTO THE OPAY DEVICE ARE TO BE PLAYED FOR CUSTOMERS.",
     displayOrder: 1
   });
 
   // SECTION: COMMON BRANCH ISSUES
-  const issues = await storage.createSection({ title: "COMMON BRANCH ISSUES", displayOrder: 4 });
+  const issues = await storage.createSection({ title: "COMMMON BRANCH ISSUES", displayOrder: 4 });
   await storage.createSubsection({
     sectionId: issues.id,
-    title: "Technical Support",
-    content: "For printer jams: Power off, open the top cover, gently remove obstructed paper. For network outages: Check LAN cable connection and restart the router. Report persistent issues to IT immediately.",
+    title: "Troubleshooting",
+    content: "WHEN A CUSTOMER IS NOT RECEIVING OTP.\nRestart the phone\nCheck if the SIM card number matches the number on the number on the account.\nCheck if the phone isn't on DND\nCheck if the phone storage isn't full\nIf all above process has been done and customer isn't receiving otp then you out pick up the CUG(the company phone inside the branch)and make report in the issue group.\n\nYou make a report like this\n\nFirst your branch name\nThe customer phone number \nThe customer service provider \nThe customer username \n\nThen state the issue.\n\n\nWHEN A TICKET FAILED TO PRINT OUT COMPLETELY ...\n\nYou make a report like this\nThe branch name\nThe POS id\nThe type of ticket (prematch or virtual)\nThe ticket id\nThe reason why the ticket failed to print out completely.(Pre match ticket failed to print out completely due to network 🛜 glitch kindly assist).\n\n\nWHEN THE NETWORK 🛜 AT THE BRANCH IS NOT STABLE \n\nYou make a report like this\nThe branch name\n\nThen you state the issue.(Branch is currently offline because the router at the branch isn't receiving network)\nKindly assist.\n\n\nWHEN A NEW ITEM IS PURCHASED AT THR BRANCH.\nYou take a picture of the purchasee item and the receipt if available and post it with description in the problem group.\n\n\nHOW TO SEND TO COLLECT\nThe operator on the main terminal prints out the collection by going to the To collect print it's out and send a report of the total cash, opay balance, and total balance available in the shop to his manager who sent it to the manager group.\n\n\nHOW TO CHECK TICKET THAT FAILED TO PRINT OUT..\n\n\nControl + alternate+p\n\n\nHOW TO LOG OUT\n\n\nAlternate+ F4",
     displayOrder: 1
   });
   
-  console.log("Database seeded with full Fortebet content");
+  console.log("Database seeded with full Fortebet content from latest update");
 }
 
 export async function registerRoutes(
