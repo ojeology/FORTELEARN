@@ -5,7 +5,6 @@ import { useParams, Link } from "wouter";
 import { motion } from "framer-motion";
 import { ChevronLeft, Banknote, Terminal, ShieldCheck, AlertCircle } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { ScrollArea } from "@/components/ui/scroll-area";
 
 export default function SectionDetails() {
   const { slug } = useParams();
@@ -33,8 +32,8 @@ export default function SectionDetails() {
   if (!section) return <div>Not found</div>;
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-white p-4 md:p-8">
-      <div className="max-w-4xl mx-auto space-y-12">
+    <div className="min-h-screen bg-neutral-950 text-white selection:bg-primary selection:text-black">
+      <div className="max-w-4xl mx-auto p-4 md:p-8 space-y-12">
         <header className="space-y-6">
           <Link href="/">
             <a className="inline-flex items-center text-neutral-400 hover:text-primary transition-colors font-bold uppercase tracking-widest text-sm">
@@ -59,7 +58,7 @@ export default function SectionDetails() {
         </header>
 
         <main className="pb-24">
-          <Accordion type="single" collapsible className="w-full space-y-4">
+          <Accordion type="multiple" className="w-full space-y-4">
             {section.subsections.map((sub, index) => (
               <motion.div
                 key={sub.id}
@@ -69,19 +68,17 @@ export default function SectionDetails() {
               >
                 <AccordionItem 
                   value={`sub-${sub.id}`}
-                  className="border border-neutral-800 rounded-2xl bg-neutral-900 overflow-hidden"
+                  className="border border-neutral-800 rounded-2xl bg-neutral-900 overflow-visible"
                 >
-                  <AccordionTrigger className="px-8 py-6 hover:no-underline hover:bg-neutral-800/50 transition-all">
-                    <span className="text-xl md:text-2xl font-black tracking-tight text-left uppercase">
+                  <AccordionTrigger className="px-8 py-6 hover:no-underline hover:bg-neutral-800/50 transition-all text-left">
+                    <span className="text-xl md:text-2xl font-black tracking-tight uppercase">
                       {sub.title}
                     </span>
                   </AccordionTrigger>
                   <AccordionContent className="px-8 pb-8">
-                    <ScrollArea className="h-fit max-h-[70vh] pr-6">
-                      <div className="text-neutral-400 text-lg leading-relaxed whitespace-pre-wrap font-medium">
-                        {sub.content}
-                      </div>
-                    </ScrollArea>
+                    <div className="text-neutral-400 text-lg leading-relaxed whitespace-pre-wrap font-medium">
+                      {sub.content}
+                    </div>
                   </AccordionContent>
                 </AccordionItem>
               </motion.div>
