@@ -5,6 +5,7 @@ import { z } from "zod";
 export const sections = pgTable("sections", {
   id: serial("id").primaryKey(),
   title: text("title").notNull(),
+  slug: text("slug").notNull().unique(),
   displayOrder: integer("display_order").notNull(),
 });
 

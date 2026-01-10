@@ -7,7 +7,15 @@ export const api = {
       method: 'GET' as const,
       path: '/api/sections',
       responses: {
-        200: z.array(z.custom<any>()), // Using any temporarily for the joined type
+        200: z.array(z.custom<any>()),
+      },
+    },
+    get: {
+      method: 'GET' as const,
+      path: '/api/sections/:slug',
+      responses: {
+        200: z.custom<any>(),
+        404: z.object({ message: z.string() }),
       },
     },
   },

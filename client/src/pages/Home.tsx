@@ -1,100 +1,100 @@
 import { useQuery } from "@tanstack/react-query";
-import { api } from "@shared/routes";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { type SectionWithSubsections } from "@shared/schema";
+import { api, buildUrl } from "@shared/routes";
+import { type Section } from "@shared/schema";
 import { motion } from "framer-motion";
+import { Link } from "wouter";
+import { Banknote, Terminal, ShieldCheck, AlertCircle, ArrowRight } from "lucide-react";
 
 export default function Home() {
-  const { data: sections, isLoading } = useQuery<SectionWithSubsections[]>({
+  const { data: sections, isLoading } = useQuery<Section[]>({
     queryKey: [api.sections.list.path],
   });
 
+  const getIcon = (title: string) => {
+    const t = title.toLowerCase();
+    if (t.includes("bonus")) return <Banknote className="w-8 h-8" />;
+    if (t.includes("terminal") || t.includes("pos")) return <Terminal className="w-8 h-8" />;
+    if (t.includes("ethics")) return <ShieldCheck className="w-8 h-8" />;
+    if (t.includes("issues")) return <AlertCircle className="w-8 h-8" />;
+    return null;
+  };
+
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
+      <div className="flex items-center justify-center min-h-screen bg-neutral-950">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-background p-4 md:p-8">
-      <div className="max-w-3xl mx-auto space-y-8">
-        <header className="text-center py-8">
-          <motion.h1 
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-6xl font-black tracking-tighter text-foreground mb-2"
+    <div className="min-h-screen bg-neutral-950 text-white p-4 md:p-8 selection:bg-primary selection:text-black">
+      <div className="max-w-4xl mx-auto space-y-12">
+        <header className="text-center py-12 relative overflow-hidden">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+            className="relative z-10"
           >
-            WELCOME TO FORTEBET
-          </motion.h1>
-          <div className="h-2 w-24 bg-primary mx-auto rounded-full"></div>
+            <h1 className="text-5xl md:text-8xl font-black tracking-tighter mb-4 text-white">
+              WELCOME TO <span className="text-primary">FORTEBET</span>
+            </h1>
+            <p className="text-neutral-400 text-lg md:text-xl font-medium tracking-wide uppercase">
+              The Professional Knowledge Base
+            </p>
+          </motion.div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-primary/20 blur-[120px] rounded-full pointer-events-none"></div>
         </header>
 
-        <main className="space-y-8">
-          <Accordion type="single" collapsible className="w-full space-y-4">
-            {sections?.map((section) => (
-              <AccordionItem 
-                key={section.id} 
-                value={`section-${section.id}`}
-                className="border rounded-lg bg-card overflow-hidden shadow-sm"
-              >
-                <AccordionTrigger className="px-6 py-4 hover:no-underline hover:bg-muted/50 transition-colors">
-                  <span className="text-xl md:text-2xl font-bold text-left uppercase">{section.title}</span>
-                </AccordionTrigger>
-                <AccordionContent className="px-6 pb-4">
-                  {section.subsections && section.subsections.length > 0 ? (
-                    <Accordion type="single" collapsible className="w-full space-y-2 mt-2">
-                      {section.subsections.map((sub) => (
-                        <AccordionItem 
-                          key={sub.id} 
-                          value={`sub-${sub.id}`}
-                          className="border rounded-md"
-                        >
-                          <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-muted/30 transition-colors">
-                            <span className="text-lg font-semibold text-left">{sub.title}</span>
-                          </AccordionTrigger>
-                          <AccordionContent className="px-4 pb-4">
-                            <ScrollArea className="h-fit max-h-[60vh] pr-4">
-                              <div className="text-muted-foreground whitespace-pre-wrap leading-relaxed">
-                                {sub.content}
-                              </div>
-                            </ScrollArea>
-                          </AccordionContent>
-                        </AccordionItem>
-                      ))}
-                    </Accordion>
-                  ) : (
-                    <div className="py-4 text-muted-foreground italic text-center">
-                      Content coming soon...
+        <main className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {sections?.map((section, index) => (
+            <motion.div
+              key={section.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1 }}
+            >
+              <Link href={`/section/${section.slug}`}>
+                <a className="group relative block p-8 bg-neutral-900 border border-neutral-800 rounded-2xl hover:border-primary/50 transition-all duration-300 hover:shadow-[0_0_30px_rgba(255,255,255,0.05)] active:scale-[0.98]">
+                  <div className="flex items-start justify-between">
+                    <div className="space-y-4">
+                      <div className="p-3 bg-neutral-800 rounded-xl group-hover:bg-primary group-hover:text-black transition-colors duration-300 w-fit">
+                        {getIcon(section.title)}
+                      </div>
+                      <h2 className="text-3xl font-black tracking-tighter uppercase leading-none">
+                        {section.title}
+                      </h2>
                     </div>
-                  )}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-
-          <section className="bg-neutral-900 text-white rounded-lg p-6 shadow-xl border border-neutral-800">
-            <h2 className="text-2xl font-black mb-4 tracking-tighter uppercase border-b border-neutral-700 pb-2 flex items-center">
-              <span className="w-2 h-6 bg-primary mr-3 rounded-full"></span>
-              HOW TO CHECK TICKET THAT FAILED TO PRINT OUT
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="flex items-center justify-between p-3 bg-neutral-800 rounded-md border border-neutral-700">
-                <span className="font-bold text-neutral-400">Shortcut</span>
-                <kbd className="px-2 py-1 bg-neutral-700 rounded text-primary font-mono text-sm">Control + alternate + p</kbd>
-              </div>
-              <div className="flex items-center justify-between p-3 bg-neutral-800 rounded-md border border-neutral-700">
-                <span className="font-bold text-neutral-400">HOW TO LOG OUT</span>
-                <kbd className="px-2 py-1 bg-neutral-700 rounded text-primary font-mono text-sm">Alternate + F4</kbd>
-              </div>
-            </div>
-          </section>
+                    <ArrowRight className="w-6 h-6 text-neutral-600 group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                  </div>
+                </a>
+              </Link>
+            </motion.div>
+          ))}
         </main>
 
-        <footer className="text-center py-12 text-muted-foreground text-sm font-medium">
-          &copy; {new Date().getFullYear()} FORTEBET. All rights reserved.
+        <section className="bg-neutral-900 border border-neutral-800 rounded-2xl p-8 space-y-6">
+          <h2 className="text-2xl font-black tracking-tighter uppercase flex items-center">
+            <span className="w-2 h-6 bg-primary mr-3 rounded-full"></span>
+            OPERATIONAL SHORTCUTS
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="flex items-center justify-between p-4 bg-neutral-800/50 rounded-xl border border-neutral-800">
+              <span className="font-bold text-neutral-400 uppercase text-sm">Check failed print</span>
+              <kbd className="px-3 py-1.5 bg-neutral-800 rounded-lg text-primary font-mono text-sm border border-neutral-700 shadow-inner">Ctrl + Alt + P</kbd>
+            </div>
+            <div className="flex items-center justify-between p-4 bg-neutral-800/50 rounded-xl border border-neutral-800">
+              <span className="font-bold text-neutral-400 uppercase text-sm">How to log out</span>
+              <kbd className="px-3 py-1.5 bg-neutral-800 rounded-lg text-primary font-mono text-sm border border-neutral-700 shadow-inner">Alt + F4</kbd>
+            </div>
+          </div>
+        </section>
+
+        <footer className="text-center py-12 border-t border-neutral-900">
+          <p className="text-neutral-600 text-sm font-bold tracking-widest uppercase">
+            &copy; {new Date().getFullYear()} FORTEBET INTERNAL • PROPRIETARY INFORMATION
+          </p>
         </footer>
       </div>
     </div>
