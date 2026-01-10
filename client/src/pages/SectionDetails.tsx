@@ -5,12 +5,78 @@ import { useParams, Link } from "wouter";
 import { motion } from "framer-motion";
 import { ChevronLeft, Banknote, Terminal, ShieldCheck, AlertCircle } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
+import { useState, useEffect } from "react";
+import { useToast } from "@/hooks/use-toast";
+
+interface Quiz {
+  id: number;
+  question: string;
+  options: string[];
+}
+
+function QuizCard({ quiz }: { quiz: Quiz }) {
+  const { toast } = useToast();
+  const [answered, setAnswered] = useState(false);
+
+  const handleAnswer = () => {
+    if (answered) return;
+    const isCorrect = Math.random() > 0.5;
+    setAnswered(true);
+    toast({
+      title: isCorrect ? "Correct ✅" : "Wrong ❌",
+      variant: isCorrect ? "default" : "destructive",
+    });
+  };
+
+  return (
+    <div className="mt-6 p-6 bg-neutral-800/30 border border-neutral-700/50 rounded-xl space-y-4">
+      <div className="flex items-center gap-2 text-xs font-bold text-primary uppercase tracking-tighter">
+        <span className="w-1.5 h-1.5 bg-primary rounded-full animate-pulse"></span>
+        Quiz Placeholder
+      </div>
+      <h4 className="text-lg font-bold text-white uppercase tracking-tight">
+        {quiz.question}
+      </h4>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        {quiz.options.map((opt, i) => (
+          <Button
+            key={i}
+            variant="outline"
+            size="sm"
+            onClick={handleAnswer}
+            disabled={answered}
+            className="border-neutral-700 hover:bg-primary hover:text-black transition-all duration-300 font-bold uppercase tracking-widest text-[10px]"
+          >
+            {opt}
+          </Button>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export default function SectionDetails() {
   const { slug } = useParams();
+  const [quizzes, setQuizzes] = useState<Record<number, Quiz[]>>({});
   const { data: section, isLoading } = useQuery<SectionWithSubsections>({
     queryKey: [buildUrl(api.sections.get.path, { slug: slug! })],
   });
+
+  useEffect(() => {
+    if (section) {
+      const newQuizzes: Record<number, Quiz[]> = {};
+      section.subsections.forEach((sub) => {
+        const count = 2 + Math.floor(Math.random() * 2);
+        newQuizzes[sub.id] = Array.from({ length: count }, (_, i) => ({
+          id: i,
+          question: `Question ${i + 1} about ${sub.title}?`,
+          options: ["Option 1", "Option 2", "Option 3"],
+        }));
+      });
+      setQuizzes(newQuizzes);
+    }
+  }, [section]);
 
   const getIcon = (title: string) => {
     const t = title.toLowerCase();
@@ -76,8 +142,13 @@ export default function SectionDetails() {
                     </span>
                   </AccordionTrigger>
                   <AccordionContent className="px-8 pb-8">
-                    <div className="text-neutral-400 text-lg leading-relaxed whitespace-pre-wrap font-medium">
+                    <div className="text-neutral-400 text-lg leading-relaxed whitespace-pre-wrap font-medium border-b border-neutral-800 pb-8">
                       {sub.content}
+                    </div>
+                    <div className="space-y-4">
+                      {quizzes[sub.id]?.map((quiz) => (
+                        <QuizCard key={quiz.id} quiz={quiz} />
+                      ))}
                     </div>
                   </AccordionContent>
                 </AccordionItem>
