@@ -32,7 +32,7 @@ export default function Home() {
           <div className="h-2 w-24 bg-primary mx-auto rounded-full"></div>
         </header>
 
-        <main>
+        <main className="space-y-8">
           <Accordion type="single" collapsible className="w-full space-y-4">
             {sections?.map((section) => (
               <AccordionItem 
@@ -41,7 +41,7 @@ export default function Home() {
                 className="border rounded-lg bg-card overflow-hidden shadow-sm"
               >
                 <AccordionTrigger className="px-6 py-4 hover:no-underline hover:bg-muted/50 transition-colors">
-                  <span className="text-xl md:text-2xl font-bold text-left">{section.title}</span>
+                  <span className="text-xl md:text-2xl font-bold text-left uppercase">{section.title}</span>
                 </AccordionTrigger>
                 <AccordionContent className="px-6 pb-4">
                   {section.subsections && section.subsections.length > 0 ? (
@@ -56,7 +56,7 @@ export default function Home() {
                             <span className="text-lg font-semibold text-left">{sub.title}</span>
                           </AccordionTrigger>
                           <AccordionContent className="px-4 pb-4">
-                            <ScrollArea className="h-fit max-h-[40vh] pr-4">
+                            <ScrollArea className="h-fit max-h-[60vh] pr-4">
                               <div className="text-muted-foreground whitespace-pre-wrap leading-relaxed">
                                 {sub.content}
                               </div>
@@ -74,6 +74,23 @@ export default function Home() {
               </AccordionItem>
             ))}
           </Accordion>
+
+          <section className="bg-neutral-900 text-white rounded-lg p-6 shadow-xl border border-neutral-800">
+            <h2 className="text-2xl font-black mb-4 tracking-tighter uppercase border-b border-neutral-700 pb-2 flex items-center">
+              <span className="w-2 h-6 bg-primary mr-3 rounded-full"></span>
+              Shortcuts
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="flex items-center justify-between p-3 bg-neutral-800 rounded-md border border-neutral-700">
+                <span className="font-bold text-neutral-400">Check failed print</span>
+                <kbd className="px-2 py-1 bg-neutral-700 rounded text-primary font-mono text-sm">Ctrl + Alt + P</kbd>
+              </div>
+              <div className="flex items-center justify-between p-3 bg-neutral-800 rounded-md border border-neutral-700">
+                <span className="font-bold text-neutral-400">Logout</span>
+                <kbd className="px-2 py-1 bg-neutral-700 rounded text-primary font-mono text-sm">Alt + F4</kbd>
+              </div>
+            </div>
+          </section>
         </main>
 
         <footer className="text-center py-12 text-muted-foreground text-sm font-medium">
