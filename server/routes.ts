@@ -11,7 +11,18 @@ async function seedDatabase() {
   const existingSections = await storage.getSections();
   if (existingSections.length === 0) {
     const bonuses = await storage.createSection({ title: "BONUSES", slug: "bonuses", displayOrder: 1 });
-    await storage.createSubsection({ sectionId: bonuses.id, title: "Welcome Bonus", content: "Welcome bonus is a bonus given to newly registered customers of fortebet...", displayOrder: 1 });
+    await storage.createSubsection({ 
+      sectionId: bonuses.id, 
+      title: "Welcome Bonus", 
+      content: "Welcome bonus is a bonus given to newly registered customers of fortebet. To get this bonus, you must first register and make your first deposit. The bonus is 100% of your first deposit up to a maximum of ₦1,000,000. You must then place bets totaling 10 times your deposit amount on odds of 3.0 or higher to unlock the bonus.", 
+      displayOrder: 1 
+    });
+    await storage.createSubsection({ 
+      sectionId: bonuses.id, 
+      title: "Monday Freebet", 
+      content: "Every Monday, active customers who have placed bets during the previous week receive a freebet based on their activity. The more you play, the higher your freebet reward!", 
+      displayOrder: 2 
+    });
 
     const cashout = await storage.createSection({ title: "CASHOUT", slug: "cashout", displayOrder: 2 });
     await storage.createSubsection({ 
@@ -60,14 +71,70 @@ Fair Cashout will be temporarily suspended in any of the following scenarios:
       displayOrder: 2
     });
 
-    const terminal = await storage.createSection({ title: "TERMINAL KNOWLEDGE", slug: "terminal", displayOrder: 3 });
-    await storage.createSubsection({ sectionId: terminal.id, title: "POS Basics", content: "How to use the terminal...", displayOrder: 1 });
+    const deposits = await storage.createSection({ title: "DEPOSITS AND WITHDRAWALS", slug: "payments", displayOrder: 3 });
+    await storage.createSubsection({
+      sectionId: deposits.id,
+      title: "How to Deposit",
+      content: `There are four ways to deposit money into your ForteBet account.
 
-    const ethics = await storage.createSection({ title: "WORK ETHICS", slug: "ethics", displayOrder: 4 });
-    await storage.createSubsection({ sectionId: ethics.id, title: "Rules of Conduct", content: "General rules of conduct...", displayOrder: 1 });
+1. Deposit at a Branch
+· Process: Visit any ForteBet branch and inform the operator you wish to make a "Client In" deposit. Provide your registered username and the cash amount. Your online account will be credited instantly.
+· Correction Window: Transactions can be cancelled within 10 minutes in case of an error.
+· Limits: Minimum ₦200.00 per transaction. Maximum: Unlimited.
 
-    const issues = await storage.createSection({ title: "COMMON ISSUES", slug: "issues", displayOrder: 5 });
-    await storage.createSubsection({ sectionId: issues.id, title: "Troubleshooting", content: "Common troubleshooting steps...", displayOrder: 1 });
+2. Deposit via Credit/Debit Card
+· Process: Select ‘DEPOSIT WITH A NEW CARD’ and enter your card details. Specify the deposit amount and click "TOP UP NOW". Complete the secure payment form. You may need to authenticate via OTP.
+· Limits & Fees: Minimum ₦200.00, Maximum ₦250,000.00 per transaction. Instant processing. No fees from ForteBet.
+
+3. Deposit via Instant Bank Transfer
+· Important: The name on the bank account used for your first transfer deposit will become your official ForteBet account name.
+· Process: Specify amount and click "TOP UP NOW". You will receive a temporary bank account number (valid for 30 mins). Use online banking/USSD to transfer the exact amount.
+· Limits & Fees: Minimum ₦200.00, Maximum ₦500,000.00 per transaction. Instant processing. No fees from ForteBet.
+
+4. Deposit via OPay Wallet
+· Note: Accessible only after your first deposit via Bank Transfer or Bank Card.
+· Process: Select OPay Wallet, specify amount, and click "TOP UP NOW". Confirm the transaction in the OPay interface.
+· Limits & Fees: Minimum ₦100.00. Instant processing. No fees from ForteBet.`,
+      displayOrder: 1
+    });
+
+    await storage.createSubsection({
+      sectionId: deposits.id,
+      title: "How to Withdraw",
+      content: `1. Withdrawal via Bank Transfer
+· Prerequisite: You must have first deposited using Bank Transfer or Bank Card. The name registered from that first deposit will be used for all withdrawals.
+· Process: Fill in the withdrawal form with bank details and click "WITHDRAW". Authorize via OTP sent to your registered mobile number. Request will be marked as pending.
+· Limits & Fees: Minimum ₦200.00, Maximum ₦10,000,000.00 per 24 hours. Processing typically within 5 mins (up to 24h). No fees from ForteBet.
+
+2. Withdrawal at a Branch
+· Process: Visit any ForteBet branch. Provide the operator with your registered username and the 4-digit authorization code sent to your registered phone number.
+· Limits: Minimum ₦200.00 per transaction. Maximum ₦10,000,000.00 per transaction.`,
+      displayOrder: 2
+    });
+
+    const terminal = await storage.createSection({ title: "TERMINAL KNOWLEDGE", slug: "terminal", displayOrder: 4 });
+    await storage.createSubsection({ 
+      sectionId: terminal.id, 
+      title: "POS Basics", 
+      content: "Learn how to operate the POS terminal. Key functions include printing tickets, checking ticket status, and processing deposits/withdrawals for customers. Ensure you always keep the terminal thermal paper well-stocked.", 
+      displayOrder: 1 
+    });
+
+    const ethics = await storage.createSection({ title: "WORK ETHICS", slug: "ethics", displayOrder: 5 });
+    await storage.createSubsection({ 
+      sectionId: ethics.id, 
+      title: "Rules of Conduct", 
+      content: "As a ForteBet representative, professional conduct is mandatory. This includes punctual attendance, maintaining a clean workspace, and providing excellent customer service. Fraudulent activity of any kind will lead to immediate termination.", 
+      displayOrder: 1 
+    });
+
+    const issues = await storage.createSection({ title: "COMMON ISSUES", slug: "issues", displayOrder: 6 });
+    await storage.createSubsection({ 
+      sectionId: issues.id, 
+      title: "Troubleshooting", 
+      content: "If the terminal is not connecting to the internet, check the SIM card placement and signal strength. If a ticket is blurred, clean the printer head. For login issues, ensure your account hasn't been locked due to multiple incorrect attempts.", 
+      displayOrder: 1 
+    });
   }
 
   const existingQuestions = await storage.getQuestionsByLevel(LEVELS[0]);
