@@ -12,18 +12,29 @@ async function seedDatabase() {
   if (existingSections.length === 0) {
     const bonuses = await storage.createSection({ title: "BONUSES", slug: "bonuses", displayOrder: 1 });
     await storage.createSubsection({ sectionId: bonuses.id, title: "Welcome Bonus", content: "Welcome bonus is a bonus given to newly registered customers of fortebet...", displayOrder: 1 });
+    await storage.createSubsection({ sectionId: bonuses.id, title: "Cashback Bonus", content: "Returning a multiple of the stake if one selection loses on a ticket.", displayOrder: 2 });
+    await storage.createSubsection({ sectionId: bonuses.id, title: "Multiple Booster", content: "Vivid bonus on winning accumulator tickets.", displayOrder: 3 });
 
-    const cashout = await storage.createSection({ title: "CASHOUT FEATURE", slug: "cashout", displayOrder: 2 });
+    const terminal = await storage.createSection({ title: "TERMINAL KNOWLEDGE", slug: "terminal", displayOrder: 2 });
+    await storage.createSubsection({ sectionId: terminal.id, title: "Operations", content: "How to operate the branch terminals and handle customers.", displayOrder: 1 });
+
+    const ethics = await storage.createSection({ title: "WORK ETHICS", slug: "ethics", displayOrder: 3 });
+    await storage.createSubsection({ sectionId: ethics.id, title: "Rules", content: "General rules and behavior at the branch.", displayOrder: 1 });
+
+    const issues = await storage.createSection({ title: "COMMON ISSUES", slug: "issues", displayOrder: 4 });
+    await storage.createSubsection({ sectionId: issues.id, title: "Troubleshooting", content: "How to handle network and printing issues.", displayOrder: 1 });
+
+    const cashout = await storage.createSection({ title: "CASHOUT FEATURE", slug: "cashout", displayOrder: 5 });
     await storage.createSubsection({ 
       sectionId: cashout.id, 
       title: "What is Cashout?", 
-      content: "Cashout allows you to settle your bet early, before all events on your ticket are finished. You can cash out only when: All matches on your ticket must have official live results, and Current odds must be available for every selection you picked.", 
+      content: "Cashout allows you to settle your bet early, before all events on your ticket are finished. You can cash out only when: • All matches on your ticket must have official live results • Current odds must be available for every selection you picked", 
       displayOrder: 1 
     });
     await storage.createSubsection({ 
       sectionId: cashout.id, 
       title: "Important VIP Points Rule", 
-      content: "If you received VIP points for placing the bet, you must still have the same number of VIP points in your account when cashing out. This prevents earning VIP points without risk by cashing out early.", 
+      content: "• If you received VIP points for placing the bet, you must still have the same number of VIP points in your account when cashing out • This prevents earning VIP points without risk by cashing out early", 
       displayOrder: 2 
     });
     await storage.createSubsection({ 
@@ -32,18 +43,24 @@ async function seedDatabase() {
       content: "Calculation: (Potential Winnings ÷ Total Current Odds) - 1% Fee. You can verify this yourself using current live odds.", 
       displayOrder: 3 
     });
+    await storage.createSubsection({ 
+      sectionId: cashout.id, 
+      title: "When Cashout is Suspended", 
+      content: "• Any event on the ticket is settled as void • The current odds for any event exceed 10.00 • All odds remain unchanged from the original bet", 
+      displayOrder: 4 
+    });
 
-    const money = await storage.createSection({ title: "DEPOSITS & WITHDRAWALS", slug: "money", displayOrder: 3 });
+    const money = await storage.createSection({ title: "DEPOSITS & WITHDRAWALS", slug: "money", displayOrder: 6 });
     await storage.createSubsection({ 
       sectionId: money.id, 
       title: "How to Deposit", 
-      content: "1. Branch: Min ₦200. Instant credit. 2. Card: Min ₦200, Max ₦1M/day. Secure and instant. 3. Bank Transfer: Min ₦200. First transfer sets account name. 4. OPay: Min ₦100. Available after first bank/card deposit.", 
+      content: "1. Deposit at a Branch: Tell operator 'Client In'. Min ₦200. 2. Card: Top up via secure payment form. Min ₦200, Max ₦1M/day. 3. Bank Transfer: Transfer exact amount to temporary account. Min ₦200, Max ₦1M/day. 4. OPay Wallet: Available after first bank transfer or card deposit. Min ₦100.", 
       displayOrder: 1 
     });
     await storage.createSubsection({ 
       sectionId: money.id, 
       title: "How to Withdraw", 
-      content: "1. Bank Transfer: Min ₦200, Max ₦10M/day. 2. Branch: Provide username and 4-digit code from SMS. Min ₦200, Max ₦10M.", 
+      content: "1. Bank Transfer: Must have first deposited via Bank Transfer or Card. Min ₦200, Max ₦10M/day. 2. Withdrawal at a Branch: Provide username and 4-digit code from SMS. Min ₦200 per transaction, Max ₦10M.", 
       displayOrder: 2 
     });
   }
