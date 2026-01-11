@@ -72,24 +72,38 @@ export default function Quiz() {
     }
   }, [currentQuestionIndex, shuffledQuestions]);
 
-  const handleAnswer = (option: string) => {
-    if (!currentQuestion) return;
+  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
 
-    if (option === currentQuestion.correctAnswer) {
-      toast({ title: "Correct!", variant: "default" });
-      
-      if (currentQuestionIndex + 1 < QUESTIONS_PER_LEVEL) {
-        setCurrentQuestionIndex(prev => prev + 1);
-      } else {
-        // Level cleared
-        if (currentLevelIndex === LEVELS.length - 1) {
-          finishGame(true);
+  const handleAnswer = (option: string) => {
+    if (!currentQuestion || selectedOption) return;
+
+    setSelectedOption(option);
+    const correct = option === currentQuestion.correctAnswer;
+    setIsCorrect(correct);
+
+    if (correct) {
+      // Delay to show the blink effect
+      setTimeout(() => {
+        if (currentQuestionIndex + 1 < QUESTIONS_PER_LEVEL) {
+          setCurrentQuestionIndex(prev => prev + 1);
+          setSelectedOption(null);
+          setIsCorrect(null);
         } else {
-          setShowLevelCleared(true);
+          // Level cleared
+          if (currentLevelIndex === LEVELS.length - 1) {
+            finishGame(true);
+          } else {
+            setShowLevelCleared(true);
+            setSelectedOption(null);
+            setIsCorrect(null);
+          }
         }
-      }
+      }, 1000);
     } else {
-      finishGame(false);
+      setTimeout(() => {
+        finishGame(false);
+      }, 1000);
     }
   };
 
@@ -251,17 +265,32 @@ export default function Quiz() {
                 </h2>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {currentQuestion.options.map((opt, i) => (
-                    <Button
-                      key={i}
-                      variant="outline"
-                      onClick={() => handleAnswer(opt)}
-                      className="min-h-20 h-auto border-neutral-800 bg-[#2A2A2A] rounded-xl hover:border-[#00B140] hover:bg-[#00B140]/10 transition-all font-bold uppercase tracking-widest text-xs justify-start px-8 py-4 group relative overflow-hidden text-left"
-                    >
-                      <span className="text-[#00B140] mr-4 font-black flex-shrink-0">{String.fromCharCode(65 + i)}:</span>
-                      <span className="break-words w-full">{opt}</span>
-                    </Button>
-                  ))}
+                  {currentQuestion.options.map((opt, i) => {
+                    const isCurrentSelected = selectedOption === opt;
+                    const isAnswerCorrect = isCurrentSelected && isCorrect;
+                    const isAnswerWrong = isCurrentSelected && isCorrect === false;
+                    
+                    return (
+                      <Button
+                        key={i}
+                        variant="outline"
+                        onClick={() => handleAnswer(opt)}
+                        disabled={!!selectedOption}
+                        className={`min-h-24 h-auto border-neutral-800 bg-[#2A2A2A] rounded-xl transition-all font-bold uppercase tracking-widest text-xs justify-start px-8 py-4 group relative overflow-hidden text-left
+                          ${isAnswerCorrect ? 'animate-pulse bg-[#00B140] border-[#00B140] text-white' : ''}
+                          ${isAnswerWrong ? 'bg-red-600 border-red-600 text-white' : ''}
+                          ${!selectedOption ? 'hover:border-[#00B140] hover:bg-[#00B140]/10' : ''}
+                        `}
+                      >
+                        <span className={`mr-4 font-black flex-shrink-0 ${isAnswerCorrect || isAnswerWrong ? 'text-white' : 'text-[#00B140]'}`}>
+                          {String.fromCharCode(65 + i)}:
+                        </span>
+                        <div className="max-h-32 overflow-y-auto w-full pr-2 custom-scrollbar">
+                          <span className="break-words block">{opt}</span>
+                        </div>
+                      </Button>
+                    );
+                  })}
                 </div>
               </motion.div>
             ) : (

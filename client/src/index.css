@@ -74,6 +74,17 @@
     font-family: var(--font-display);
     @apply font-bold tracking-wide uppercase;
   }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(0, 177, 64, 0.5);
+    border-radius: 10px;
+  }
 }
 
 /* Custom scrollbar for a premium feel */
