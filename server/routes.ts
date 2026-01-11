@@ -12,6 +12,40 @@ async function seedDatabase() {
   if (existingSections.length === 0) {
     const bonuses = await storage.createSection({ title: "BONUSES", slug: "bonuses", displayOrder: 1 });
     await storage.createSubsection({ sectionId: bonuses.id, title: "Welcome Bonus", content: "Welcome bonus is a bonus given to newly registered customers of fortebet...", displayOrder: 1 });
+
+    const cashout = await storage.createSection({ title: "CASHOUT FEATURE", slug: "cashout", displayOrder: 2 });
+    await storage.createSubsection({ 
+      sectionId: cashout.id, 
+      title: "What is Cashout?", 
+      content: "Cashout allows you to settle your bet early, before all events on your ticket are finished. You can cash out only when: All matches on your ticket must have official live results, and Current odds must be available for every selection you picked.", 
+      displayOrder: 1 
+    });
+    await storage.createSubsection({ 
+      sectionId: cashout.id, 
+      title: "Important VIP Points Rule", 
+      content: "If you received VIP points for placing the bet, you must still have the same number of VIP points in your account when cashing out. This prevents earning VIP points without risk by cashing out early.", 
+      displayOrder: 2 
+    });
+    await storage.createSubsection({ 
+      sectionId: cashout.id, 
+      title: "Fair Cashout System", 
+      content: "Calculation: (Potential Winnings ÷ Total Current Odds) - 1% Fee. You can verify this yourself using current live odds.", 
+      displayOrder: 3 
+    });
+
+    const money = await storage.createSection({ title: "DEPOSITS & WITHDRAWALS", slug: "money", displayOrder: 3 });
+    await storage.createSubsection({ 
+      sectionId: money.id, 
+      title: "How to Deposit", 
+      content: "1. Branch: Min ₦200. Instant credit. 2. Card: Min ₦200, Max ₦1M/day. Secure and instant. 3. Bank Transfer: Min ₦200. First transfer sets account name. 4. OPay: Min ₦100. Available after first bank/card deposit.", 
+      displayOrder: 1 
+    });
+    await storage.createSubsection({ 
+      sectionId: money.id, 
+      title: "How to Withdraw", 
+      content: "1. Bank Transfer: Min ₦200, Max ₦10M/day. 2. Branch: Provide username and 4-digit code from SMS. Min ₦200, Max ₦10M.", 
+      displayOrder: 2 
+    });
   }
 
   const existingQuestions = await storage.getQuestionsByLevel(LEVELS[0]);
