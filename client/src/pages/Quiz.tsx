@@ -30,6 +30,23 @@ export default function Quiz() {
 
   const QUESTIONS_PER_LEVEL = 9;
 
+  const leaderboardMutation = useMutation({
+    mutationFn: async (entry: { username: string; levelReached: string; score: number }) => {
+      await apiRequest("POST", "/api/quiz/leaderboard", entry);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/quiz/leaderboard"] });
+    },
+  });
+
+  const handleStart = () => {
+    if (!username.trim()) {
+      toast({ title: "Please enter a username", variant: "destructive" });
+      return;
+    }
+    setGameStarted(true);
+  };
+
   const { data: questions, refetch: fetchQuestions } = useQuery<QuizQuestion[]>({
     queryKey: ["/api/quiz/questions", LEVELS[currentLevelIndex]],
     queryFn: async () => {
