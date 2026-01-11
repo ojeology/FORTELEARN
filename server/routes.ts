@@ -1,7 +1,7 @@
 import type { Express } from "express";
 import type { Server } from "http";
 import { storage } from "./storage";
-import { api } from "@shared/routes";
+import { createServer } from "http";
 
 const LEVELS = [
   "Beginner", "Trainee", "Easy", "Medium", "Intermediate", "Hard", "Boss", "Legend", "World Class"
@@ -14,19 +14,19 @@ async function seedDatabase() {
     await storage.createSubsection({ 
       sectionId: bonuses.id, 
       title: "Welcome Bonus", 
-      content: "Welcome Bonus is calculated as 300% of the first deposit for new registered customers. Maximum welcome bonus amount is ₦1,000,000. It expires after 90 days of the first deposit. To qualify for the Welcome Bonus credit, a customer's bet must include at least 3 events with total odds of 3.00 or more. Once conditions are met, 2% of the wagered amount is moved to the main account. Customers can find their welcome bonus balance on the dedicated Welcome Bonus page. Note that bets placed at branches do not qualify for this online bonus.", 
+      content: "Welcome Bonus is calculated as 300% of the first deposit for new registered customers. This means if you deposit ₦1,000, you get a bonus of ₦3,000. Maximum welcome bonus amount is ₦1,000,000. It expires after exactly 90 days of the first deposit. To qualify for the Welcome Bonus credit, a customer's bet must include at least 3 events with total odds of 3.00 or more. Once conditions are met, 2% of the wagered amount is moved to the main account. Customers can find their welcome bonus balance on the dedicated Welcome Bonus page. Note that bets placed at branches do not qualify for this online bonus. Only bets placed online using a registered account are eligible for this promotion. If you deposit ₦500, you get ₦1,500 bonus. If you deposit ₦10,000, you get ₦30,000 bonus. The 2% move happens every time you place a qualifying bet until the bonus is exhausted or expires.", 
       displayOrder: 1 
     });
     await storage.createSubsection({ 
       sectionId: bonuses.id, 
       title: "Cashback Bonus", 
-      content: "Cashback Bonus returns a multiple of the stake if exactly one selection loses on a multi-bet ticket. Eligibility includes both Prematch and Inplay bets. The payout depends on the remaining total odds (after removing the lost event): 75.00 - 149.99 yields 1x Stake, 150.00 - 299.99 yields 2x Stake, and 300+ yields 3x Stake. If multiple events are voided/cut, the cashback may be suspended or recalculated.", 
+      content: "Cashback Bonus returns a multiple of the stake if exactly one selection loses on a multi-bet ticket. Eligibility includes both Prematch and Inplay bets. The payout depends on the remaining total odds (after removing the lost event and any voided events). The scale is as follows: 75.00 - 149.99 yields 1x Stake, 150.00 - 299.99 yields 2x Stake, and 300+ yields 3x Stake back to your account. If multiple events are voided/cut, the cashback may be suspended or recalculated based on the remaining active odds. This bonus ensures that even if one game lets you down, you don't lose your entire stake. For example, if you staked ₦1,000 and your remaining odds are 200, you get ₦2,000 back.", 
       displayOrder: 2 
     });
     await storage.createSubsection({ 
       sectionId: bonuses.id, 
       title: "Multiple Booster", 
-      content: "The Multiple Booster Bonus is available to both registered and anonymous customers for Prematch and Inplay bets. It requires a minimum of 5 events, each with odds of at least 1.25. The bonus ranges from a 5% increase (for 5 events) up to a maximum of 250% (for 50+ events). It is not applicable if the bet includes virtual sports or if the customer cashes out the ticket.", 
+      content: "The Multiple Booster Bonus is available to both registered and anonymous customers for Prematch and Inplay bets. It requires a minimum of 5 events, each with odds of at least 1.25. The bonus ranges from a 5% increase (for 5 events) up to a maximum of 250% (for 50+ events). It is not applicable if the bet includes virtual sports or if the customer cashes out the ticket. The more events you add to your ticket that meet the 1.25 odds criteria, the higher the percentage of bonus winnings you will receive upon a successful bet. 5-9 events = 5% to 25%, 10-14 events = 30% to 50%, 40+ events = 200%+, up to 250% for 50 events.", 
       displayOrder: 3 
     });
 
@@ -34,23 +34,23 @@ async function seedDatabase() {
     await storage.createSubsection({ 
       sectionId: terminal.id, 
       title: "Operations & VIP Points", 
-      content: "Operators are responsible for branch transactions. VIP points are earned by playing slots at the branch with a VIP card and all games online. Minimum points vary: 1 point for Aviator, 20 points for Virtual/Prematch online. Points can be converted to cash at the VIP Point Money Back Shop (e.g., 110,000 points = ₦1,000). If a deposit is credited to the wrong account, the transaction must be cancelled immediately.", 
+      content: "Operators are responsible for branch transactions. VIP points are earned by playing slots at the branch with a VIP card and all games online. Minimum points vary: 1 point for Aviator, 20 points for Virtual/Prematch online. Points can be converted to cash at the VIP Point Money Back Shop (e.g., 110,000 points = ₦1,000). If a deposit is credited to the wrong account, the transaction must be cancelled immediately. Stake refers to the sum of money paid at the moment of placing a bet. Payout is the real money winnings if all selections are successful. Branch staff must ensure all customers are treated fairly and transactions are recorded accurately.", 
       displayOrder: 1 
     });
 
     const ethics = await storage.createSection({ title: "WORK ETHICS", slug: "ethics", displayOrder: 3 });
     await storage.createSubsection({ 
       sectionId: ethics.id, 
-      title: "Rules", 
-      content: "General rules and behavior at the branch. Minors (under 18) and intoxicated persons are not permitted to place bets. Service Workers are authorized staff who ensure compliance. Faulty slot machines must be reported via WhatsApp with photos and descriptions.", 
+      title: "Rules & Compliance", 
+      content: "General rules and behavior at the branch are strictly enforced. Minors (under 18) and intoxicated persons are not permitted to place bets. Service Workers are authorized staff who ensure compliance with all company regulations. Faulty slot machines must be reported via WhatsApp with photos and descriptions to the technical support team. Integrity and professionalism are expected from all staff members at all times. Staff should not gamble while on duty and must maintain a clean and welcoming environment for all customers.", 
       displayOrder: 1 
     });
 
     const issues = await storage.createSection({ title: "COMMON ISSUES", slug: "issues", displayOrder: 4 });
     await storage.createSubsection({ 
       sectionId: issues.id, 
-      title: "Troubleshooting", 
-      content: "For network failures, check router cables first. If a virtual ticket doesn't print but the event started, wait for the result before reporting for a secure code. If a customer forgets their username or phone number, make a report to the appropriate department.", 
+      title: "Troubleshooting & Support", 
+      content: "For network failures, check router cables first before reporting. If a virtual ticket doesn't print but the event started, wait for the result before reporting for a secure code. If a customer forgets their username or phone number, make a report to the appropriate department. For authorization code issues, ask the customer to confirm their registered number is active and in their phone. If a terminal freezes, restart the application or the device. Always keep the customer informed about the progress of any technical resolution.", 
       displayOrder: 1 
     });
 
@@ -58,19 +58,19 @@ async function seedDatabase() {
     await storage.createSubsection({ 
       sectionId: cashout.id, 
       title: "What is Cashout?", 
-      content: "Cashout allows you to settle your bet early, before all events on your ticket are finished. You can cash out only when: • All matches on your ticket must have official live results • Current odds must be available for every selection you picked. Cashout is available only for online tickets.", 
+      content: "Cashout allows you to settle your bet early, before all events on your ticket are finished. You can cash out only when all matches on your ticket have official live results and current odds are available for every selection you picked. Cashout is available only for online tickets and allows for greater control over your betting experience by locking in profit or reducing losses. It is the perfect tool for managing risk and securing winnings before an unpredictable event occurs.", 
       displayOrder: 1 
     });
     await storage.createSubsection({ 
       sectionId: cashout.id, 
       title: "Important VIP Points Rule", 
-      content: "• If you received VIP points for placing the bet, you must still have the same number of VIP points in your account when cashing out • This prevents earning VIP points without risk by cashing out early • VIP points will be deducted when you cash out. Example: If you received 1,000 VIP points, you must have at least 1,000 available to cash out later.", 
+      content: "If you received VIP points for placing the bet, you must still have the same number of VIP points in your account when cashing out. This prevents earning VIP points without risk by cashing out early. VIP points will be deducted when you cash out. Example: If you received 1,000 VIP points for a bet, you must have at least 1,000 points available to cash out later. If your points balance is lower than what was awarded for the ticket, cashout will be disabled. This rule is absolute and applies to all cashed-out tickets.", 
       displayOrder: 2 
     });
     await storage.createSubsection({ 
       sectionId: cashout.id, 
       title: "Fair Cashout System & Suspension", 
-      content: "Calculation: (Potential Winnings ÷ Total Current Odds) - 1% Fee. Cashout will be temporarily unavailable if: • Any event on the ticket is settled as void • The current odds for any event exceed 10.00 • All odds remain unchanged from the original bet", 
+      content: "Our transparent cashout shows exactly how your amount is calculated: (Potential Winnings ÷ Total Current Odds) - 1% Fee. Cashout will be temporarily unavailable if any event on the ticket is settled as void, current odds for any event exceed 10.00, or all odds remain unchanged from the original bet. This system ensures fairness for both the customer and the company. Always check the current live odds to verify your cashout offer.", 
       displayOrder: 3 
     });
 
@@ -78,13 +78,13 @@ async function seedDatabase() {
     await storage.createSubsection({ 
       sectionId: money.id, 
       title: "How to Deposit", 
-      content: "1. Deposit at a Branch: Tell operator 'Client In', provide username and cash. Min ₦200. 2. Credit/Debit Card: Top up via secure payment form. Min ₦200, Max ₦1M/day. 3. Instant Bank Transfer: Transfer exact amount to temporary account number. Min ₦200, Max ₦1M/day. The name on the first transfer becomes your official account name. 4. OPay Wallet: Available after first bank transfer or card deposit. Min ₦100.", 
+      content: "1. Deposit at a Branch: Tell operator 'Client In', provide username and cash. Min ₦200. Instant credit to your account. 2. Credit/Debit Card: Top up via secure payment form online. Min ₦200, Max ₦1M/day. Secure and instant. 3. Instant Bank Transfer: Transfer exact amount to temporary account. Min ₦200, Max ₦1M/day. The name on the first transfer becomes official account name. 4. OPay Wallet: Available after first bank transfer or card deposit. Min ₦100. Always ensure you are using the official Fortebet payment channels to avoid any delays or issues.", 
       displayOrder: 1 
     });
     await storage.createSubsection({ 
       sectionId: money.id, 
       title: "How to Withdraw", 
-      content: "1. Withdrawal via Bank Transfer: Must have first deposited via Bank Transfer or Card. Min ₦200, Max ₦10M per 24 hours. Withdrawals only to registered name. 2. Withdrawal at a Branch: Provide username and 4-digit code from SMS. Min ₦200 per transaction, Max ₦10,000,000.", 
+      content: "1. Withdrawal via Bank Transfer: Must have first deposited via Bank Transfer or Card. Min ₦200, Max ₦10M per 24 hours. Withdrawals only to registered name. 2. Withdrawal at a Branch: Provide username and 4-digit code from SMS. Min ₦200 per transaction, Max ₦10,000,000. Branch staff will verify the code before releasing funds. Ensure your phone number is correct to receive the necessary authorization codes for branch withdrawals.", 
       displayOrder: 2 
     });
   }
@@ -177,7 +177,7 @@ async function seedDatabase() {
       { question: "How many chances does a player have per round in Aviator?", options: ["One", "Two", "Three", "Unlimited"], correctAnswer: "Two", level: "Boss" },
       { question: "Can Aviator be played for fun ('demo mode') at a branch?", options: ["Yes", "No", "Only if no customers", "Only on weekends"], correctAnswer: "No", level: "Boss" },
       { question: "What is the 'Online Bonus'?", options: ["A bonus for branch customers", "A bonus given to anonymous customers", "A bonus for registered customers who play Virtual games online", "A sign-up bonus for new branches"], correctAnswer: "A bonus for registered customers who play Virtual games online", level: "Boss" },
-      { question: "What is a 'Service Worker'?", options: ["A customer who places bets.", "An authorized branch staff who places bets and ensures compliance.", "A technician who fixes slot machines.", "A Head Office supervisor."], correctAnswer: "An authorized branch staff who places bets and ensures compliance.", level: "Boss" },
+      { question: "What is a 'Service Worker'?", options: ["A customer who places bets.", "An authorized branch staff who places bets and ensures compliance.", "A technician who fixes slot machines.", "A Head Office supervisor."], correctAnswer: "An authorized branch staff who ensures compliance.", level: "Boss" },
       { question: "If three events with 3.00 odds each are selected, and two are voided, what is the new total odds?", options: ["1.00", "3.00", "9.00", "27.00"], correctAnswer: "3.00", level: "Boss" },
       { question: "What does the betting option '1/X' (Half Time/Full Time) mean?", options: ["Home team wins first half, Home team wins match.", "Home team wins first half, match ends in a draw.", "Draw at half time, Home team wins match.", "Away team wins first half, match ends in a draw."], correctAnswer: "Home team wins first half, match ends in a draw.", level: "Boss" },
       { question: "What is the correct resolution setting for branch NTB laptops?", options: ["1024x768", "1280x720", "1600x900", "1920x1080"], correctAnswer: "1280x720", level: "Boss" },
@@ -200,50 +200,52 @@ async function seedDatabase() {
       { question: "What is a 'payline' in a slot game?", options: ["The line to pay the cashier", "The ways winnings are decided and calculated", "The bonus round activation line", "The bet multiplier"], correctAnswer: "The ways winnings are decided and calculated", level: "World Class" },
       { question: "How do progressive jackpots on slots increase?", options: ["Randomly by the system", "Only on weekends", "As customers play (spin) the game", "They are fixed amounts"], correctAnswer: "As customers play (spin) the game", level: "World Class" },
       { question: "Which of these is an online slot game NOT found on branch terminals?", options: ["Book of Ra", "Midnight Fruit 27", "Lucky Ladys Charm", "Dolphins Pearl"], correctAnswer: "Midnight Fruit 27", level: "World Class" },
-      { question: "What does the betting option '1/2' (Home First Half / Away Full Time) mean?", options: ["Bet on Home team to win the 1st half AND the Away team to win the match.", "Bet on a draw at both half-time and full-time.", "A combined bet on the first half and second half results.", "An accumulator bet type."], correctAnswer: "Bet on Home team to win the 1st half AND the Away team to win the match.", level: "World Class" },
-      { question: "What should you do if a supervisor arrives and asks to collect ₦200,000 from the shop?", options: ["Hand it over immediately.", "Make a report and ask for proper approval.", "Ask another customer to verify.", "Refuse and call security."], correctAnswer: "Make a report and ask for proper approval.", level: "World Class" },
-      { question: "What are the first steps if a customer forgets their username?", options: ["Create a new account for them.", "Make a report to the appropriate department/team.", "Give them your terminal to log in.", "Ask them to guess."], correctAnswer: "Make a report to the appropriate department/team.", level: "World Class" },
-      { question: "What are the first steps if a customer can't remember their registered phone number?", options: ["Use any number they provide.", "Make a report to the appropriate department/team.", "Check the phone of the last customer.", "It is not recoverable."], correctAnswer: "Make a report to the appropriate department/team.", level: "World Class" },
-      { question: "When should you request fuel for the generator?", options: ["When the supervisor visits.", "Every Monday morning.", "When the tank is half full.", "You snap the generator gauge and run-hour meter, then request approval."], correctAnswer: "You snap the generator gauge and run-hour meter, then request approval.", level: "World Class" },
-      { question: "How do you check the resolution of an NTB?", options: ["Press CTRL+ALT+DEL", "Press CTRL+ALT+M", "Right-click on the desktop", "Check in the Control Panel"], correctAnswer: "Right-click on the desktop", level: "World Class" },
-      { question: "What is a 'Draw No Bet' (DNB) option?", options: ["It doubles the odds if the match ends in a draw.", "It voids the possibility of a draw; odds become 1.00 if a draw occurs.", "It means the bet is only valid if the match ends in a draw.", "It is a bet on both teams to score."], correctAnswer: "It voids the possibility of a draw; odds become 1.00 if a draw occurs.", level: "World Class" },
-      { question: "What is an 'Ako Bet'?", options: ["A system bet with multiple combinations.", "A bet consisting of one or more selections at the same time.", "A bet placed only on virtual sports.", "A special high-odds bet."], correctAnswer: "A bet consisting of one or more selections at the same time.", level: "World Class" }
+      { question: "What does the betting option '1/2' (Home First Half / Away Full Time) mean?", options: ["Bet on Home team to win the 1st half AND the Away team to win the match.", "Bet on a draw at both half-time and full-time.", "A combined bet on the first half and second half results.", "Bet on Away team to win the match regardless of first half."], correctAnswer: "Bet on Home team to win the 1st half AND the Away team to win the match.", level: "World Class" },
+      { question: "What is a 'Service Worker'?", options: ["A Head Office staff member", "An authorized branch staff member who can place bets and ensure compliance", "A customer who cleans the branch", "A bank official"], correctAnswer: "An authorized branch staff member who ensure compliance", level: "World Class" },
+      { question: "How should a cashier handle a customer who is consistently rude or abusive?", options: ["Argue back and defend themselves.", "Ignore the customer and continue working.", "Politely ask the customer to leave and report the incident to their supervisor.", "Ask for proper approval."], correctAnswer: "Politely ask the customer to leave and report the incident to their supervisor.", level: "World Class" },
+      { question: "What is the primary goal of the Fortebet customer service team?", options: ["To make as much money as possible.", "To provide a fun and fair betting experience for all customers.", "To ensure all customers win their bets.", "To manage the company's social media accounts."], correctAnswer: "To provide a fun and fair betting experience for all customers.", level: "World Class" },
+      { question: "Which of these is a prohibited item inside a Fortebet branch?", options: ["A mobile phone", "A betting slip", "A weapon or illegal substance", "A VIP card"], correctAnswer: "A weapon or illegal substance", level: "World Class" },
+      { question: "If a customer believes their ticket was settled incorrectly, what is the first step?", options: ["Tell them they are wrong and to leave.", "Ask them to provide their ticket ID and contact customer support for verification.", "Ask for proper approval.", "Refund their stake immediately."], correctAnswer: "Ask them to provide their ticket ID and contact customer support for verification.", level: "World Class" },
+      { question: "What does the 'Odds' represent in sports betting?", options: ["The total amount of money wagered on an event.", "The probability of an outcome occurring, determined by the bookmaker.", "The amount of time left in a match.", "The number of players on a team."], correctAnswer: "The probability of an outcome occurring, determined by the bookmaker.", level: "World Class" },
+      { question: "What is 'Inplay' betting?", options: ["Placing bets before a match starts.", "Placing bets while a match is currently in progress.", "Betting on virtual sports only.", "Betting on historical matches."], correctAnswer: "Placing bets while a match is currently in progress.", level: "World Class" },
     ];
 
     for (const q of allQuestions) {
-      await storage.createQuizQuestion(q);
+      await storage.createQuestion(q);
     }
   }
 }
 
-export async function registerRoutes(httpServer: Server, app: Express): Promise<Server> {
-  await seedDatabase();
+export function registerRoutes(app: Express): Server {
+  seedDatabase().catch(console.error);
 
   app.get("/api/sections", async (_req, res) => {
-    const data = await storage.getSections();
-    res.json(data);
+    const sections = await storage.getSections();
+    res.json(sections);
   });
 
   app.get("/api/sections/:slug", async (req, res) => {
-    const data = await storage.getSectionBySlug(req.params.slug);
-    if (!data) return res.status(404).json({ message: "Not found" });
-    res.json(data);
+    const section = await storage.getSectionBySlug(req.params.slug);
+    if (!section) return res.status(404).send("Section not found");
+    const subsections = await storage.getSubsections(section.id);
+    res.json({ ...section, subsections });
   });
 
-  app.get("/api/quiz/questions/:level", async (req, res) => {
-    const data = await storage.getQuestionsByLevel(req.params.level);
-    res.json(data);
+  app.get("/api/questions/:level", async (req, res) => {
+    const questions = await storage.getQuestionsByLevel(req.params.level);
+    res.json(questions);
   });
 
-  app.get("/api/quiz/leaderboard", async (_req, res) => {
-    const data = await storage.getLeaderboard();
-    res.json(data);
+  app.post("/api/scores", async (req, res) => {
+    const score = await storage.createScore(req.body);
+    res.json(score);
   });
 
-  app.post("/api/quiz/leaderboard", async (req, res) => {
-    const data = await storage.addToLeaderboard(req.body);
-    res.json(data);
+  app.get("/api/leaderboard", async (_req, res) => {
+    const scores = await storage.getTopScores(10);
+    res.json(scores);
   });
 
+  const httpServer = createServer(app);
   return httpServer;
 }
