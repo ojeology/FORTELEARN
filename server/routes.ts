@@ -36,6 +36,28 @@ async function seedDatabase() {
       await storage.createQuizQuestion(q);
     }
   }
+
+  const traineeQuestionsExist = await storage.getQuestionsByLevel(LEVELS[1]);
+  if (traineeQuestionsExist.length === 0) {
+    const traineeQuestions = [
+      { question: "Welcome Bonus: Selection of any prematch or in-play with min events and odds?", options: ["1 event, 2.00 odds", "2 events, 1.50 odds", "3 events, 3.00 odds", "5 events, 5.00 odds"], correctAnswer: "3 events, 3.00 odds", level: "Trainee" },
+      { question: "Welcome Bonus: Percentage of wagered amount credited to main account?", options: ["1 percent", "2 percent", "5 percent", "10 percent"], correctAnswer: "2 percent", level: "Trainee" },
+      { question: "When is expiration date for welcome Bonus starts counting?", options: ["day of registration", "day of first deposit", "day of first bet", "day of verification"], correctAnswer: "day of first deposit", level: "Trainee" },
+      { question: "Minimum VIP points for aviator?", options: ["1", "5", "10", "20"], correctAnswer: "1", level: "Trainee" },
+      { question: "Minimum VIP points for virtual and prematch online?", options: ["1", "5", "10", "20"], correctAnswer: "20", level: "Trainee" },
+      { question: "Can I play aviator for fun at the branch?", options: ["yes", "no", "only if no customers", "only on weekends"], correctAnswer: "no", level: "Trainee" },
+      { question: "How many chances are there to place bet on aviator?", options: ["one", "two", "three", "unlimited"], correctAnswer: "two", level: "Trainee" },
+      { question: "Mention eligible bet for Cashback bonus.", options: ["prematch only", "inplay only", "prematch and inplay", "virtual only"], correctAnswer: "prematch and inplay", level: "Trainee" },
+      { question: "Define 'Stake' in betting.", options: ["amount won", "numerical expression of probability", "sum of money paid at moment of bet placing", "time bet is registered"], correctAnswer: "sum of money paid at moment of bet placing", level: "Trainee" },
+      { question: "Who is responsible for 'To collect' at the branch?", options: ["operator", "The cm", "supervisor", "manager"], correctAnswer: "The cm", level: "Trainee" },
+      { question: "What is 'Bet placing'?", options: ["amount a customer wins", "moment bet is registered in central server", "numerical expression of probability", "sum of money paid"], correctAnswer: "moment bet is registered in central server", level: "Trainee" },
+      { question: "What is 'Payout'?", options: ["sum of money paid", "amount a customer wins if all selections successful", "numerical expression of probability", "moment bet is registered"], correctAnswer: "amount a customer wins if all selections successful", level: "Trainee" }
+    ];
+
+    for (const q of traineeQuestions) {
+      await storage.createQuizQuestion(q);
+    }
+  }
 }
 
 export async function registerRoutes(httpServer: Server, app: Express): Promise<Server> {
