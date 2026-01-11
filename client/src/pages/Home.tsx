@@ -13,8 +13,6 @@ export default function Home() {
   const getIcon = (title: string) => {
     const t = title.toLowerCase();
     if (t.includes("bonus")) return <Banknote className="w-6 h-6 text-white" />;
-    if (t.includes("cashout")) return <Banknote className="w-6 h-6 text-white" />;
-    if (t.includes("deposit")) return <Banknote className="w-6 h-6 text-white" />;
     if (t.includes("terminal") || t.includes("pos")) return <Terminal className="w-6 h-6 text-white" />;
     if (t.includes("ethics")) return <ShieldCheck className="w-6 h-6 text-white" />;
     if (t.includes("issues")) return <AlertCircle className="w-6 h-6 text-white" />;
@@ -24,10 +22,8 @@ export default function Home() {
   const getIconBg = (title: string) => {
     const t = title.toLowerCase();
     if (t.includes("bonus")) return "bg-orange-600";
-    if (t.includes("cashout")) return "bg-green-700";
-    if (t.includes("deposit")) return "bg-purple-600";
     if (t.includes("terminal") || t.includes("pos")) return "bg-blue-600";
-    if (t.includes("ethics")) return "bg-emerald-600";
+    if (t.includes("ethics")) return "bg-green-600";
     if (t.includes("issues")) return "bg-red-600";
     return "bg-primary";
   };
