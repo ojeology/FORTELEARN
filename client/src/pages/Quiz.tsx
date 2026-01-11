@@ -24,52 +24,89 @@ export default function Quiz() {
     queryKey: ["/api/quiz/leaderboard"],
   });
 
-  const { data: questions, refetch: fetchQuestion } = useQuery<QuizQuestion[]>({
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [showLevelCleared, setShowLevelCleared] = useState(false);
+  const [shuffledQuestions, setShuffledQuestions] = useState<QuizQuestion[]>([]);
+
+  const QUESTIONS_PER_LEVEL = 9;
+
+  const { data: questions, refetch: fetchQuestions } = useQuery<QuizQuestion[]>({
     queryKey: ["/api/quiz/questions", LEVELS[currentLevelIndex]],
     queryFn: async () => {
       const res = await fetch(`/api/quiz/questions/${LEVELS[currentLevelIndex]}`);
       return res.json();
     },
-    enabled: gameStarted && !gameOver,
+    enabled: gameStarted && !gameOver && !showLevelCleared,
   });
 
   useEffect(() => {
     if (questions && questions.length > 0) {
-      setCurrentQuestion(questions[0]);
+      // Shuffle questions and take 9
+      const shuffled = [...questions].sort(() => Math.random() - 0.5);
+      setShuffledQuestions(shuffled.slice(0, QUESTIONS_PER_LEVEL));
+      setCurrentQuestionIndex(0);
+      setCurrentQuestion(shuffled[0]);
     }
   }, [questions]);
 
-  const leaderboardMutation = useMutation({
-    mutationFn: async (entry: { username: string; levelReached: string; score: number }) => {
-      await apiRequest("POST", "/api/quiz/leaderboard", entry);
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/quiz/leaderboard"] });
-    },
-  });
-
-  const handleStart = () => {
-    if (!username.trim()) {
-      toast({ title: "Please enter a username", variant: "destructive" });
-      return;
+  useEffect(() => {
+    if (shuffledQuestions.length > 0 && currentQuestionIndex < shuffledQuestions.length) {
+      setCurrentQuestion(shuffledQuestions[currentQuestionIndex]);
     }
-    setGameStarted(true);
-  };
+  }, [currentQuestionIndex, shuffledQuestions]);
 
   const handleAnswer = (option: string) => {
     if (!currentQuestion) return;
 
     if (option === currentQuestion.correctAnswer) {
       toast({ title: "Correct!", variant: "default" });
-      if (currentLevelIndex === LEVELS.length - 1) {
-        finishGame(true);
+      
+      if (currentQuestionIndex + 1 < QUESTIONS_PER_LEVEL) {
+        setCurrentQuestionIndex(prev => prev + 1);
       } else {
-        setCurrentLevelIndex(prev => prev + 1);
+        // Level cleared
+        if (currentLevelIndex === LEVELS.length - 1) {
+          finishGame(true);
+        } else {
+          setShowLevelCleared(true);
+        }
       }
     } else {
       finishGame(false);
     }
   };
+
+  const nextLevel = () => {
+    setShowLevelCleared(false);
+    setCurrentLevelIndex(prev => prev + 1);
+    setCurrentQuestionIndex(0);
+  };
+
+  const getLevelColor = (index: number) => {
+    const colors = [
+      "bg-blue-600", "bg-indigo-600", "bg-purple-600", 
+      "bg-pink-600", "bg-rose-600", "bg-orange-600", 
+      "bg-amber-600", "bg-yellow-600", "bg-emerald-600"
+    ];
+    return colors[index % colors.length];
+  };
+
+  if (showLevelCleared) {
+    return (
+      <div className={`min-h-screen ${getLevelColor(currentLevelIndex)} flex items-center justify-center p-6 text-white`}>
+        <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="text-center space-y-8">
+          <div className="space-y-4">
+            <Trophy className="w-24 h-24 mx-auto mb-4" />
+            <h2 className="text-5xl font-black italic uppercase">LEVEL CLEARED!</h2>
+            <p className="text-xl font-bold uppercase tracking-[0.2em]">Next up: {LEVELS[currentLevelIndex + 1]}</p>
+          </div>
+          <Button onClick={nextLevel} className="h-16 px-12 bg-white text-black hover:bg-neutral-200 rounded-2xl font-black uppercase tracking-widest text-lg">
+            Continue to {LEVELS[currentLevelIndex + 1]}
+          </Button>
+        </motion.div>
+      </div>
+    );
+  }
 
   const finishGame = (won: boolean) => {
     setGameOver(true);
@@ -180,7 +217,7 @@ export default function Quiz() {
           </Link>
           <div className="flex items-center space-x-4">
             <div className="flex items-center text-neutral-400 font-bold uppercase text-[10px] tracking-widest">
-              <Timer className="w-3 h-3 mr-1" /> 00:30
+              Question {currentQuestionIndex + 1}/{QUESTIONS_PER_LEVEL}
             </div>
             <div className="bg-[#00B140] px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">
               {LEVELS[currentLevelIndex]}
@@ -202,10 +239,10 @@ export default function Quiz() {
                       key={i}
                       variant="outline"
                       onClick={() => handleAnswer(opt)}
-                      className="h-20 border-neutral-800 bg-[#2A2A2A] rounded-xl hover:border-[#00B140] hover:bg-[#00B140]/10 transition-all font-bold uppercase tracking-widest text-xs justify-start px-8 group relative overflow-hidden"
+                      className="min-h-20 h-auto border-neutral-800 bg-[#2A2A2A] rounded-xl hover:border-[#00B140] hover:bg-[#00B140]/10 transition-all font-bold uppercase tracking-widest text-xs justify-start px-8 py-4 group relative overflow-hidden text-left"
                     >
-                      <span className="text-[#00B140] mr-4 font-black">{String.fromCharCode(65 + i)}:</span>
-                      {opt}
+                      <span className="text-[#00B140] mr-4 font-black flex-shrink-0">{String.fromCharCode(65 + i)}:</span>
+                      <span className="break-words w-full">{opt}</span>
                     </Button>
                   ))}
                 </div>
