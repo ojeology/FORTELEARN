@@ -14,14 +14,65 @@ async function seedDatabase() {
     await storage.createSubsection({ 
       sectionId: bonuses.id, 
       title: "Welcome Bonus", 
-      content: "Welcome bonus is a bonus given to newly registered customers of fortebet. To get this bonus, you must first register and make your first deposit. The bonus is 100% of your first deposit up to a maximum of ₦1,000,000. You must then place bets totaling 10 times your deposit amount on odds of 3.0 or higher to unlock the bonus.", 
+      content: `Welcome bonus is a bonus given to newly registered customers of fortebet. 
+
+How to Get This Bonus:
+1. Register your account.
+2. Make your first deposit.
+3. The bonus is 100% of your first deposit up to a maximum of ₦1,000,000.
+
+Unlocking the Bonus:
+You must place bets totaling 10 times your deposit amount on odds of 3.0 or higher. Once this wagering requirement is met, the bonus funds are moved to your main balance and become available for withdrawal.`, 
       displayOrder: 1 
     });
     await storage.createSubsection({ 
       sectionId: bonuses.id, 
       title: "Monday Freebet", 
-      content: "Every Monday, active customers who have placed bets during the previous week receive a freebet based on their activity. The more you play, the higher your freebet reward!", 
+      content: `Every Monday, active customers who have placed bets during the previous week receive a freebet based on their activity. 
+
+How it Works:
+· The reward is calculated based on your total stakes from the previous Monday 00:00 to Sunday 23:59.
+· No specific application is needed; if you are eligible, the freebet appears in your account automatically on Monday morning.
+· The more you play, the higher your freebet reward!`, 
       displayOrder: 2 
+    });
+    await storage.createSubsection({ 
+      sectionId: bonuses.id, 
+      title: "VIP Points System", 
+      content: `Earn VIP points for every bet you place on ForteBet!
+
+How to Earn:
+· Points are awarded automatically for every ticket played.
+· The number of points depends on the stake and the number of selections on your ticket.
+
+How to Use:
+· VIP points can be converted directly into betting credit.
+· 100 VIP Points = ₦1.00.
+· You can also use VIP points to "Buy" specialized bonuses in the VIP Shop.`, 
+      displayOrder: 3 
+    });
+    await storage.createSubsection({ 
+      sectionId: bonuses.id, 
+      title: "Ticket Insurance", 
+      content: `Don't let one game ruin your ticket! 
+
+If your ticket has at least 10 selections and only one game loses:
+· You get your stake back if the total odds of the remaining winning games are at least 100.0.
+· You get 10x your stake back if the total odds of the remaining winning games are at least 500.0.
+· You get 100x your stake back if the total odds of the remaining winning games are at least 1000.0.`, 
+      displayOrder: 4 
+    });
+    await storage.createSubsection({ 
+      sectionId: bonuses.id, 
+      title: "Combo Boost", 
+      content: `Increase your winnings automatically with our Combo Boost!
+
+· Get up to 100% extra on your winnings.
+· The boost starts from 5 selections (5% boost).
+· The more selections you add, the higher the percentage boost.
+· Maximum 100% boost for 35+ selections.
+· Each selection must have odds of 1.2 or higher to count towards the boost.`, 
+      displayOrder: 5 
     });
 
     const cashout = await storage.createSection({ title: "CASHOUT", slug: "cashout", displayOrder: 2 });
@@ -78,23 +129,57 @@ Fair Cashout will be temporarily suspended in any of the following scenarios:
       content: `There are four ways to deposit money into your ForteBet account.
 
 1. Deposit at a Branch
-· Process: Visit any ForteBet branch and inform the operator you wish to make a "Client In" deposit. Provide your registered username and the cash amount. Your online account will be credited instantly.
+· Process:
+  1. Visit any ForteBet branch.
+  2. Inform the operator you wish to make a "Client In" deposit.
+  3. Provide your registered username and the cash amount.
+  4. Your online account will be credited instantly.
+  5. You will receive a transaction slip; please verify all details are correct.
 · Correction Window: Transactions can be cancelled within 10 minutes in case of an error.
-· Limits: Minimum ₦200.00 per transaction. Maximum: Unlimited.
+· Limits:
+  · Minimum: ₦200.00 per transaction.
+  · Maximum: Unlimited.
 
 2. Deposit via Credit/Debit Card
-· Process: Select ‘DEPOSIT WITH A NEW CARD’ and enter your card details. Specify the deposit amount and click "TOP UP NOW". Complete the secure payment form. You may need to authenticate via OTP.
-· Limits & Fees: Minimum ₦200.00, Maximum ₦250,000.00 per transaction. Instant processing. No fees from ForteBet.
+· Process:
+  1. Select ‘DEPOSIT WITH A NEW CARD’ and enter your card details, or choose a previously saved card.
+  2. Specify the deposit amount and click "TOP UP NOW".
+  3. Complete the secure payment form.
+  4. You may need to authenticate the transaction via a One-Time Password (OTP) sent to your phone by your bank.
+  5. Upon successful processing, funds are credited to your account instantly.
+· Support: If your account is debited but not credited, contact us immediately at 0800 009 009 009 or info@fortebet.ng.
+· Limits & Fees:
+  · Minimum: ₦200.00
+  · Maximum: ₦250,000.00 per transaction / ₦1,000,000.00 per 24 hours.
+  · Processing Time: Instant.
+  · Fees: Only your bank's standard charges apply. No fees from ForteBet.
 
 3. Deposit via Instant Bank Transfer
-· Important: The name on the bank account used for your first transfer deposit will become your official ForteBet account name.
-· Process: Specify amount and click "TOP UP NOW". You will receive a temporary bank account number (valid for 30 mins). Use online banking/USSD to transfer the exact amount.
-· Limits & Fees: Minimum ₦200.00, Maximum ₦500,000.00 per transaction. Instant processing. No fees from ForteBet.
+· Important: The name on the bank account used for your first transfer deposit will become your official ForteBet account name. Withdrawals can only be processed to this designated name.
+· Process:
+  1. Specify the deposit amount and click "TOP UP NOW".
+  2. You will receive a temporary bank account number, valid for 30 minutes.
+  3. Use your online banking or USSD to transfer the exact amount to this account.
+  4. You will be redirected back to ForteBet, and your account will be credited instantly.
+· Support: If your account is debited but not credited, contact us immediately at 0800 009 009 009 or info@fortebet.ng.
+· Limits & Fees:
+  · Minimum: ₦200.00
+  · Maximum: ₦500,000.00 per transaction / ₦1,000,000.00 per 24 hours.
+  · Processing Time: Instant.
+  · Fees: Only your bank's standard charges apply. No fees from ForteBet.
 
 4. Deposit via OPay Wallet
-· Note: Accessible only after your first deposit via Bank Transfer or Bank Card.
-· Process: Select OPay Wallet, specify amount, and click "TOP UP NOW". Confirm the transaction in the OPay interface.
-· Limits & Fees: Minimum ₦100.00. Instant processing. No fees from ForteBet.`,
+· Note: OPay deposit methods are accessible only after your first deposit has been made via Bank Transfer or Bank Card.
+· Process:
+  1. Select your preferred OPay Wallet method, specify the amount, and click "TOP UP NOW".
+  2. The OPay interface will open for you to confirm the transaction.
+  3. Upon successful processing, you will be redirected back, and your account will be credited instantly.
+· Support: If your account is debited but not credited, contact us immediately at 0800 009 009 009 or info@fortebet.ng.
+· Limits & Fees:
+  · Minimum: ₦100.00
+  · Maximum: Limited by your personal OPay wallet limits.
+  · Processing Time: Instant.
+  · Fees: Only applicable wallet/bank fees apply. No fees from ForteBet.`,
       displayOrder: 1
     });
 
@@ -102,13 +187,29 @@ Fair Cashout will be temporarily suspended in any of the following scenarios:
       sectionId: deposits.id,
       title: "How to Withdraw",
       content: `1. Withdrawal via Bank Transfer
-· Prerequisite: You must have first deposited using Bank Transfer or Bank Card. The name registered from that first deposit will be used for all withdrawals.
-· Process: Fill in the withdrawal form with bank details and click "WITHDRAW". Authorize via OTP sent to your registered mobile number. Request will be marked as pending.
-· Limits & Fees: Minimum ₦200.00, Maximum ₦10,000,000.00 per 24 hours. Processing typically within 5 mins (up to 24h). No fees from ForteBet.
+· Prerequisite: To withdraw via bank transfer, you must have first deposited using Bank Transfer or Bank Card. The name registered from that first deposit will be used for all withdrawals.
+· Process:
+  1. Fill in the withdrawal form with your bank account details and click "WITHDRAW".
+  2. An OTP will be sent to your registered mobile number to authorize the request.
+  3. Confirm all bank details are correct to initiate the withdrawal.
+  4. The requested amount will be debited from your ForteBet account, and the request will be marked as pending.
+· Important: All withdrawals are subject to approval. Processing should not exceed 24 hours.
+· Support: For guidance, call 0800 009 009 009.
+· Limits & Fees:
+  · Minimum: ₦200.00
+  · Maximum: ₦10,000,000.00 per 24 hours.
+  · Processing Time: Typically within 5 minutes, but we reserve the right to review transactions within 24 hours.
+  · Fees: Only your bank's standard charges apply. No fees from ForteBet.
 
 2. Withdrawal at a Branch
-· Process: Visit any ForteBet branch. Provide the operator with your registered username and the 4-digit authorization code sent to your registered phone number.
-· Limits: Minimum ₦200.00 per transaction. Maximum ₦10,000,000.00 per transaction.`,
+· Process:
+  1. Visit any ForteBet branch.
+  2. Provide the operator with your registered username and the 4-digit authorization code sent to your registered phone number.
+  3. The operator will process the "Client Cash Out" and ask for the code.
+  4. You will receive your winnings in cash.
+· Limits:
+  · Minimum: ₦200.00 per transaction.
+  · Maximum: ₦10,000,000.00 per transaction.`,
       displayOrder: 2
     });
 
@@ -116,7 +217,7 @@ Fair Cashout will be temporarily suspended in any of the following scenarios:
     await storage.createSubsection({ 
       sectionId: terminal.id, 
       title: "POS Basics", 
-      content: "Learn how to operate the POS terminal. Key functions include printing tickets, checking ticket status, and processing deposits/withdrawals for customers. Ensure you always keep the terminal thermal paper well-stocked.", 
+      content: "Learn how to operate the POS terminal. Key functions include printing tickets, checking ticket status, and processing deposits/withdrawals for customers. Ensure you always keep the terminal thermal paper well-stocked. Remember to always double-check the customer's username before confirming a deposit.", 
       displayOrder: 1 
     });
 
@@ -124,7 +225,7 @@ Fair Cashout will be temporarily suspended in any of the following scenarios:
     await storage.createSubsection({ 
       sectionId: ethics.id, 
       title: "Rules of Conduct", 
-      content: "As a ForteBet representative, professional conduct is mandatory. This includes punctual attendance, maintaining a clean workspace, and providing excellent customer service. Fraudulent activity of any kind will lead to immediate termination.", 
+      content: "As a ForteBet representative, professional conduct is mandatory. This includes punctual attendance, maintaining a clean workspace, and providing excellent customer service. Fraudulent activity of any kind will lead to immediate termination. Always treat customers with respect, even in difficult situations.", 
       displayOrder: 1 
     });
 
@@ -132,7 +233,7 @@ Fair Cashout will be temporarily suspended in any of the following scenarios:
     await storage.createSubsection({ 
       sectionId: issues.id, 
       title: "Troubleshooting", 
-      content: "If the terminal is not connecting to the internet, check the SIM card placement and signal strength. If a ticket is blurred, clean the printer head. For login issues, ensure your account hasn't been locked due to multiple incorrect attempts.", 
+      content: "If the terminal is not connecting to the internet, check the SIM card placement and signal strength. If a ticket is blurred, clean the printer head. For login issues, ensure your account hasn't been locked due to multiple incorrect attempts. If a customer claims a deposit didn't reflect, check the transaction history and contact support if necessary.", 
       displayOrder: 1 
     });
   }
