@@ -12,6 +12,53 @@ async function seedDatabase() {
   if (existingSections.length === 0) {
     const bonuses = await storage.createSection({ title: "BONUSES", slug: "bonuses", displayOrder: 1 });
     await storage.createSubsection({ sectionId: bonuses.id, title: "Welcome Bonus", content: "Welcome bonus is a bonus given to newly registered customers of fortebet...", displayOrder: 1 });
+
+    const cashout = await storage.createSection({ title: "CASHOUT", slug: "cashout", displayOrder: 2 });
+    await storage.createSubsection({ 
+      sectionId: cashout.id, 
+      title: "ForteBet Cashout Explained", 
+      content: `What is Cashout?
+Cashout allows you to settle your bet early, before all events on your ticket are finished.
+
+When Can I Cash Out?
+You can cash out only when the following two conditions are met:
+1. All matches on your ticket must have official live results (i.e., they are in-play).
+2. Current odds must be available for every selection you picked.
+
+Important Rule: VIP Points
+· If you received VIP points for placing the bet, you must still have the same number of VIP points in your account at the time of cashing out.
+· Purpose: This rule prevents users from abusing the cashout feature to earn VIP points without risk.
+
+Key Points to Remember:
+· Cashout is available only for online tickets.
+· You must meet all the conditions listed above to be eligible.
+· The corresponding VIP points will be deducted from your account when you cash out.
+
+Why This Rule Exists
+To ensure fairness and prevent exploitation of the VIP points system.
+
+Example:
+· You place a bet and receive 1,000 VIP points.
+· To cash out that bet later, you must still have at least 1,000 VIP points available in your account.`,
+      displayOrder: 1 
+    });
+
+    await storage.createSubsection({
+      sectionId: cashout.id,
+      title: "FAIR CASHOUT",
+      content: `ForteBet offers the first truly transparent cashout on the market. You know exactly how your cashout value is calculated because you can verify it yourself using the current live odds of your remaining selections.
+
+How is the Fair Cashout Amount Calculated?
+Your possible winnings are divided by your total current odds, and a 1% fee is then deducted.
+Formula: (Potential Winnings / Total Current Odds) - 1%
+
+Fair Cashout Suspension Rules
+Fair Cashout will be temporarily suspended in any of the following scenarios:
+· Any event on the ticket is settled as void.
+· The current odds for any event on the ticket exceed 10.00.
+· All odds on the ticket remain unchanged from the original bet placement values.`,
+      displayOrder: 2
+    });
   }
 
   const existingQuestions = await storage.getQuestionsByLevel(LEVELS[0]);
