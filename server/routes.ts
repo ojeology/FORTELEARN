@@ -11,56 +11,80 @@ async function seedDatabase() {
   const existingSections = await storage.getSections();
   if (existingSections.length === 0) {
     const bonuses = await storage.createSection({ title: "BONUSES", slug: "bonuses", displayOrder: 1 });
-    await storage.createSubsection({ sectionId: bonuses.id, title: "Welcome Bonus", content: "Welcome bonus is a bonus given to newly registered customers of fortebet...", displayOrder: 1 });
-    await storage.createSubsection({ sectionId: bonuses.id, title: "Cashback Bonus", content: "Returning a multiple of the stake if one selection loses on a ticket.", displayOrder: 2 });
-    await storage.createSubsection({ sectionId: bonuses.id, title: "Multiple Booster", content: "Vivid bonus on winning accumulator tickets.", displayOrder: 3 });
+    await storage.createSubsection({ 
+      sectionId: bonuses.id, 
+      title: "Welcome Bonus", 
+      content: "Welcome Bonus is calculated as 300% of the first deposit for new registered customers. Maximum welcome bonus amount is ₦1,000,000. It expires after 90 days of the first deposit. To qualify for the Welcome Bonus credit, a customer's bet must include at least 3 events with total odds of 3.00 or more. Once conditions are met, 2% of the wagered amount is moved to the main account. Customers can find their welcome bonus balance on the dedicated Welcome Bonus page. Note that bets placed at branches do not qualify for this online bonus.", 
+      displayOrder: 1 
+    });
+    await storage.createSubsection({ 
+      sectionId: bonuses.id, 
+      title: "Cashback Bonus", 
+      content: "Cashback Bonus returns a multiple of the stake if exactly one selection loses on a multi-bet ticket. Eligibility includes both Prematch and Inplay bets. The payout depends on the remaining total odds (after removing the lost event): 75.00 - 149.99 yields 1x Stake, 150.00 - 299.99 yields 2x Stake, and 300+ yields 3x Stake. If multiple events are voided/cut, the cashback may be suspended or recalculated.", 
+      displayOrder: 2 
+    });
+    await storage.createSubsection({ 
+      sectionId: bonuses.id, 
+      title: "Multiple Booster", 
+      content: "The Multiple Booster Bonus is available to both registered and anonymous customers for Prematch and Inplay bets. It requires a minimum of 5 events, each with odds of at least 1.25. The bonus ranges from a 5% increase (for 5 events) up to a maximum of 250% (for 50+ events). It is not applicable if the bet includes virtual sports or if the customer cashes out the ticket.", 
+      displayOrder: 3 
+    });
 
     const terminal = await storage.createSection({ title: "TERMINAL KNOWLEDGE", slug: "terminal", displayOrder: 2 });
-    await storage.createSubsection({ sectionId: terminal.id, title: "Operations", content: "How to operate the branch terminals and handle customers.", displayOrder: 1 });
+    await storage.createSubsection({ 
+      sectionId: terminal.id, 
+      title: "Operations & VIP Points", 
+      content: "Operators are responsible for branch transactions. VIP points are earned by playing slots at the branch with a VIP card and all games online. Minimum points vary: 1 point for Aviator, 20 points for Virtual/Prematch online. Points can be converted to cash at the VIP Point Money Back Shop (e.g., 110,000 points = ₦1,000). If a deposit is credited to the wrong account, the transaction must be cancelled immediately.", 
+      displayOrder: 1 
+    });
 
     const ethics = await storage.createSection({ title: "WORK ETHICS", slug: "ethics", displayOrder: 3 });
-    await storage.createSubsection({ sectionId: ethics.id, title: "Rules", content: "General rules and behavior at the branch.", displayOrder: 1 });
+    await storage.createSubsection({ 
+      sectionId: ethics.id, 
+      title: "Rules", 
+      content: "General rules and behavior at the branch. Minors (under 18) and intoxicated persons are not permitted to place bets. Service Workers are authorized staff who ensure compliance. Faulty slot machines must be reported via WhatsApp with photos and descriptions.", 
+      displayOrder: 1 
+    });
 
     const issues = await storage.createSection({ title: "COMMON ISSUES", slug: "issues", displayOrder: 4 });
-    await storage.createSubsection({ sectionId: issues.id, title: "Troubleshooting", content: "How to handle network and printing issues.", displayOrder: 1 });
+    await storage.createSubsection({ 
+      sectionId: issues.id, 
+      title: "Troubleshooting", 
+      content: "For network failures, check router cables first. If a virtual ticket doesn't print but the event started, wait for the result before reporting for a secure code. If a customer forgets their username or phone number, make a report to the appropriate department.", 
+      displayOrder: 1 
+    });
 
     const cashout = await storage.createSection({ title: "CASHOUT FEATURE", slug: "cashout", displayOrder: 5 });
     await storage.createSubsection({ 
       sectionId: cashout.id, 
       title: "What is Cashout?", 
-      content: "Cashout allows you to settle your bet early, before all events on your ticket are finished. You can cash out only when: • All matches on your ticket must have official live results • Current odds must be available for every selection you picked", 
+      content: "Cashout allows you to settle your bet early, before all events on your ticket are finished. You can cash out only when: • All matches on your ticket must have official live results • Current odds must be available for every selection you picked. Cashout is available only for online tickets.", 
       displayOrder: 1 
     });
     await storage.createSubsection({ 
       sectionId: cashout.id, 
       title: "Important VIP Points Rule", 
-      content: "• If you received VIP points for placing the bet, you must still have the same number of VIP points in your account when cashing out • This prevents earning VIP points without risk by cashing out early", 
+      content: "• If you received VIP points for placing the bet, you must still have the same number of VIP points in your account when cashing out • This prevents earning VIP points without risk by cashing out early • VIP points will be deducted when you cash out. Example: If you received 1,000 VIP points, you must have at least 1,000 available to cash out later.", 
       displayOrder: 2 
     });
     await storage.createSubsection({ 
       sectionId: cashout.id, 
-      title: "Fair Cashout System", 
-      content: "Calculation: (Potential Winnings ÷ Total Current Odds) - 1% Fee. You can verify this yourself using current live odds.", 
+      title: "Fair Cashout System & Suspension", 
+      content: "Calculation: (Potential Winnings ÷ Total Current Odds) - 1% Fee. Cashout will be temporarily unavailable if: • Any event on the ticket is settled as void • The current odds for any event exceed 10.00 • All odds remain unchanged from the original bet", 
       displayOrder: 3 
-    });
-    await storage.createSubsection({ 
-      sectionId: cashout.id, 
-      title: "When Cashout is Suspended", 
-      content: "• Any event on the ticket is settled as void • The current odds for any event exceed 10.00 • All odds remain unchanged from the original bet", 
-      displayOrder: 4 
     });
 
     const money = await storage.createSection({ title: "DEPOSITS & WITHDRAWALS", slug: "money", displayOrder: 6 });
     await storage.createSubsection({ 
       sectionId: money.id, 
       title: "How to Deposit", 
-      content: "1. Deposit at a Branch: Tell operator 'Client In'. Min ₦200. 2. Card: Top up via secure payment form. Min ₦200, Max ₦1M/day. 3. Bank Transfer: Transfer exact amount to temporary account. Min ₦200, Max ₦1M/day. 4. OPay Wallet: Available after first bank transfer or card deposit. Min ₦100.", 
+      content: "1. Deposit at a Branch: Tell operator 'Client In', provide username and cash. Min ₦200. 2. Credit/Debit Card: Top up via secure payment form. Min ₦200, Max ₦1M/day. 3. Instant Bank Transfer: Transfer exact amount to temporary account number. Min ₦200, Max ₦1M/day. The name on the first transfer becomes your official account name. 4. OPay Wallet: Available after first bank transfer or card deposit. Min ₦100.", 
       displayOrder: 1 
     });
     await storage.createSubsection({ 
       sectionId: money.id, 
       title: "How to Withdraw", 
-      content: "1. Bank Transfer: Must have first deposited via Bank Transfer or Card. Min ₦200, Max ₦10M/day. 2. Withdrawal at a Branch: Provide username and 4-digit code from SMS. Min ₦200 per transaction, Max ₦10M.", 
+      content: "1. Withdrawal via Bank Transfer: Must have first deposited via Bank Transfer or Card. Min ₦200, Max ₦10M per 24 hours. Withdrawals only to registered name. 2. Withdrawal at a Branch: Provide username and 4-digit code from SMS. Min ₦200 per transaction, Max ₦10,000,000.", 
       displayOrder: 2 
     });
   }
