@@ -59,6 +59,15 @@ Fair Cashout will be temporarily suspended in any of the following scenarios:
 · All odds on the ticket remain unchanged from the original bet placement values.`,
       displayOrder: 2
     });
+
+    const terminal = await storage.createSection({ title: "TERMINAL KNOWLEDGE", slug: "terminal", displayOrder: 3 });
+    await storage.createSubsection({ sectionId: terminal.id, title: "POS Basics", content: "How to use the terminal...", displayOrder: 1 });
+
+    const ethics = await storage.createSection({ title: "WORK ETHICS", slug: "ethics", displayOrder: 4 });
+    await storage.createSubsection({ sectionId: ethics.id, title: "Rules of Conduct", content: "General rules of conduct...", displayOrder: 1 });
+
+    const issues = await storage.createSection({ title: "COMMON ISSUES", slug: "issues", displayOrder: 5 });
+    await storage.createSubsection({ sectionId: issues.id, title: "Troubleshooting", content: "Common troubleshooting steps...", displayOrder: 1 });
   }
 
   const existingQuestions = await storage.getQuestionsByLevel(LEVELS[0]);
