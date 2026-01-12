@@ -1,46 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Training Module - Fortebet</title>
+    <title>Training - Fortebet</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <header class="content-header">
+    <div class="content-header">
         <a href="index.html" class="back-btn">
             <i class="fas fa-arrow-left"></i> Back to Training
         </a>
-        <h1 id="module-title"><i class="fas fa-book"></i> Training Module</h1>
-    </header>
+        <h1 id="module-title">Training Module</h1>
+    </div>
 
-    <main class="content-main">
-        <div class="content-section">
-            <h2 id="content-subtitle">Module Content</h2>
-            <p id="module-content">Training content will appear here...</p>
-        </div>
-
+    <div class="content-main">
+        <h2 id="content-subtitle">Module Content</h2>
+        <p id="module-content">Loading training content...</p>
+        
         <div class="quiz-section">
             <h3>Ready to Test Your Knowledge?</h3>
             <a href="quiz.html" class="quiz-btn">
                 <i class="fas fa-play-circle"></i> Take Quiz
             </a>
         </div>
-    </main>
+    </div>
 
     <footer>
-        <p>© 2024 Fortebet Training Portal</p>
+        <p>© 2024 Fortebet Training</p>
     </footer>
 
     <script>
+        // Get the module name from the URL
         const urlParams = new URLSearchParams(window.location.search);
-        const module = urlParams.get('module') || 'Bonuses';
+        const moduleName = urlParams.get('module') || 'Bonuses';
         
-        document.getElementById('module-title').innerHTML = 
-            `<i class="fas fa-book"></i> ${module} Training`;
-        document.getElementById('content-subtitle').textContent = 
-            `Learning about ${module}`;
+        // Update the page with the module name
+        document.getElementById('module-title').textContent = moduleName + ' Training';
+        document.getElementById('content-subtitle').textContent = 'Learning: ' + moduleName;
         document.getElementById('module-content').textContent = 
-            `This is where your ${module} training content will go. You can write step-by-step instructions, include images, or add videos here.`;
+            'This is the ' + moduleName + ' training module. Add your content here.';
     </script>
 </body>
 </html>
