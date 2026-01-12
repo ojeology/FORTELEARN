@@ -21,13 +21,13 @@ async function seedDatabase() {
     await storage.createSubsection({ 
       sectionId: cashout.id, 
       title: "What is Cashout?", 
-      content: "Cashout allows you to settle your bet early, before all events on your ticket are finished. Available only for online tickets. You can cash out only when all matches have official live results and current odds are available for every selection.", 
+      content: "Cashout allows you to settle your bet early, before all events on your ticket are finished.\n\nWhen Can I Cash Out?\nYou can cash out only when:\n• All matches on your ticket must have official live results\n• Current odds must be available for every selection you picked\n\nImportant VIP Points Rule\n• If you received VIP points for placing the bet, you must still have the same number of VIP points in your account when cashing out\n• This prevents earning VIP points without risk by cashing out early\n\nKey Points to Remember\n• Cashout is available only for online tickets\n• You must meet all conditions to be eligible\n• VIP points will be deducted when you cash out\n\nExample\nStep 1: You place a bet and receive 1,000 VIP points\nStep 2: To cash out later, you must have at least 1,000 VIP points available", 
       displayOrder: 1 
     });
     await storage.createSubsection({ 
       sectionId: cashout.id, 
-      title: "VIP Points & Calculations", 
-      content: "Rule: You must have at least the number of VIP points awarded for the ticket available in your account to cash out. Calculation: (Potential Winnings ÷ Total Current Odds) - 1% Fee. Suspended if odds > 10.00 or selections are void.", 
+      title: "Fair Cashout System", 
+      content: "Our transparent cashout shows exactly how your amount is calculated:\nCalculation: (Potential Winnings ÷ Total Current Odds) - 1% Fee\nYou can verify this yourself using current live odds\n\nWhen Cashout is Suspended\nCashout will be temporarily unavailable if:\n• Any event on the ticket is settled as void\n• The current odds for any event exceed 10.00\n• All odds remain unchanged from the original bet", 
       displayOrder: 2 
     });
   }
@@ -37,14 +37,14 @@ async function seedDatabase() {
     const dw = await storage.createSection({ title: "DEPOSITS & WITHDRAWALS", slug: "deposits-withdrawals", displayOrder: 3 });
     await storage.createSubsection({ 
       sectionId: dw.id, 
-      title: "Deposit Methods", 
-      content: "1. Branch (Client In): Username + Cash, min ₦200. 2. Card: Secure form, max ₦1,000,000/day. 3. Bank Transfer: Instant to virtual account. 4. OPay: Available after first bank/card deposit.", 
+      title: "How to Deposit", 
+      content: "1. Deposit at a Branch\nStep 1: Visit any ForteBet branch\nStep 2: Tell the operator \"Client In\" deposit\nStep 3: Provide your registered username and cash\nStep 4: Account credited instantly - check your slip\nMinimum: ₦200.00 | Maximum: Unlimited\nNote: Can cancel within 10 minutes if error\n\n2. Deposit via Credit/Debit Card\nStep 1: Click 'DEPOSIT WITH A NEW CARD' or select saved card\nStep 2: Enter amount, click \"TOP UP NOW\"\nStep 3: Complete secure payment form (may need OTP)\nStep 4: Funds credited instantly to your account\nMinimum: ₦200.00\nMaximum: ₦250,000 per transaction / ₦1,000,000 per day\nFees: Only bank charges apply | ForteBet: No fees\nSupport: Issues? Call 0800 009 009 009 or email info@fortebet.ng\n\n3. Deposit via Instant Bank Transfer\n⚠️ IMPORTANT: The name on your first transfer deposit becomes your official ForteBet account name. Withdrawals only to this name.\nStep 1: Enter amount, click \"TOP UP NOW\"\nStep 2: Receive temporary account number (valid 30 minutes)\nStep 3: Transfer exact amount via online banking/USSD\nStep 4: Funds credited instantly to your account\nMinimum: ₦200.00\nMaximum: ₦500,000 per transaction / ₦1,000,000 per day\nFees: Only bank charges apply | ForteBet: No fees\nSupport: Issues? Call 0800 009 009 009 or email info@fortebet.ng\n\n4. Deposit via OPay Wallet\nNote: OPay deposits available only after first deposit via Bank Transfer or Card\nStep 1: Select OPay method, enter amount, click \"TOP UP NOW\"\nStep 2: Confirm transaction in OPay interface\nStep 3: Funds credited instantly to your account\nMinimum: ₦100.00\nMaximum: Limited by your OPay wallet limits\nFees: Only wallet/bank charges apply | ForteBet: No fees\nSupport: Issues? Call 0800 009 009 009 or email info@fortebet.ng", 
       displayOrder: 1 
     });
     await storage.createSubsection({ 
       sectionId: dw.id, 
-      title: "Withdrawal Methods", 
-      content: "1. Bank Transfer: Min ₦200, Max ₦10M/day. Processing ~5 mins. 2. Branch: Need username + 4-digit SMS code. Minimum ₦200.", 
+      title: "How to Withdraw", 
+      content: "1. Withdrawal via Bank Transfer\n⚠️ PREREQUISITE: Must have first deposited via Bank Transfer or Card. Withdrawals only to registered name.\nStep 1: Fill bank details, click \"WITHDRAW\"\nStep 2: Enter OTP sent to your registered phone\nStep 3: Confirm all bank details are correct\nStep 4: Request marked pending - amount debited from account\nMinimum: ₦200.00\nMaximum: ₦10,000,000 per 24 hours\nProcessing: Typically 5 minutes (review may take up to 24 hours)\nFees: Only bank charges apply | ForteBet: No fees\nSupport: Call 0800 009 009 009 for guidance\n\n2. Withdrawal at a Branch\nStep 1: Visit any ForteBet branch\nStep 2: Provide username and 4-digit code from SMS\nStep 3: Operator processes \"Client Cash Out\"\nStep 4: Receive your winnings in cash\nMinimum: ₦200.00 per transaction\nMaximum: ₦10,000,000 per transaction\n\nKey Summary\n• Instant: Most deposits credited instantly\n• No ForteBet Fees: We charge no fees for deposits or withdrawals\n• Secure: First deposit sets your verified account name\n• Support: Call 0800 009 009 009 or email info@fortebet.ng for help", 
       displayOrder: 2 
     });
   }
