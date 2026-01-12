@@ -30,15 +30,78 @@
     </footer>
 
     <script>
+        // Module content data
+        const moduleData = {
+            'Bonuses': {
+                subtitle: 'Learning about Welcome Bonuses',
+                content: `Welcome bonus is a bonus given to newly registered customers of fortebet. It is calculated as 300% of the first deposit, up to a maximum of ₦1,000,000.
+
+To qualify for bonus credit:
+• Place bets with at least 3 events
+• Total odds must be 3.00 or more
+• Both Prematch and Inplay bets qualify
+• 2% of your stake is moved to main account for each qualifying bet`
+            },
+            'POS/Terminal': {
+                subtitle: 'Mastering Terminal Operations',
+                content: `Key Terminal Operations:
+• POS terminals are used for processing branch bets and virtual games.
+• Ensure the printer is correctly connected and has enough paper.
+• Maintain a stable internet connection for real-time bet processing.
+• Report any hardware issues immediately to technical support.`
+            },
+            'Cashout': {
+                subtitle: 'Step-by-Step Cashout Guide',
+                content: `Cashout allows you to settle your bet early.
+
+When Can I Cash Out?
+• All matches on your ticket must have official live results.
+• Current odds must be available for every selection.
+
+Fair Cashout Calculation:
+(Potential Winnings ÷ Total Current Odds) - 1% Fee
+
+Important: VIP points earned from the bet will be reversed upon cashout.`
+            },
+            'Work Ethics': {
+                subtitle: 'Professional Conduct Guidelines',
+                content: `Maintaining high standards is essential:
+• Professionalism: Treat all customers with respect and fairness.
+• Compliance: Follow all company rules and local regulations.
+• Integrity: Handle all financial transactions accurately and honestly.
+• Minor Protection: Strictly forbid betting for persons under 18.`
+            },
+            'Deposits & Withdrawals': {
+                subtitle: 'Secure Transaction Handling',
+                content: `Deposits:
+• Branch Deposit: "Client In" via operator using registered username.
+• Bank/Card: Funds credited instantly via secure online payment.
+
+Withdrawals:
+• Bank Transfer: Typically processed within 5 minutes.
+• Branch Cashout: Provide username and 4-digit SMS code to operator.
+
+Minimum transaction: ₦200.`
+            },
+            'Common Issues': {
+                subtitle: 'Troubleshooting & Branch Support',
+                content: `Common Solutions:
+• Network Failure: Check router cables and internet connectivity.
+• Printer Issues: Verify paper roll and internal connections.
+• SMS Codes: Ensure the customer has their registered phone.
+• Support: Call 0800 009 009 009 for immediate assistance.`
+            }
+        };
+
         // Get the module name from the URL
         const urlParams = new URLSearchParams(window.location.search);
         const moduleName = urlParams.get('module') || 'Bonuses';
+        const data = moduleData[moduleName] || moduleData['Bonuses'];
         
-        // Update the page with the module name
-        document.getElementById('module-title').textContent = moduleName + ' Training';
-        document.getElementById('content-subtitle').textContent = 'Learning: ' + moduleName;
-        document.getElementById('module-content').textContent = 
-            'This is the ' + moduleName + ' training module. Add your content here.';
+        // Update the page with the module name and content
+        document.getElementById('module-title').innerHTML = `<i class="fas fa-book"></i> ${moduleName} Training`;
+        document.getElementById('content-subtitle').textContent = data.subtitle;
+        document.getElementById('module-content').innerHTML = data.content.replace(/\n/g, '<br>');
     </script>
 </body>
 </html>
