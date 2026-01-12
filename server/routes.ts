@@ -19,19 +19,19 @@ async function seedDatabase() {
     await storage.createSubsection({ 
       sectionId: cashout.id, 
       title: "What is Cashout?", 
-      content: "Cashout allows you to settle your bet early, before all events on your ticket are finished. You can cash out only when: All matches on your ticket must have official live results AND Current odds must be available for every selection you picked.", 
+      content: "Cashout allows you to settle your bet early, before all events on your ticket are finished. You can cash out only when: • All matches on your ticket must have official live results • Current odds must be available for every selection you picked", 
       displayOrder: 1 
     });
     await storage.createSubsection({ 
       sectionId: cashout.id, 
-      title: "VIP Points & Rules", 
-      content: "Important VIP Points Rule: If you received VIP points for placing the bet, you must still have the same number of VIP points in your account when cashing out. This prevents earning VIP points without risk by cashing out early. Cashout is available only for online tickets.", 
+      title: "VIP Points Rule", 
+      content: "• If you received VIP points for placing the bet, you must still have the same number of VIP points in your account when cashing out • This prevents earning VIP points without risk by cashing out early\n\nExample: Step 1: You place a bet and receive 1,000 VIP points. Step 2: To cash out later, you must have at least 1,000 VIP points available.", 
       displayOrder: 2 
     });
     await storage.createSubsection({ 
       sectionId: cashout.id, 
-      title: "Calculations & Suspension", 
-      content: "Calculation: (Potential Winnings ÷ Total Current Odds) - 1% Fee. Cashout will be temporarily unavailable if: Any event on the ticket is settled as void, current odds exceed 10.00, or all odds remain unchanged.", 
+      title: "Calculation & Suspension", 
+      content: "Calculation: (Potential Winnings ÷ Total Current Odds) - 1% Fee. You can verify this yourself using current live odds.\n\nCashout will be temporarily unavailable if: • Any event on the ticket is settled as void • The current odds for any event exceed 10.00 • All odds remain unchanged from the original bet", 
       displayOrder: 3 
     });
 
@@ -39,15 +39,21 @@ async function seedDatabase() {
     const deposits = await storage.createSection({ title: "DEPOSITS & WITHDRAWALS", slug: "deposits-withdrawals", displayOrder: 3 });
     await storage.createSubsection({ 
       sectionId: deposits.id, 
-      title: "How to Deposit", 
-      content: "1. Branch: 'Client In' deposit with username. 2. Card: Secure payment with bank charges. 3. Bank Transfer: Instant credit via USSD/Online. 4. OPay: Available after first card/transfer deposit.", 
+      title: "How to Deposit (Branch & Card)", 
+      content: "1. Deposit at a Branch: Tell operator 'Client In', provide username. Min: ₦200.00 | Max: Unlimited.\n2. Credit/Debit Card: Click 'DEPOSIT WITH A NEW CARD', enter amount. Min: ₦200.00 | Max: ₦1,000,000 per day.", 
       displayOrder: 1 
     });
     await storage.createSubsection({ 
       sectionId: deposits.id, 
-      title: "How to Withdraw", 
-      content: "1. Bank Transfer: Withdraw to registered name (up to ₦10M/24h). 2. Branch: Provide username and 4-digit SMS code. Processing is typically 5 minutes.", 
+      title: "How to Deposit (Transfer & OPay)", 
+      content: "3. Instant Bank Transfer: First deposit name becomes official account name. Transfer exact amount. Min: ₦200.00.\n4. OPay Wallet: Only after first Bank/Card deposit. Min: ₦100.00.", 
       displayOrder: 2 
+    });
+    await storage.createSubsection({ 
+      sectionId: deposits.id, 
+      title: "How to Withdraw", 
+      content: "1. Bank Transfer: To registered name only. Min: ₦200.00 | Max: ₦10,000,000/24h.\n2. Branch Withdrawal: Provide username and 4-digit SMS code. Min: ₦200.00 per transaction.", 
+      displayOrder: 3 
     });
   }
 
