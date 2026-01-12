@@ -20,9 +20,15 @@ async function seedDatabase() {
     const cashout = await storage.createSection({ title: "CASHOUT", slug: "cashout", displayOrder: 2 });
     await storage.createSubsection({ 
       sectionId: cashout.id, 
-      title: "Cashout Feature", 
-      content: "Cashout allows you to settle your bet early. Available only for online tickets. You must have the same number of VIP points in your account as when you placed the bet to cash out.", 
+      title: "What is Cashout?", 
+      content: "Cashout allows you to settle your bet early, before all events on your ticket are finished. Available only for online tickets. You can cash out only when all matches have official live results and current odds are available for every selection.", 
       displayOrder: 1 
+    });
+    await storage.createSubsection({ 
+      sectionId: cashout.id, 
+      title: "VIP Points & Calculations", 
+      content: "Rule: You must have at least the number of VIP points awarded for the ticket available in your account to cash out. Calculation: (Potential Winnings ÷ Total Current Odds) - 1% Fee. Suspended if odds > 10.00 or selections are void.", 
+      displayOrder: 2 
     });
   }
 
@@ -31,14 +37,14 @@ async function seedDatabase() {
     const dw = await storage.createSection({ title: "DEPOSITS & WITHDRAWALS", slug: "deposits-withdrawals", displayOrder: 3 });
     await storage.createSubsection({ 
       sectionId: dw.id, 
-      title: "How to Deposit", 
-      content: "Options: Branch (Client In), Credit/Debit Card, Instant Bank Transfer, OPay Wallet. Minimum ₦200 for most methods.", 
+      title: "Deposit Methods", 
+      content: "1. Branch (Client In): Username + Cash, min ₦200. 2. Card: Secure form, max ₦1,000,000/day. 3. Bank Transfer: Instant to virtual account. 4. OPay: Available after first bank/card deposit.", 
       displayOrder: 1 
     });
     await storage.createSubsection({ 
       sectionId: dw.id, 
-      title: "How to Withdraw", 
-      content: "Options: Bank Transfer, Branch (Client Cash Out). Minimum ₦200. Maximum ₦10,000,000 per 24 hours.", 
+      title: "Withdrawal Methods", 
+      content: "1. Bank Transfer: Min ₦200, Max ₦10M/day. Processing ~5 mins. 2. Branch: Need username + 4-digit SMS code. Minimum ₦200.", 
       displayOrder: 2 
     });
   }
