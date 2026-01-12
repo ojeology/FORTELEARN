@@ -14,6 +14,35 @@ async function seedDatabase() {
     await storage.createSubsection({ sectionId: bonuses.id, title: "Welcome Bonus", content: "Welcome bonus is a bonus given to newly registered customers of fortebet...", displayOrder: 1 });
   }
 
+  // Add new sections if they don't exist
+  const cashoutSection = await storage.getSectionBySlug("cashout");
+  if (!cashoutSection) {
+    const cashout = await storage.createSection({ title: "CASHOUT", slug: "cashout", displayOrder: 2 });
+    await storage.createSubsection({ 
+      sectionId: cashout.id, 
+      title: "Cashout Feature", 
+      content: "Cashout allows you to settle your bet early. Available only for online tickets. You must have the same number of VIP points in your account as when you placed the bet to cash out.", 
+      displayOrder: 1 
+    });
+  }
+
+  const depositWithdrawalSection = await storage.getSectionBySlug("deposits-withdrawals");
+  if (!depositWithdrawalSection) {
+    const dw = await storage.createSection({ title: "DEPOSITS & WITHDRAWALS", slug: "deposits-withdrawals", displayOrder: 3 });
+    await storage.createSubsection({ 
+      sectionId: dw.id, 
+      title: "How to Deposit", 
+      content: "Options: Branch (Client In), Credit/Debit Card, Instant Bank Transfer, OPay Wallet. Minimum ₦200 for most methods.", 
+      displayOrder: 1 
+    });
+    await storage.createSubsection({ 
+      sectionId: dw.id, 
+      title: "How to Withdraw", 
+      content: "Options: Bank Transfer, Branch (Client Cash Out). Minimum ₦200. Maximum ₦10,000,000 per 24 hours.", 
+      displayOrder: 2 
+    });
+  }
+
   const allQuestions = [
     // Level 1: Beginner
     { question: "How is the Welcome Bonus initially calculated?", options: ["200% of the first deposit", "150% of the total deposits", "300% of the first deposit", "A fixed amount of 500,000"], correctAnswer: "300% of the first deposit", level: "Beginner" },
