@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Training Module - Fortebet</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="content-header">
+        <a href="index.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Back to Training
+        </a>
+        <h1 id="module-title"><i class="fas fa-book"></i> Training Module</h1>
+    </header>
+
+    <main class="content-main">
+        <div class="content-section">
+            <h2 id="content-subtitle">Module Content</h2>
+            <p id="module-content">Training content will appear here...</p>
+        </div>
+
+        <div class="quiz-section">
+            <h3>Ready to Test Your Knowledge?</h3>
+            <a href="quiz.html" class="quiz-btn">
+                <i class="fas fa-play-circle"></i> Take Quiz
+            </a>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2024 Fortebet Training Portal</p>
+    </footer>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const module = urlParams.get('module') || 'Bonuses';
+        
+        document.getElementById('module-title').innerHTML = 
+            `<i class="fas fa-book"></i> ${module} Training`;
+        document.getElementById('content-subtitle').textContent = 
+            `Learning about ${module}`;
+        document.getElementById('module-content').textContent = 
+            `This is where your ${module} training content will go. You can write step-by-step instructions, include images, or add videos here.`;
+    </script>
+</body>
+</html>
