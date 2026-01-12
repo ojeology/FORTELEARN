@@ -2,6 +2,7 @@ import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { serveStatic } from "./static";
 import { createServer } from "http";
+import path from "path";
 
 const app = express();
 const httpServer = createServer(app);
@@ -76,6 +77,9 @@ app.use((req, res, next) => {
   if (process.env.NODE_ENV === "production") {
     serveStatic(app);
   } else {
+    // Serve static files from client folder in development
+    app.use(express.static(path.resolve(import.meta.dirname, "..", "client")));
+    
     const { setupVite } = await import("./vite");
     await setupVite(httpServer, app);
   }
