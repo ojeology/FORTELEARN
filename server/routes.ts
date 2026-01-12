@@ -10,8 +10,45 @@ const LEVELS = [
 async function seedDatabase() {
   const existingSections = await storage.getSections();
   if (existingSections.length === 0) {
+    // 1. BONUSES Section
     const bonuses = await storage.createSection({ title: "BONUSES", slug: "bonuses", displayOrder: 1 });
     await storage.createSubsection({ sectionId: bonuses.id, title: "Welcome Bonus", content: "Welcome bonus is a bonus given to newly registered customers of fortebet...", displayOrder: 1 });
+    
+    // 2. CASHOUT Section
+    const cashout = await storage.createSection({ title: "CASHOUT", slug: "cashout", displayOrder: 2 });
+    await storage.createSubsection({ 
+      sectionId: cashout.id, 
+      title: "What is Cashout?", 
+      content: "Cashout allows you to settle your bet early, before all events on your ticket are finished. You can cash out only when: All matches on your ticket must have official live results AND Current odds must be available for every selection you picked.", 
+      displayOrder: 1 
+    });
+    await storage.createSubsection({ 
+      sectionId: cashout.id, 
+      title: "VIP Points & Rules", 
+      content: "Important VIP Points Rule: If you received VIP points for placing the bet, you must still have the same number of VIP points in your account when cashing out. This prevents earning VIP points without risk by cashing out early. Cashout is available only for online tickets.", 
+      displayOrder: 2 
+    });
+    await storage.createSubsection({ 
+      sectionId: cashout.id, 
+      title: "Calculations & Suspension", 
+      content: "Calculation: (Potential Winnings ÷ Total Current Odds) - 1% Fee. Cashout will be temporarily unavailable if: Any event on the ticket is settled as void, current odds exceed 10.00, or all odds remain unchanged.", 
+      displayOrder: 3 
+    });
+
+    // 3. DEPOSITS & WITHDRAWALS Section
+    const deposits = await storage.createSection({ title: "DEPOSITS & WITHDRAWALS", slug: "deposits-withdrawals", displayOrder: 3 });
+    await storage.createSubsection({ 
+      sectionId: deposits.id, 
+      title: "How to Deposit", 
+      content: "1. Branch: 'Client In' deposit with username. 2. Card: Secure payment with bank charges. 3. Bank Transfer: Instant credit via USSD/Online. 4. OPay: Available after first card/transfer deposit.", 
+      displayOrder: 1 
+    });
+    await storage.createSubsection({ 
+      sectionId: deposits.id, 
+      title: "How to Withdraw", 
+      content: "1. Bank Transfer: Withdraw to registered name (up to ₦10M/24h). 2. Branch: Provide username and 4-digit SMS code. Processing is typically 5 minutes.", 
+      displayOrder: 2 
+    });
   }
 
   const existingQuestions = await storage.getQuestionsByLevel(LEVELS[0]);
