@@ -357,7 +357,68 @@
             cursor: not-allowed;
         }
 
-        /* Results Screen */
+        /* Lifeline & Ad Styles */
+        .ad-placeholder {
+            background: rgba(44, 62, 80, 0.8);
+            border: 2px dashed #f1c40f;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+            color: #f1c40f;
+            font-weight: bold;
+            display: none;
+            position: relative;
+        }
+
+        .ad-placeholder.active {
+            display: block;
+        }
+
+        .close-ad {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            cursor: pointer;
+            color: white;
+        }
+
+        .revive-screen {
+            background: rgba(0, 0, 0, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 500px;
+            display: none;
+            flex-direction: column;
+            gap: 20px;
+            z-index: 1100;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px solid #e74c3c;
+        }
+
+        .revive-screen.active {
+            display: flex;
+        }
+
+        .revive-btn {
+            background: #f1c40f;
+            color: #2c3e50;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        /* Results Screen Overlays */
         .results-screen {
             position: fixed;
             top: 0;
@@ -543,6 +604,25 @@
                     </button>
                     <button class="lifeline-btn" id="askFriend">
                         <i class="fas fa-user-friends"></i> Ask Friend
+                    </button>
+                </div>
+
+                <!-- Ad Placeholder -->
+                <div class="ad-placeholder" id="adPlaceholder">
+                    <span class="close-ad" onclick="closeAd()">&times;</span>
+                    <i class="fas fa-video"></i> [VIDEO AD PLACEHOLDER]
+                    <p style="font-size: 0.8rem; margin-top: 5px;">Wait to use lifeline...</p>
+                </div>
+
+                <!-- Revive Screen -->
+                <div class="revive-screen" id="reviveScreen">
+                    <h2 style="color: #e74c3c;"><i class="fas fa-heart-broken"></i> INCORRECT!</h2>
+                    <p>Want to continue your streak and save your progress?</p>
+                    <button class="revive-btn" id="reviveBtn">
+                        <i class="fas fa-play"></i> Watch Ad to Revive
+                    </button>
+                    <button class="action-btn quit-btn" onclick="showResults()">
+                        No, show final score
                     </button>
                 </div>
 
