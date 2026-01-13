@@ -67,12 +67,10 @@
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js?v=' + new Date().getTime())
+          // Use a stable registration without timestamp query for now to avoid spam
+          navigator.serviceWorker.register('/sw.js')
             .then(reg => {
               console.log('PWA: Service Worker registered');
-              
-              // Force update check on every load
-              reg.update();
               
               // Detect updates
               reg.onupdatefound = () => {
@@ -81,11 +79,12 @@
                   if (installingWorker.state === 'installed') {
                     if (navigator.serviceWorker.controller) {
                       // New content is available, show refresh prompt
-                      if (confirm('A new version of Fortebet Training is available! Refresh now to update?')) {
+                      // We use a custom confirm to ensure we only ask once
+                      if (!window.updateConfirmed && confirm('A new version of Fortebet Training is available! Refresh now to update?')) {
+                        window.updateConfirmed = true;
                         if (reg.waiting) {
                           reg.waiting.postMessage({ type: 'SKIP_WAITING' });
                         }
-                        window.location.reload();
                       }
                     }
                   }
@@ -95,7 +94,6 @@
             .catch(err => console.log('PWA: Service Worker registration failed', err));
         });
         
-        // Handle controller change (reload the page when the new service worker takes over)
         let refreshing = false;
         navigator.serviceWorker.addEventListener('controllerchange', () => {
           if (!refreshing) {
