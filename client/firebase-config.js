@@ -14,6 +14,14 @@ let db;
 try {
   if (typeof firebase !== 'undefined') {
     const app = firebase.initializeApp(firebaseConfig);
+    // Enable offline persistence
+    firebase.firestore().enablePersistence().catch((err) => {
+        if (err.code == 'failed-precondition') {
+            console.warn("Firestore: Multiple tabs open, persistence can only be enabled in one tab at a time.");
+        } else if (err.code == 'unimplemented') {
+            console.warn("Firestore: The current browser does not support all of the features required to enable persistence.");
+        }
+    });
     db = firebase.firestore();
     console.log("✅ Firebase initialized successfully");
   } else {

@@ -15,25 +15,31 @@
         // but local override to map to specific UI
         async function loadLeaderboardData(filter = 'all') {
             const leaderboardRows = document.getElementById('leaderboardRows');
-            leaderboardRows.innerHTML = '<div class="no-data"><i class="fas fa-spinner fa-spin"></i> Loading...</div>';
+            leaderboardRows.innerHTML = '<div class="no-data"><i class="fas fa-spinner fa-spin"></i> Loading from Cloud...</div>';
             
             try {
                 let testType = '100-questions';
                 if (filter === '30') testType = '30-questions';
                 
                 let leaderboardData = [];
+                // Force sync if online
+                if (typeof syncLocalProgress === 'function') await syncLocalProgress();
+
                 if (typeof loadLeaderboard === 'function') {
-                    leaderboardData = await loadLeaderboard(testType);
+                    // Try to get data with a timeout
+                    const cloudDataPromise = loadLeaderboard(testType);
+                    const timeoutPromise = new Promise(resolve => setTimeout(() => resolve([]), 5000));
+                    leaderboardData = await Promise.race([cloudDataPromise, timeoutPromise]);
                 }
                 
                 // If no Firebase data or offline, fallback to local
-                if (leaderboardData.length === 0) {
+                if (!leaderboardData || leaderboardData.length === 0) {
                     const localData = JSON.parse(localStorage.getItem('fortebetLeaderboard') || '[]');
                     let filtered = localData;
                     if (filter === '30') {
-                        filtered = localData.filter(entry => entry.testType === '30Q' || entry.testType === '30-questions');
+                        filtered = localData.filter(entry => entry.testType === '30Q' || entry.testType === '30-questions' || entry.testType === '30');
                     } else if (filter === '100') {
-                        filtered = localData.filter(entry => entry.testType === '100Q' || entry.testType === '100-questions');
+                        filtered = localData.filter(entry => entry.testType === '100Q' || entry.testType === '100-questions' || entry.testType === '100');
                     }
                     leaderboardData = filtered.sort((a, b) => b.score - a.score).slice(0, 20);
                 }
@@ -41,6 +47,9 @@
                 displayLeaderboard(leaderboardData);
             } catch (error) {
                 console.error('Error loading leaderboard:', error);
+                // Last resort fallback
+                const localData = JSON.parse(localStorage.getItem('fortebetLeaderboard') || '[]');
+                displayLeaderboard(localData.slice(0, 20));
             }
         }
 
