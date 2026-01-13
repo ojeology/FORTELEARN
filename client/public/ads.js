@@ -129,16 +129,17 @@ function showFullscreenPlaceholder(title, msg, onComplete, duration = 2000) {
 
 // Global exposure
 window.loadPageBanners = () => {
+    console.log("Loading Page Banners...");
     if (bannerAdTop) bannerAdTop.showBanner('banner-container-top');
     if (bannerAdBottom) bannerAdBottom.showBanner('banner-container-bottom');
 };
 
 window.triggerInterstitial = (onComplete) => {
-    // Safety check: always proceed if ad object is missing
-    if (typeof interstitialAd !== 'undefined' && interstitialAd.showAd) {
-        interstitialAd.showAd({ adHidden: onComplete });
+    console.log("Triggering Interstitial...");
+    if (typeof showFullscreenPlaceholder === 'function') {
+        showFullscreenPlaceholder('FORTYBET PARTNER', 'Connecting to training module...', onComplete, 1500);
     } else {
-        console.warn("Interstitial object missing, proceeding...");
+        console.warn("showFullscreenPlaceholder missing, proceeding...");
         if (onComplete) onComplete();
     }
 };
