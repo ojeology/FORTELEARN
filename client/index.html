@@ -193,6 +193,24 @@
     </div>
 
     <style>
+    #installBtn {
+      display: none;
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      border: none;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+      z-index: 99999 !important;
+      font-size: 24px;
+      animation: pulse 2s infinite;
+      transition: opacity 0.3s;
+    }
     @keyframes pulse {
       0% { transform: scale(1); box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4); }
       50% { transform: scale(1.05); box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6); }
@@ -204,77 +222,5 @@
     }
     </style>
     <script src="install-manager.js"></script>
-    <script>
-        // In index.html, replace the progress loading script with:
-        async function loadProgress() {
-            // Try to sync with Firebase first
-            if (isOnline()) {
-                const syncedProgress = await syncLocalProgress();
-                updateProgressDisplay(syncedProgress.length);
-            } else {
-                // Offline mode - use local only
-                const localProgress = JSON.parse(localStorage.getItem('fortebetCompletedModules') || '[]');
-                updateProgressDisplay(localProgress.length);
-            }
-        }
-
-        function updateProgressDisplay(completedCount) {
-            const totalModules = 6;
-            const progressPercentage = Math.round((completedCount / totalModules) * 100);
-            
-            const progressCircle = document.querySelector('.circle');
-            const progressValue = document.querySelector('.progress-value');
-            const progressText = document.querySelector('.progress-text p');
-            
-            if (progressCircle) {
-                progressValue.textContent = `${progressPercentage}%`;
-                progressCircle.style.background = `conic-gradient(#27ae60 ${progressPercentage}%, #e0e0e0 ${progressPercentage}%)`;
-                
-                if (completedCount === 0) {
-                    progressText.textContent = 'Start your first module!';
-                } else if (completedCount < totalModules) {
-                    progressText.textContent = `${completedCount}/${totalModules} modules`;
-                    
-                    // Add click to show details
-                    progressText.style.cursor = 'pointer';
-                    progressText.onclick = () => {
-                        const modules = JSON.parse(localStorage.getItem('fortebetCompletedModules') || '[]');
-                        alert(`Completed: ${modules.join(', ') || 'None yet'}\n\nCloud sync: ${isOnline() ? '✅ Online' : '⚠️ Offline'}`);
-                    };
-                } else {
-                    progressText.innerHTML = '<a href="certificate.html" style="color: #27ae60; text-decoration: none; font-weight: bold;">🎉 All Modules Complete! Get Certificate</a>';
-                }
-            }
-            
-            // Show sync status
-            const syncStatus = document.createElement('div');
-            syncStatus.id = 'syncStatus';
-            syncStatus.style.cssText = 'font-size: 12px; margin-top: 5px; color: #7f8c8d;';
-            syncStatus.innerHTML = isOnline() ? 
-                '<i class="fas fa-cloud"></i> Synced to cloud' : 
-                '<i class="fas fa-wifi-slash"></i> Offline (saved locally)';
-            
-            const existingStatus = document.getElementById('syncStatus');
-            if (existingStatus) existingStatus.remove();
-            document.querySelector('.progress-text').appendChild(syncStatus);
-
-            // Highlight completed cards
-            const moduleProgress = JSON.parse(localStorage.getItem('fortebetModuleProgress') || '{}');
-            const cards = document.querySelectorAll('.card');
-            cards.forEach(card => {
-                const title = card.querySelector('h3').textContent.trim();
-                if (moduleProgress[title]) {
-                    card.classList.add('module-completed');
-                    const link = card.querySelector('a');
-                    if (link && title !== 'Operator Challenge') {
-                        link.innerHTML = 'Review Module <i class="fas fa-check-circle"></i>';
-                    }
-                }
-            });
-        }
-
-        // Load progress on page load
-        document.addEventListener('DOMContentLoaded', loadProgress);
-    </script>
 </body>
 </html>

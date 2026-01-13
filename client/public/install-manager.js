@@ -3,23 +3,38 @@ let deferredPrompt;
 let isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
 let isStandalone = window.matchMedia('(display-mode: standalone)').matches;
 
+console.log('Install Manager: Initialized', { isIOS, isStandalone });
+
 // 1. Capture browser's install prompt
 window.addEventListener('beforeinstallprompt', (e) => {
+  console.log('Install Manager: beforeinstallprompt triggered');
   e.preventDefault();
   deferredPrompt = e;
-  setTimeout(() => {
-    if (!isStandalone && !localStorage.getItem('installDismissed')) {
-      showInstallButton();
-    }
-  }, 5000);
+  
+  // Show button immediately for testing if we have the prompt
+  showInstallButton();
 });
+
+// For browsers that don't support beforeinstallprompt (like iOS or Safari)
+// or for testing visibility
+setTimeout(() => {
+  console.log('Install Manager: 5s check', { deferredPrompt: !!deferredPrompt, isStandalone });
+  if (!isStandalone) {
+    showInstallButton();
+  }
+}, 5000);
 
 // 2. Show floating button
 function showInstallButton() {
+  console.log('Install Manager: Showing button');
   const installBtn = document.getElementById('installBtn');
   if (installBtn) {
-    installBtn.style.display = 'block';
+    installBtn.style.setProperty('display', 'block', 'important');
+    installBtn.style.opacity = '1';
+    installBtn.style.visibility = 'visible';
     installBtn.onclick = showInstallModal;
+  } else {
+    console.error('Install Manager: installBtn element not found');
   }
 }
 
