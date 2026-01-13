@@ -12,7 +12,7 @@ function initStartApp() {
   const adStatus = document.getElementById('ad-status');
   if (adStatus && adStatus.textContent.includes('✅')) return;
 
-  if (typeof startapp !== 'undefined') {
+  if (typeof startapp !== 'undefined' && typeof startapp.init === 'function') {
     console.log("startapp is defined, initializing with appId: " + myAppId);
     try {
       startapp.init({
@@ -21,18 +21,21 @@ function initStartApp() {
         console.log("✅ Start.io is ready!");
         if (adStatus) {
           adStatus.style.color = 'green';
-          adStatus.textContent = '✅ Start.io ready, loading ad...';
+          adStatus.textContent = '✅ Start.io ready';
         }
         loadBannerAd(); // Try to load a banner
       }, function(error) {
         console.error("❌ Start.io failed callback: ", error);
         if (adStatus) {
           adStatus.style.color = 'red';
-          adStatus.textContent = '❌ Start.io failed to initialize. If you are using an ad-blocker, please disable it.';
+          adStatus.textContent = '❌ Start.io failed. Ad-blocker might be active.';
         }
+        // Fallback to mock display even on error to avoid stuck message
+        loadBannerAd();
       });
     } catch (e) {
       console.error("❌ Start.io init exception: ", e);
+      loadBannerAd();
     }
   } else {
     console.log("Waiting for Start.io script to load...");
