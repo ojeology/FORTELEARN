@@ -194,27 +194,27 @@
 
     <style>
     #installBtn {
-      display: none;
+      display: block !important;
       position: fixed;
-      bottom: 80px;
+      bottom: 20px;
       right: 20px;
-      background: linear-gradient(135deg, #667eea, #764ba2);
+      background: #e74c3c !important;
       color: white;
-      border: none;
-      width: 60px;
-      height: 60px;
+      border: 5px solid white;
+      width: 80px;
+      height: 80px;
       border-radius: 50%;
       cursor: pointer;
-      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-      z-index: 99999 !important;
-      font-size: 24px;
-      animation: pulse 2s infinite;
-      transition: opacity 0.3s;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+      z-index: 999999 !important;
+      font-size: 32px;
+      animation: pulse 1s infinite;
+      transition: none;
     }
     @keyframes pulse {
-      0% { transform: scale(1); box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4); }
-      50% { transform: scale(1.05); box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6); }
-      100% { transform: scale(1); box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4); }
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
     }
     @keyframes modalSlide {
       from { transform: translateY(50px); opacity: 0; }

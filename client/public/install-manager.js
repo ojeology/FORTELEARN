@@ -30,8 +30,9 @@ function showInstallButton() {
   const installBtn = document.getElementById('installBtn');
   if (installBtn) {
     installBtn.style.setProperty('display', 'block', 'important');
-    installBtn.style.opacity = '1';
-    installBtn.style.visibility = 'visible';
+    installBtn.style.setProperty('opacity', '1', 'important');
+    installBtn.style.setProperty('visibility', 'visible', 'important');
+    installBtn.style.setProperty('z-index', '999999', 'important');
     installBtn.onclick = showInstallModal;
   } else {
     console.error('Install Manager: installBtn element not found');
