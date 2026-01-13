@@ -638,78 +638,188 @@
             function generateQuestions(count) {
                 const baseQuestions = [
                     {
-                        question: "What is the maximum Welcome Bonus a customer can receive?",
-                        options: ["500,000 naira", "750,000 naira", "1,000,000 naira", "2,000,000 naira"],
+                        question: "Welcome Bonus is calculated as ___ percentage of deposit?",
+                        options: ["100%", "200%", "300%", "400%"],
                         correct: 2
                     },
                     {
-                        question: "To redeem the Welcome Bonus, what are the minimum selection and odds requirements?",
-                        options: ["1 selection, 1.50 odds", "3 selections, 3.00 odds", "5 selections, 5.00 odds", "2 selections, 2.50 odds"],
-                        correct: 1
+                        question: "Mention eligible bets for welcome Bonus?",
+                        options: ["Prematch only", "Inplay only", "Prematch and Inplay", "Virtual games"],
+                        correct: 2
                     },
                     {
-                        question: "What percentage of the stake is credited to the main account for qualifying Welcome Bonus bets?",
+                        question: "What is the maximum welcome bonus amount?",
+                        options: ["500,000", "750,000", "1,000,000", "2,000,000"],
+                        correct: 2
+                    },
+                    {
+                        question: "When does welcome bonus expire?",
+                        options: ["After 30 days", "After 60 days", "After 90 days", "After 120 days"],
+                        correct: 2
+                    },
+                    {
+                        question: "Selection of any prematch or in-play with minimum 3 events and minimum 3.00 odds qualifies for what bonus?",
+                        options: ["Cashback", "VIP Points", "Welcome bonus", "Multiple booster"],
+                        correct: 2
+                    },
+                    {
+                        question: "When you meet welcome bonus conditions, what percentage of wagered amount is credited to main account?",
                         options: ["1%", "2%", "5%", "10%"],
                         correct: 1
                     },
                     {
-                        question: "How long does the Welcome Bonus last after the first deposit?",
-                        options: ["30 days", "60 days", "90 days", "120 days"],
+                        question: "Where can a customer find his welcome bonus balance?",
+                        options: ["SMS", "Email", "Welcome bonus page", "Main account only"],
                         correct: 2
                     },
                     {
-                        question: "What is the maximum Multiple Booster Bonus percentage?",
+                        question: "Can a registered customer get welcome bonus if he placed a bet at the branch?",
+                        options: ["Yes", "No", "Only on weekends", "Only for VIPs"],
+                        correct: 1
+                    },
+                    {
+                        question: "If eligible welcome bonus bets are voided or cancelled, what happens to the 2% already credited?",
+                        options: ["Customer keeps it", "It is doubled", "It will be deducted back", "Nothing happens"],
+                        correct: 2
+                    },
+                    {
+                        question: "Can a registered customer who placed his bet online get welcome bonus when his bet is a loss?",
+                        options: ["Yes", "No", "Only if it was a big stake", "Depends on the odds"],
+                        correct: 0
+                    },
+                    {
+                        question: "When does the expiration date for welcome Bonus start counting?",
+                        options: ["Day of registration", "Day of first bet", "Day of first deposit", "End of month"],
+                        correct: 2
+                    },
+                    {
+                        question: "When is the 2% welcome bonus credited into a customer's account?",
+                        options: ["Instantly on deposit", "After registration", "After placing qualifying bet", "At end of week"],
+                        correct: 2
+                    },
+                    {
+                        question: "Odds of 75-149.99 on CASHBACK BONUS means what?",
+                        options: ["0.5x stake", "1x stake", "2x stake", "3x stake"],
+                        correct: 1
+                    },
+                    {
+                        question: "Odds of 150-299.99 on CASHBACK BONUS means what?",
+                        options: ["1x stake", "2x stake", "3x stake", "No return"],
+                        correct: 1
+                    },
+                    {
+                        question: "What are the eligible bets for Cashback bonus?",
+                        options: ["Prematch and Inplay", "Virtual only", "Slots only", "Aviator only"],
+                        correct: 0
+                    },
+                    {
+                        question: "300+ odds on CASHBACK BONUS means what return?",
+                        options: ["1x stake", "2x stake", "3x stake", "5x stake"],
+                        correct: 2
+                    },
+                    {
+                        question: "Which bonus is for both registered and anonymous customers?",
+                        options: ["Welcome Bonus", "Cashback Bonus", "Multiple booster bonus", "VIP Points"],
+                        correct: 2
+                    },
+                    {
+                        question: "What's the maximum percentage for multiple boosters?",
                         options: ["100%", "200%", "250%", "300%"],
                         correct: 2
                     },
                     {
-                        question: "What is the minimum number of events for a Multiple Booster Bonus?",
-                        options: ["3 events", "5 events", "10 events", "15 events"],
-                        correct: 1
-                    },
-                    {
-                        question: "Which key on the POS terminal is used for 'Client cash in'?",
-                        options: ["F1", "F2", "F4", "F12"],
-                        correct: 0
-                    },
-                    {
-                        question: "Which key is used to load a booked prematch game ticket?",
-                        options: ["Letter T", "Letter I", "Letter N", "Letter K"],
-                        correct: 1
-                    },
-                    {
-                        question: "Within how many minutes can a prematch ticket be cancelled?",
-                        options: ["5 minutes", "10 minutes", "20 minutes", "30 minutes"],
-                        correct: 1
-                    },
-                    {
-                        question: "What is the maximum shop cash limit before seeking approval?",
-                        options: ["100k", "200k", "250k", "500k"],
+                        question: "What's the maximum number of events for multiple boosters to reach 250%?",
+                        options: ["30 events", "40 events", "50 events", "100 events"],
                         correct: 2
                     },
                     {
-                        question: "What time are day shift operators expected to be at the branch?",
-                        options: ["6:00 AM", "7:00 AM", "7:30 AM", "8:00 AM"],
+                        question: "Does customer get multiple booster bonus when he cashed out his bet?",
+                        options: ["Yes", "No", "Only if winning", "Partial bonus"],
                         correct: 1
                     },
                     {
-                        question: "What is the conversion rate for 110,000 VIP points?",
-                        options: ["500 naira", "1,000 naira", "2,000 naira", "5,000 naira"],
-                        correct: 1
-                    },
-                    {
-                        question: "How many virtual matches take place in 24 hours?",
-                        options: ["100", "200", "288", "350"],
-                        correct: 2
-                    },
-                    {
-                        question: "Which letter key is used to enter a customer's username on the POS?",
-                        options: ["Letter N", "Letter U", "Letter C", "Letter K"],
+                        question: "Based on activities on aviator, does customer get VIP points?",
+                        options: ["Yes", "No", "Only on Fridays", "Only for high stakes"],
                         correct: 0
                     },
                     {
-                        question: "What is the 4th clickable button in the training knowledge base?",
-                        options: ["Cashout", "Work Ethics", "Common Branch Issues", "Bonuses"],
+                        question: "Based on activities on slot at branch, how many VIP points does a customer get?",
+                        options: ["10 points", "100 points", "0 points", "50 points"],
+                        correct: 2
+                    },
+                    {
+                        question: "What is the minimum VIP points for virtual and prematch online?",
+                        options: ["10", "20", "50", "100"],
+                        correct: 1
+                    },
+                    {
+                        question: "What's the minimum VIP points for aviator?",
+                        options: ["1", "5", "10", "20"],
+                        correct: 0
+                    },
+                    {
+                        question: "For 23+ selection, how many VIP points does a customer get?",
+                        options: ["200", "300", "400", "500"],
+                        correct: 3
+                    },
+                    {
+                        question: "110,000 VIP points can be converted to how much cash?",
+                        options: ["500", "1,000", "2,000", "5,000"],
+                        correct: 1
+                    },
+                    {
+                        question: "What do you do when you fund a client into a wrong account?",
+                        options: ["Nothing", "Ask for refund", "Cancel credit", "Call bank"],
+                        correct: 2
+                    },
+                    {
+                        question: "How do you send money to another terminal?",
+                        options: ["F1 button", "F2 button", "Transfer on F4", "F12 button"],
+                        correct: 2
+                    },
+                    {
+                        question: "What is the minimum stake for Prematch online?",
+                        options: ["50", "100", "200", "500"],
+                        correct: 2
+                    },
+                    {
+                        question: "How many chances are there to place a bet on aviator in one round?",
+                        options: ["One", "Two", "Three", "Unlimited"],
+                        correct: 1
+                    },
+                    {
+                        question: "Online virtual bonus is given to which customers?",
+                        options: ["All customers", "Anonymous only", "Registered online virtual players", "Slot players"],
+                        correct: 2
+                    },
+                    {
+                        question: "Who is responsible for 'To collect' at the branch?",
+                        options: ["Operator", "Security", "The CM", "Cleaner"],
+                        correct: 2
+                    },
+                    {
+                        question: "Which days are for 'To collect'?",
+                        options: ["Daily", "Weekends", "Mondays and Fridays", "Wednesdays"],
+                        correct: 2
+                    },
+                    {
+                        question: "What time do you send 'to collect' details to HO?",
+                        options: ["Anytime", "Night only", "6:00 to 7:00 AM", "12:00 PM"],
+                        correct: 2
+                    },
+                    {
+                        question: "How many paylines is 'Mad mechanic'?",
+                        options: ["3", "5", "10", "20"],
+                        correct: 1
+                    },
+                    {
+                        question: "What do I do when supervisor asks to collect 200k cash?",
+                        options: ["Give it immediately", "Refuse", "Make report and ask for approval", "Wait for CM"],
+                        correct: 2
+                    },
+                    {
+                        question: "When do you request for fuel for the generator?",
+                        options: ["When empty", "Every Monday", "Snap gauge/run hour and ask approval", "When power is out"],
                         correct: 2
                     }
                 ];
