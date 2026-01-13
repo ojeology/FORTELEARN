@@ -6,7 +6,9 @@ let myAppId = "200774828";
 
 // Function to start Start.io
 function initStartApp() {
+  console.log("initStartApp called");
   if (typeof startapp !== 'undefined') {
+    console.log("startapp is defined, initializing...");
     startapp.init({
       appId: myAppId
     }, function() {
@@ -17,6 +19,14 @@ function initStartApp() {
     });
   } else {
     console.log("Waiting for Start.io script to load...");
+    // Inject script if not present
+    if (!document.querySelector('script[src*="cdn.startapp.com"]')) {
+      console.log("Script tag missing, injecting...");
+      var script = document.createElement('script');
+      script.src = "https://cdn.startapp.com/sdk/init.js";
+      script.type = "text/javascript";
+      document.head.appendChild(script);
+    }
     setTimeout(initStartApp, 500); // Check again in half a second
   }
 }
