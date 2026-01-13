@@ -10,6 +10,63 @@
 
     <!-- Your Firebase Config -->
     <script src="firebase-config.js"></script>
+    <script>
+        // Use standard loadLeaderboard from firebase-config.js if available
+        // but local override to map to specific UI
+        async function loadLeaderboardData(filter = 'all') {
+            const leaderboardRows = document.getElementById('leaderboardRows');
+            leaderboardRows.innerHTML = '<div class="no-data"><i class="fas fa-spinner fa-spin"></i> Loading...</div>';
+            
+            try {
+                let testType = '100-questions';
+                if (filter === '30') testType = '30-questions';
+                
+                let leaderboardData = [];
+                if (typeof loadLeaderboard === 'function') {
+                    leaderboardData = await loadLeaderboard(testType);
+                }
+                
+                // If no Firebase data or offline, fallback to local
+                if (leaderboardData.length === 0) {
+                    const localData = JSON.parse(localStorage.getItem('fortebetLeaderboard') || '[]');
+                    let filtered = localData;
+                    if (filter === '30') {
+                        filtered = localData.filter(entry => entry.testType === '30Q' || entry.testType === '30-questions');
+                    } else if (filter === '100') {
+                        filtered = localData.filter(entry => entry.testType === '100Q' || entry.testType === '100-questions');
+                    }
+                    leaderboardData = filtered.sort((a, b) => b.score - a.score).slice(0, 20);
+                }
+                
+                displayLeaderboard(leaderboardData);
+            } catch (error) {
+                console.error('Error loading leaderboard:', error);
+            }
+        }
+
+        function displayLeaderboard(data) {
+            const leaderboardRows = document.getElementById('leaderboardRows');
+            if (!data || data.length === 0) {
+                leaderboardRows.innerHTML = '<div class="no-data"><i class="fas fa-chart-line"></i><p>No scores yet!</p></div>';
+                return;
+            }
+            
+            leaderboardRows.innerHTML = '';
+            data.forEach((entry, index) => {
+                const dateStr = entry.timestamp ? new Date(entry.timestamp.seconds * 1000).toLocaleDateString() : (entry.date || 'Recently');
+                const row = document.createElement('div');
+                row.className = 'table-row';
+                row.innerHTML = `
+                    <div class="rank rank-${index + 1}">${index + 1}</div>
+                    <div class="player-name">${entry.name}</div>
+                    <div class="score">${entry.score}%</div>
+                    <div class="test-type">${entry.testType}</div>
+                    <div class="date">${dateStr}</div>
+                `;
+                leaderboardRows.appendChild(row);
+            });
+        }
+    </script>
     <style>
         .leaderboard-container {
             max-width: 1000px;
@@ -251,77 +308,9 @@
             const clearBtn = document.getElementById('clearLeaderboardBtn');
 
             // Load leaderboard
-            async function loadLeaderboard(filter = 'all') {
-                leaderboardRows.innerHTML = '<div class="no-data"><i class="fas fa-spinner fa-spin"></i> Loading...</div>';
-                
-                try {
-                    // Try Firebase first
-                    let leaderboardData = [];
-                    
-                    if (isOnline()) {
-                        leaderboardData = await loadLeaderboardScores(20, filter);
-                    }
-                    
-                    // If no Firebase data or offline, use local
-                    if (leaderboardData.length === 0) {
-                        const localData = JSON.parse(localStorage.getItem('fortebetLeaderboard') || '[]');
-                        
-                        // Apply filter
-                        let filtered = localData;
-                        if (filter === '30') {
-                            filtered = localData.filter(entry => entry.testType === '30Q');
-                        } else if (filter === '100') {
-                            filtered = localData.filter(entry => entry.testType === '100Q');
-                        } else if (filter === 'today') {
-                            const today = new Date().toLocaleDateString();
-                            filtered = localData.filter(entry => entry.date === today);
-                        }
-                        
-                        leaderboardData = filtered.sort((a, b) => b.score - a.score).slice(0, 20);
-                    }
-                    
-                    // Display data
-                    if (leaderboardData.length === 0) {
-                        leaderboardRows.innerHTML = `
-                            <div class="no-data">
-                                <i class="fas fa-chart-line"></i>
-                                <p>No scores yet! Be the first.</p>
-                            </div>
-                        `;
-                        return;
-                    }
-                    
-                    leaderboardRows.innerHTML = '';
-                    leaderboardData.forEach((entry, index) => {
-                        const row = document.createElement('div');
-                        row.className = 'table-row';
-                        row.innerHTML = `
-                            <div class="rank rank-${index + 1}">${index + 1}</div>
-                            <div class="player-name">${entry.name}</div>
-                            <div class="score">${entry.score}%</div>
-                            <div class="test-type">${entry.testType}</div>
-                            <div class="date">${entry.date} ${entry.time || ''}</div>
-                        `;
-                        leaderboardRows.appendChild(row);
-                    });
-                    
-                } catch (error) {
-                    console.error('Error loading leaderboard:', error);
-                    // Fallback to local
-                    const localData = JSON.parse(localStorage.getItem('fortebetLeaderboard') || '[]');
-                    leaderboardRows.innerHTML = '';
-                    localData.slice(0, 20).forEach((entry, index) => {
-                        const row = document.createElement('div');
-                        row.className = 'table-row';
-                        row.innerHTML = `
-                            <div class="rank rank-${index + 1}">${index + 1}</div>
-                            <div class="player-name">${entry.name}</div>
-                            <div class="score">${entry.score}%</div>
-                            <div class="test-type">${entry.testType}</div>
-                            <div class="date">${entry.date}</div>
-                        `;
-                        leaderboardRows.appendChild(row);
-                    });
+            async function loadLeaderboardWrapper(filter = 'all') {
+                if (typeof loadLeaderboardData === 'function') {
+                    await loadLeaderboardData(filter);
                 }
             }
 
@@ -330,7 +319,7 @@
                 button.addEventListener('click', function() {
                     filterButtons.forEach(btn => btn.classList.remove('active'));
                     this.classList.add('active');
-                    loadLeaderboard(this.dataset.filter);
+                    loadLeaderboardWrapper(this.dataset.filter);
                 });
             });
 
@@ -346,14 +335,14 @@
 
             // Clear button action
             clearBtn.addEventListener('click', () => {
-                if (confirm('Are you sure you want to clear the entire leaderboard? This cannot be undone.')) {
+                if (confirm('Are you sure you want to clear your local leaderboard history? This will not affect cloud scores.')) {
                     localStorage.removeItem('fortebetLeaderboard');
-                    loadLeaderboard('all');
+                    loadLeaderboardWrapper('all');
                 }
             });
 
             // Initial load
-            loadLeaderboard('all');
+            loadLeaderboardWrapper('all');
         });
     </script>
 </body>

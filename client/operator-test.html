@@ -110,6 +110,8 @@
         <p>Note: Your progress will be saved automatically. You can resume anytime.</p>
     </footer>
 
+    <!-- Your Firebase Config -->
+    <script src="firebase-config.js"></script>
     <script>
         // Store player name
         const playerNameInput = document.getElementById('playerName');
@@ -149,29 +151,42 @@
         }
 
         // Update Leaderboard Preview
-        function updateLeaderboardPreview() {
-            const leaderboard = JSON.parse(localStorage.getItem('fortebetLeaderboard') || '[]');
+        async function updateLeaderboardPreview() {
             const previewContainer = document.getElementById('leaderboardPreview');
             
-            if (leaderboard.length === 0) {
-                previewContainer.innerHTML = '<div class="leaderboard-row"><span style="grid-column: 1/-1; text-align: center;">No scores yet!</span></div>';
-                return;
-            }
+            try {
+                let leaderboard = [];
+                if (typeof loadLeaderboard === 'function') {
+                    leaderboard = await loadLeaderboard('100-questions');
+                }
+                
+                if (leaderboard.length === 0) {
+                    const localData = JSON.parse(localStorage.getItem('fortebetLeaderboard') || '[]');
+                    leaderboard = localData.slice(0, 5);
+                }
 
-            previewContainer.innerHTML = '';
-            leaderboard.slice(0, 5).forEach((entry, index) => {
-                const row = document.createElement('div');
-                row.className = 'leaderboard-row';
-                row.innerHTML = `
-                    <span class="rank">${index + 1}</span>
-                    <span class="name">${entry.name}</span>
-                    <span class="score">${entry.score}%</span>
-                    <span class="test-type">${entry.testType}</span>
-                `;
-                row.style.cursor = 'pointer';
-                row.onclick = () => window.location.href = 'leaderboard.html';
-                previewContainer.appendChild(row);
-            });
+                if (leaderboard.length === 0) {
+                    previewContainer.innerHTML = '<div class="leaderboard-row"><span style="grid-column: 1/-1; text-align: center;">No scores yet!</span></div>';
+                    return;
+                }
+
+                previewContainer.innerHTML = '';
+                leaderboard.slice(0, 5).forEach((entry, index) => {
+                    const row = document.createElement('div');
+                    row.className = 'leaderboard-row';
+                    row.innerHTML = `
+                        <span class="rank">${index + 1}</span>
+                        <span class="name">${entry.name}</span>
+                        <span class="score">${entry.score}%</span>
+                        <span class="test-type">${entry.testType === '100-questions' ? '100Q' : '30Q'}</span>
+                    `;
+                    row.style.cursor = 'pointer';
+                    row.onclick = () => window.location.href = 'leaderboard.html';
+                    previewContainer.appendChild(row);
+                });
+            } catch (e) {
+                console.error("Preview error:", e);
+            }
         }
         updateLeaderboardPreview();
     </script>
