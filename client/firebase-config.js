@@ -58,6 +58,50 @@ function updateProgressBar() {
   return percent;
 }
 
+// Check online status
+function isOnline() {
+  return navigator.onLine;
+}
+
+// Sync local progress with Firebase
+async function syncLocalProgress() {
+  const localProgress = JSON.parse(localStorage.getItem('fortebetCompletedModules') || '[]');
+  
+  // For now just return local progress
+  // Firebase sync can be added later
+  return localProgress;
+}
+
+// Queue for offline sync
+const syncQueue = JSON.parse(localStorage.getItem('syncQueue') || '[]');
+
+function addToSyncQueue(data) {
+  syncQueue.push(data);
+  localStorage.setItem('syncQueue', JSON.stringify(syncQueue));
+}
+
+async function processSyncQueue() {
+  if (!isOnline()) return;
+  
+  // Process queued items when online
+  for (const item of syncQueue) {
+    try {
+      if (item.type === 'progress') {
+        // Handle progress sync
+        console.log('Syncing progress:', item);
+      }
+    } catch (error) {
+      console.error('Failed to sync item:', item, error);
+    }
+  }
+  
+  // Clear queue
+  localStorage.removeItem('syncQueue');
+}
+
+// Auto-sync when online
+window.addEventListener('online', processSyncQueue);
+
 // Call this when page loads
 document.addEventListener('DOMContentLoaded', function() {
   updateProgressBar();
