@@ -33,7 +33,14 @@ self.addEventListener('activate', (event) => {
   );
 });
 
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
+});
+
 self.addEventListener('fetch', (event) => {
+  // Simple network-only strategy for testing to bypass cache entirely for now
   event.respondWith(
     fetch(event.request).catch(() => {
       return caches.match(event.request);

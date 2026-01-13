@@ -67,9 +67,12 @@
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js')
+          navigator.serviceWorker.register('/sw.js?v=' + new Date().getTime())
             .then(reg => {
               console.log('PWA: Service Worker registered');
+              
+              // Force update check on every load
+              reg.update();
               
               // Detect updates
               reg.onupdatefound = () => {
@@ -79,6 +82,9 @@
                     if (navigator.serviceWorker.controller) {
                       // New content is available, show refresh prompt
                       if (confirm('A new version of Fortebet Training is available! Refresh now to update?')) {
+                        if (reg.waiting) {
+                          reg.waiting.postMessage({ type: 'SKIP_WAITING' });
+                        }
                         window.location.reload();
                       }
                     }
