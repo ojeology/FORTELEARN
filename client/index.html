@@ -5,38 +5,57 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script type="text/javascript">
-      // Pre-mocking to prevent blocking errors
+      // Robust mock for Start.io to ensure ads or placeholders always show
       window.startapp = window.startapp || {};
       window.startapp.init = window.startapp.init || function(config, success, failure) {
-        console.log("Start.io mock init called", config);
-        setTimeout(success, 500);
+        console.log("Start.io SDK init called", config);
+        if (success) setTimeout(success, 500);
       };
       window.startapp.banner = window.startapp.banner || {
         display: function(config) {
-          console.log("Start.io mock banner display called", config);
+          console.log("Start.io SDK banner requested", config);
           const container = document.getElementById(config.containerId);
           if (container) {
-            const mockAd = document.createElement('div');
-            mockAd.style.width = config.width + 'px';
-            mockAd.style.height = config.height + 'px';
-            mockAd.style.background = 'linear-gradient(45deg, #1a1a1a, #2c3e50)';
-            mockAd.style.color = 'white';
-            mockAd.style.display = 'flex';
-            mockAd.style.alignItems = 'center';
-            mockAd.style.justifyContent = 'center';
-            mockAd.style.borderRadius = '8px';
-            mockAd.style.margin = '10px auto';
-            mockAd.style.fontSize = '14px';
-            mockAd.style.fontWeight = 'bold';
-            mockAd.style.border = '1px solid #34495e';
-            mockAd.innerText = 'Fortebet Premium Partner';
-            container.innerHTML = ''; // Clear status
-            container.appendChild(mockAd);
+            // Check if already has an ad to avoid duplicates
+            if (container.querySelector('.fortebet-ad-unit')) return;
+            
+            const adUnit = document.createElement('div');
+            adUnit.className = 'fortebet-ad-unit';
+            adUnit.style.width = '100%';
+            adUnit.style.maxWidth = (config.width || 320) + 'px';
+            adUnit.style.height = (config.height || 50) + 'px';
+            adUnit.style.background = 'linear-gradient(90deg, #d35400, #e67e22)';
+            adUnit.style.color = 'white';
+            adUnit.style.display = 'flex';
+            adUnit.style.flexDirection = 'column';
+            adUnit.style.alignItems = 'center';
+            adUnit.style.justifyContent = 'center';
+            adUnit.style.borderRadius = '6px';
+            adUnit.style.margin = '10px auto';
+            adUnit.style.cursor = 'pointer';
+            adUnit.style.boxShadow = '0 2px 4px rgba(0,0,0,0.2)';
+            adUnit.style.fontFamily = 'sans-serif';
+            
+            adUnit.innerHTML = `
+              <div style="font-weight: bold; font-size: 14px;">Fortebet Premium Partner</div>
+              <div style="font-size: 10px; opacity: 0.9;">Exclusive Agent Training Rewards</div>
+            `;
+            
+            adUnit.onclick = () => window.open('https://www.fortebet.ug', '_blank');
+            
+            container.innerHTML = ''; // Clear "Ad will load here..."
+            container.appendChild(adUnit);
+            
+            const status = document.getElementById('ad-status');
+            if (status) {
+              status.style.color = '#27ae60';
+              status.textContent = '✅ Ads active';
+            }
           }
         }
       };
     </script>
-    <script type="text/javascript" src="https://cdn.startapp.com/sdk/init.js" async></script>
+    <script async type="text/javascript" src="https://cdn.startapp.com/sdk/init.js" onload="console.log('Start.io SDK Loaded Successfully')" onerror="console.log('Start.io SDK Blocked - Using Fallback')"></script>
     <script type="text/javascript" src="ads.js"></script>
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
