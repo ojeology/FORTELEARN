@@ -4,44 +4,19 @@
     <title>Fortebet Training</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script type="text/javascript" src="https://cdn.startapp.com/sdk/init.js"></script>
     <script type="text/javascript">
-      // Only mock if the real script is blocked
+      // Check if Start.io script loaded, if not, try to inject it manually
       window.addEventListener('load', function() {
-        if (typeof startapp === 'undefined' || !startapp.init) {
-          console.log("Start.io script blocked or failed, using fallback mock...");
-          window.startapp = window.startapp || {};
-          window.startapp.init = window.startapp.init || function(config, success, failure) {
-            console.log("Start.io mock init called", config);
-            setTimeout(success, 500);
-          };
-          window.startapp.banner = window.startapp.banner || {
-            display: function(config) {
-              console.log("Start.io mock banner display called", config);
-              const container = document.getElementById(config.containerId);
-              if (container) {
-                const mockAd = document.createElement('div');
-                mockAd.style.width = config.width + 'px';
-                mockAd.style.height = config.height + 'px';
-                mockAd.style.background = 'linear-gradient(45deg, #2c3e50, #34495e)';
-                mockAd.style.color = 'white';
-                mockAd.style.display = 'flex';
-                mockAd.style.alignItems = 'center';
-                mockAd.style.justifyContent = 'center';
-                mockAd.style.borderRadius = '4px';
-                mockAd.style.margin = '10px auto';
-                mockAd.innerText = 'Fortebet Ad Space';
-                container.appendChild(mockAd);
-              }
-            }
-          };
-          // Re-trigger initialization if ads.js already ran
-          if (typeof initStartApp === 'function') {
-            initStartApp();
-          }
+        if (typeof startapp === 'undefined') {
+          console.log("Start.io script not found, attempting manual injection...");
+          var script = document.createElement('script');
+          script.type = 'text/javascript';
+          script.src = 'https://cdn.startapp.com/sdk/init.js';
+          document.head.appendChild(script);
         }
       });
     </script>
-    <script type="text/javascript" src="https://cdn.startapp.com/sdk/init.js"></script>
     <script type="text/javascript" src="ads.js"></script>
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>

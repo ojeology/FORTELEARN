@@ -21,21 +21,18 @@ function initStartApp() {
         console.log("✅ Start.io is ready!");
         if (adStatus) {
           adStatus.style.color = 'green';
-          adStatus.textContent = '✅ Start.io ready';
+          adStatus.textContent = '✅ Ads Ready';
         }
-        loadBannerAd(); // Try to load a banner
+        loadBannerAd(); 
       }, function(error) {
-        console.error("❌ Start.io failed callback: ", error);
+        console.error("❌ Start.io initialization error: ", error);
         if (adStatus) {
           adStatus.style.color = 'red';
-          adStatus.textContent = '❌ Start.io failed. Ad-blocker might be active.';
+          adStatus.textContent = '❌ Ad loading blocked or failed.';
         }
-        // Fallback to mock display even on error to avoid stuck message
-        loadBannerAd();
       });
     } catch (e) {
-      console.error("❌ Start.io init exception: ", e);
-      loadBannerAd();
+      console.error("❌ Start.io exception: ", e);
     }
   } else {
     console.log("Waiting for Start.io script to load...");
