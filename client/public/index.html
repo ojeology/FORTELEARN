@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fortebet Training</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script type="text/javascript">
+      // Robust mock for Start.io to ensure ads or placeholders always show
+      window.startapp = window.startapp || {};
+      window.startapp.init = window.startapp.init || function(config, success, failure) {
+        console.log("Start.io SDK init called", config);
+        if (success) setTimeout(success, 500);
+      };
+      window.startapp.banner = window.startapp.banner || {
+        display: function(config) {
+          console.log("Start.io SDK banner requested", config);
+          const container = document.getElementById(config.containerId);
+          if (container) {
+            // Check if already has an ad to avoid duplicates
+            if (container.querySelector('.fortebet-ad-unit')) return;
+            
+            const adUnit = document.createElement('div');
+            adUnit.className = 'fortebet-ad-unit';
+            adUnit.style.width = '100%';
+            adUnit.style.maxWidth = (config.width || 320) + 'px';
+            adUnit.style.height = (config.height || 50) + 'px';
+            adUnit.style.background = 'linear-gradient(90deg, #d35400, #e67e22)';
+            adUnit.style.color = 'white';
+            adUnit.style.display = 'flex';
+            adUnit.style.flexDirection = 'column';
+            adUnit.style.alignItems = 'center';
+            adUnit.style.justifyContent = 'center';
+            adUnit.style.borderRadius = '6px';
+            adUnit.style.margin = '10px auto';
+            adUnit.style.cursor = 'pointer';
+            adUnit.style.boxShadow = '0 2px 4px rgba(0,0,0,0.2)';
+            adUnit.style.fontFamily = 'sans-serif';
+            
+            adUnit.innerHTML = `
+              <div style="font-weight: bold; font-size: 14px;">Fortebet Premium Partner</div>
+              <div style="font-size: 10px; opacity: 0.9;">Exclusive Agent Training Rewards</div>
+            `;
+            
+            adUnit.onclick = () => window.open('https://www.fortebet.ug', '_blank');
+            
+            container.innerHTML = ''; // Clear "Ad will load here..."
+            container.appendChild(adUnit);
+            
+            const status = document.getElementById('ad-status');
+            if (status) {
+              status.style.color = '#27ae60';
+              status.textContent = '✅ Ads active';
+            }
+          }
+        }
+      };
+    </script>
+    <script async type="text/javascript" src="https://cdn.startapp.com/sdk/init.js" onload="console.log('Start.io SDK Loaded Successfully')" onerror="console.log('Start.io SDK Blocked - Using Fallback')"></script>
+    <script type="text/javascript" src="ads.js"></script>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+
+    <!-- Your Firebase Config -->
+    <script src="firebase-config.js"></script>
+    <link rel="manifest" href="/manifest.json">
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then(reg => console.log('PWA: Service Worker registered'))
+            .catch(err => console.log('PWA: Service Worker registration failed', err));
+        });
+      }
+    </script>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo-section">
+                <h1><i class="fas fa-graduation-cap"></i> Fortebet Agent Training</h1>
+                <p>Master everything to become an expert Fortebet agent</p>
+            </div>
+            
+            <div class="progress-section">
+                <div class="progress-circle">
+                    <div class="circle" id="progressCircle">
+                        <span class="progress-value" id="progressValue">0%</span>
+                    </div>
+                </div>
+                <div class="progress-text">
+                    <h3>Your Progress</h3>
+                    <p id="progressStatusText">Start your first module!</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="cards-container">
+            <div class="card">
+                <div class="card-icon" style="background-color: #2ecc71;">
+                    <i class="fas fa-gift"></i>
+                </div>
+                <h3>Bonuses</h3>
+                <p>Learn all about our bonus system and incentives for agents.</p>
+                <a href="training.html?module=Bonuses">Start Learning →</a>
+            </div>
+
+            <div class="card">
+                <div class="card-icon" style="background-color: #3498db;">
+                    <i class="fas fa-terminal"></i>
+                </div>
+                <h3>POS / Terminal</h3>
+                <p>Master terminal operations and troubleshooting.</p>
+                <a href="training.html?module=POS/Terminal">Start Learning →</a>
+            </div>
+
+            <div class="card">
+                <div class="card-icon" style="background-color: #9b59b6;">
+                    <i class="fas fa-money-bill-wave"></i>
+                </div>
+                <h3>Cashout</h3>
+                <p>Step-by-step procedures for customer cashouts.</p>
+                <a href="training.html?module=Cashout">Start Learning →</a>
+            </div>
+
+            <div class="card">
+                <div class="card-icon" style="background-color: #e74c3c;">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <h3>Work Ethics</h3>
+                <p>Professional conduct and company guidelines.</p>
+                <a href="training.html?module=Work Ethics">Start Learning →</a>
+            </div>
+
+            <div class="card">
+                <div class="card-icon" style="background-color: #f39c12;">
+                    <i class="fas fa-exchange-alt"></i>
+                </div>
+                <h3>Deposits & Withdrawals</h3>
+                <p>Handle customer transactions securely and efficiently.</p>
+                <a href="training.html?module=Deposits%20%26%20Withdrawals">Start Learning →</a>
+            </div>
+
+            <div class="card">
+                <div class="card-icon" style="background-color: #1abc9c;">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <h3>Common Issues</h3>
+                <p>Solutions for frequent branch problems and FAQs.</p>
+                <a href="training.html?module=Common Issues">Start Learning →</a>
+            </div>
+
+            <!-- Add this as the 7th card in your cards-container -->
+            <div class="card">
+                <div class="card-icon" style="background: linear-gradient(135deg, #9b59b6, #8e44ad);">
+                    <i class="fas fa-crown"></i>
+                </div>
+                <h3>Operator Challenge</h3>
+                <p>Take the ultimate test! 30 or 100 questions with timer and leaderboard.</p>
+                <a href="operator-test.html">Start Challenge →</a>
+            </div>
+        </div>
+    </main>
+
+    <div id="ad-banner-container" style="margin: 20px auto; text-align: center; min-height: 100px; background-color: #f0f0f0; border: 1px solid #ccc; border-radius: 8px; padding: 10px; position: relative;">
+      <p id="ad-status" style="margin-bottom: 10px;">Ad will load here...</p>
+      <button onclick="retryAds()" style="padding: 5px 10px; cursor: pointer; background: #007bff; color: white; border: none; border-radius: 4px; font-size: 12px;">Retry Ad Loading</button>
+    </div>
+
+    <footer>
+        <p>© 2024 Fortebet Training Portal</p>
+    </footer>
+    <script>
+        // In index.html, replace the progress loading script with:
+        async function loadProgress() {
+            // Try to sync with Firebase first
+            if (isOnline()) {
+                const syncedProgress = await syncLocalProgress();
+                updateProgressDisplay(syncedProgress.length);
+            } else {
+                // Offline mode - use local only
+                const localProgress = JSON.parse(localStorage.getItem('fortebetCompletedModules') || '[]');
+                updateProgressDisplay(localProgress.length);
+            }
+        }
+
+        function updateProgressDisplay(completedCount) {
+            const totalModules = 6;
+            const progressPercentage = Math.round((completedCount / totalModules) * 100);
+            
+            const progressCircle = document.querySelector('.circle');
+            const progressValue = document.querySelector('.progress-value');
+            const progressText = document.querySelector('.progress-text p');
+            
+            if (progressCircle) {
+                progressValue.textContent = `${progressPercentage}%`;
+                progressCircle.style.background = `conic-gradient(#27ae60 ${progressPercentage}%, #e0e0e0 ${progressPercentage}%)`;
+                
+                if (completedCount === 0) {
+                    progressText.textContent = 'Start your first module!';
+                } else if (completedCount < totalModules) {
+                    progressText.textContent = `${completedCount}/${totalModules} modules`;
+                    
+                    // Add click to show details
+                    progressText.style.cursor = 'pointer';
+                    progressText.onclick = () => {
+                        const modules = JSON.parse(localStorage.getItem('fortebetCompletedModules') || '[]');
+                        alert(`Completed: ${modules.join(', ') || 'None yet'}\n\nCloud sync: ${isOnline() ? '✅ Online' : '⚠️ Offline'}`);
+                    };
+                } else {
+                    progressText.innerHTML = '<a href="certificate.html" style="color: #27ae60; text-decoration: none; font-weight: bold;">🎉 All Modules Complete! Get Certificate</a>';
+                }
+            }
+            
+            // Show sync status
+            const syncStatus = document.createElement('div');
+            syncStatus.id = 'syncStatus';
+            syncStatus.style.cssText = 'font-size: 12px; margin-top: 5px; color: #7f8c8d;';
+            syncStatus.innerHTML = isOnline() ? 
+                '<i class="fas fa-cloud"></i> Synced to cloud' : 
+                '<i class="fas fa-wifi-slash"></i> Offline (saved locally)';
+            
+            const existingStatus = document.getElementById('syncStatus');
+            if (existingStatus) existingStatus.remove();
+            document.querySelector('.progress-text').appendChild(syncStatus);
+
+            // Highlight completed cards
+            const moduleProgress = JSON.parse(localStorage.getItem('fortebetModuleProgress') || '{}');
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                const title = card.querySelector('h3').textContent.trim();
+                if (moduleProgress[title]) {
+                    card.classList.add('module-completed');
+                    const link = card.querySelector('a');
+                    if (link && title !== 'Operator Challenge') {
+                        link.innerHTML = 'Review Module <i class="fas fa-check-circle"></i>';
+                    }
+                }
+            });
+        }
+
+        // Load progress on page load
+        document.addEventListener('DOMContentLoaded', loadProgress);
+    </script>
+</body>
+</html>
