@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Operator Quiz - Fortebet</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Quiz Game Styles */
+        :root {
+            --prize-1: #95a5a6;
+            --prize-2: #7f8c8d;
+            --prize-3: #27ae60;
+            --prize-4: #2ecc71;
+            --prize-5: #3498db;
+            --prize-6: #2980b9;
+            --prize-7: #9b59b6;
+            --prize-8: #8e44ad;
+            --prize-9: #f39c12;
+            --prize-10: #e67e22;
+            --prize-jackpot: #e74c3c;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0c2461, #1e3799);
+            color: white;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .quiz-game-container {
+            display: flex;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 20px;
+            gap: 20px;
+            min-height: 100vh;
+        }
+
+        /* Left Side: Prize Ladder */
+        .ladder-sidebar {
+            width: 300px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .ladder-title {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            color: #f1c40f;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .ladder {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .ladder-step {
+            padding: 15px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .ladder-step.current {
+            background: rgba(241, 196, 15, 0.3);
+            border-color: #f1c40f;
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(241, 196, 15, 0.5);
+        }
+
+        .ladder-step.passed {
+            background: rgba(46, 204, 113, 0.3);
+            border-color: #2ecc71;
+        }
+
+        .step-number {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #f1c40f;
+        }
+
+        .step-prize {
+            font-weight: bold;
+            color: white;
+        }
+
+        /* Main Quiz Area */
+        .quiz-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .player-info h2 {
+            margin: 0;
+            color: #f1c40f;
+            font-size: 1.8rem;
+        }
+
+        .player-info p {
+            margin: 5px 0 0;
+            opacity: 0.8;
+        }
+
+        .quiz-stats {
+            display: flex;
+            gap: 30px;
+            text-align: center;
+        }
+
+        .stat-box {
+            min-width: 100px;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #f1c40f;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Timer Circle */
+        .timer-container {
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
+
+        .timer-circle {
+            width: 100%;
+            height: 100%;
+        }
+
+        .timer-circle circle {
+            fill: none;
+            stroke-width: 8;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+
+        .timer-circle .bg {
+            stroke: rgba(255, 255, 255, 0.1);
+        }
+
+        .timer-circle .progress {
+            stroke: #e74c3c;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 1s linear;
+        }
+
+        .timer-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        /* Question Area */
+        .question-area {
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            padding: 40px;
+            flex: 1;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .question-counter {
+            font-size: 1.2rem;
+            color: #f1c40f;
+            margin-bottom: 10px;
+        }
+
+        .question-text {
+            font-size: 2rem;
+            line-height: 1.4;
+            margin-bottom: 40px;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        /* Options Grid */
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .option-btn {
+            padding: 25px;
+            background: rgba(52, 152, 219, 0.2);
+            border: 3px solid rgba(52, 152, 219, 0.5);
+            border-radius: 10px;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            text-align: left;
+        }
+
+        .option-btn:hover {
+            background: rgba(52, 152, 219, 0.4);
+            transform: translateY(-3px);
+        }
+
+        .option-btn.correct {
+            background: rgba(46, 204, 113, 0.4);
+            border-color: #2ecc71;
+            color: #2ecc71;
+        }
+
+        .option-btn.wrong {
+            background: rgba(231, 76, 60, 0.4);
+            border-color: #e74c3c;
+            color: #e74c3c;
+        }
+
+        .option-btn.disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .option-letter {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .option-btn.correct .option-letter {
+            background: #2ecc71;
+            color: white;
+        }
+
+        .option-btn.wrong .option-letter {
+            background: #e74c3c;
+            color: white;
+        }
+
+        /* Lifelines */
+        .lifelines {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .lifeline-btn {
+            padding: 12px 20px;
+            background: rgba(155, 89, 182, 0.3);
+            border: 2px solid #9b59b6;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .lifeline-btn:hover:not(:disabled) {
+            background: rgba(155, 89, 182, 0.5);
+        }
+
+        .lifeline-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        /* Controls */
+        .quiz-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .action-btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quit-btn {
+            background: rgba(231, 76, 60, 0.2);
+            color: #e74c3c;
+            border: 2px solid #e74c3c;
+        }
+
+        .quit-btn:hover {
+            background: rgba(231, 76, 60, 0.4);
+        }
+
+        .next-btn {
+            background: #27ae60;
+            color: white;
+            border: 2px solid #27ae60;
+        }
+
+        .next-btn:hover:not(:disabled) {
+            background: #219653;
+        }
+
+        .next-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Results Screen */
+        .results-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .results-screen.active {
+            display: flex;
+        }
+
+        .results-card {
+            background: linear-gradient(135deg, #1a2980, #26d0ce);
+            padding: 50px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+            animation: popIn 0.5s ease-out;
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0.5); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .results-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: #f1c40f;
+        }
+
+        .results-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .results-score {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #f1c40f;
+            margin-bottom: 30px;
+        }
+
+        .results-message {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .results-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .result-btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-width: 150px;
+        }
+
+        .retry-btn {
+            background: #3498db;
+            color: white;
+        }
+
+        .leaderboard-btn {
+            background: #9b59b6;
+            color: white;
+        }
+
+        .home-btn {
+            background: #2ecc71;
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .quiz-game-container {
+                flex-direction: column;
+            }
+            .ladder-sidebar {
+                width: 100%;
+            }
+            .ladder {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+            .ladder-step {
+                flex: 1;
+                min-width: 150px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+            .quiz-header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+            .quiz-stats {
+                width: 100%;
+                justify-content: center;
+            }
+            .question-text {
+                font-size: 1.5rem;
+            }
+            .results-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-game-container">
+        <!-- Prize Ladder -->
+        <div class="ladder-sidebar">
+            <h2 class="ladder-title">Prize Ladder</h2>
+            <div class="ladder" id="ladder">
+                <!-- Ladder steps will be generated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Main Quiz Area -->
+        <div class="quiz-main">
+            <!-- Header -->
+            <div class="quiz-header">
+                <div class="player-info">
+                    <h2 id="playerName">Agent</h2>
+                    <p id="quizType">30 Questions Challenge</p>
+                </div>
+                <div class="quiz-stats">
+                    <div class="stat-box">
+                        <div class="stat-value" id="currentQuestion">1</div>
+                        <div class="stat-label">Question</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" id="score">0</div>
+                        <div class="stat-label">Points</div>
+                    </div>
+                    <div class="timer-container">
+                        <svg class="timer-circle" viewBox="0 0 100 100">
+                            <circle class="bg" cx="50" cy="50" r="45"></circle>
+                            <circle class="progress" cx="50" cy="50" r="45"></circle>
+                        </svg>
+                        <div class="timer-text" id="timer">10</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question Area -->
+            <div class="question-area">
+                <div class="question-counter" id="questionCounter">Question 1 of 30</div>
+                <div class="question-text" id="questionText">Loading question...</div>
+                
+                <!-- Options -->
+                <div class="options-grid" id="optionsGrid">
+                    <!-- Options will be generated by JavaScript -->
+                </div>
+
+                <!-- Lifelines -->
+                <div class="lifelines">
+                    <button class="lifeline-btn" id="fiftyFifty">
+                        <i class="fas fa-balance-scale"></i> 50:50
+                    </button>
+                    <button class="lifeline-btn" id="doubleDip">
+                        <i class="fas fa-redo"></i> Double Dip
+                    </button>
+                    <button class="lifeline-btn" id="askFriend">
+                        <i class="fas fa-user-friends"></i> Ask Friend
+                    </button>
+                </div>
+
+                <!-- Controls -->
+                <div class="quiz-controls">
+                    <button class="action-btn quit-btn" id="quitBtn">
+                        <i class="fas fa-sign-out-alt"></i> Quit Challenge
+                    </button>
+                    <button class="action-btn next-btn" id="nextBtn" disabled>
+                        Next Question <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Results Screen -->
+    <div class="results-screen" id="resultsScreen">
+        <div class="results-card">
+            <div class="results-icon">
+                <i class="fas fa-trophy"></i>
+            </div>
+            <h1 class="results-title">Challenge Complete!</h1>
+            <div class="results-score" id="finalScore">85%</div>
+            <div class="results-message" id="resultsMessage">
+                Excellent performance! You've shown great knowledge.
+            </div>
+            <div class="results-actions">
+                <button class="result-btn retry-btn" id="retryBtn">
+                    <i class="fas fa-redo"></i> Try Again
+                </button>
+                <button class="result-btn leaderboard-btn" id="leaderboardBtn">
+                    <i class="fas fa-chart-line"></i> Leaderboard
+                </button>
+                <button class="result-btn home-btn" id="homeBtn">
+                    <i class="fas fa-home"></i> Back Home
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Quiz Game Logic
+        document.addEventListener('DOMContentLoaded', function() {
+            // Game Configuration
+            const urlParams = new URLSearchParams(window.location.search);
+            const questionCount = parseInt(urlParams.get('test')) || 30;
+            const playerName = localStorage.getItem('playerName') || 'Agent';
+            
+            // DOM Elements
+            const playerNameEl = document.getElementById('playerName');
+            const quizTypeEl = document.getElementById('quizType');
+            const currentQuestionEl = document.getElementById('currentQuestion');
+            const scoreEl = document.getElementById('score');
+            const timerEl = document.getElementById('timer');
+            const questionCounterEl = document.getElementById('questionCounter');
+            const questionTextEl = document.getElementById('questionText');
+            const optionsGridEl = document.getElementById('optionsGrid');
+            const ladderEl = document.getElementById('ladder');
+            const nextBtn = document.getElementById('nextBtn');
+            const quitBtn = document.getElementById('quitBtn');
+            const resultsScreen = document.getElementById('resultsScreen');
+            const finalScoreEl = document.getElementById('finalScore');
+            const resultsMessageEl = document.getElementById('resultsMessage');
+            
+            // Game State
+            let currentQuestionIndex = 0;
+            let score = 0;
+            let timer;
+            let timeLeft = 10;
+            let questions = [];
+            let selectedAnswer = null;
+            let correctAnswer = null;
+            
+            // Initialize Game
+            function initGame() {
+                playerNameEl.textContent = playerName;
+                quizTypeEl.textContent = `${questionCount} Questions Challenge`;
+                
+                // Fetch real questions from server/db if possible, or use pre-populated list
+                // For this version, we'll use a local array populated from the training content
+                questions = generateQuestions(questionCount);
+                
+                // Build ladder
+                buildLadder(questionCount);
+                
+                // Start with first question
+                loadQuestion(currentQuestionIndex);
+                startTimer();
+            }
+            
+            // Question Generation (using real training content)
+            function generateQuestions(count) {
+                const baseQuestions = [
+                    {
+                        question: "What is the maximum Welcome Bonus a customer can receive?",
+                        options: ["500,000 naira", "750,000 naira", "1,000,000 naira", "2,000,000 naira"],
+                        correct: 2
+                    },
+                    {
+                        question: "To redeem the Welcome Bonus, what are the minimum selection and odds requirements?",
+                        options: ["1 selection, 1.50 odds", "3 selections, 3.00 odds", "5 selections, 5.00 odds", "2 selections, 2.50 odds"],
+                        correct: 1
+                    },
+                    {
+                        question: "What percentage of the stake is credited to the main account for qualifying Welcome Bonus bets?",
+                        options: ["1%", "2%", "5%", "10%"],
+                        correct: 1
+                    },
+                    {
+                        question: "How long does the Welcome Bonus last after the first deposit?",
+                        options: ["30 days", "60 days", "90 days", "120 days"],
+                        correct: 2
+                    },
+                    {
+                        question: "What is the maximum Multiple Booster Bonus percentage?",
+                        options: ["100%", "200%", "250%", "300%"],
+                        correct: 2
+                    },
+                    {
+                        question: "What is the minimum number of events for a Multiple Booster Bonus?",
+                        options: ["3 events", "5 events", "10 events", "15 events"],
+                        correct: 1
+                    },
+                    {
+                        question: "Which key on the POS terminal is used for 'Client cash in'?",
+                        options: ["F1", "F2", "F4", "F12"],
+                        correct: 0
+                    },
+                    {
+                        question: "Which key is used to load a booked prematch game ticket?",
+                        options: ["Letter T", "Letter I", "Letter N", "Letter K"],
+                        correct: 1
+                    },
+                    {
+                        question: "Within how many minutes can a prematch ticket be cancelled?",
+                        options: ["5 minutes", "10 minutes", "20 minutes", "30 minutes"],
+                        correct: 1
+                    },
+                    {
+                        question: "What is the maximum shop cash limit before seeking approval?",
+                        options: ["100k", "200k", "250k", "500k"],
+                        correct: 2
+                    },
+                    {
+                        question: "What time are day shift operators expected to be at the branch?",
+                        options: ["6:00 AM", "7:00 AM", "7:30 AM", "8:00 AM"],
+                        correct: 1
+                    },
+                    {
+                        question: "What is the conversion rate for 110,000 VIP points?",
+                        options: ["500 naira", "1,000 naira", "2,000 naira", "5,000 naira"],
+                        correct: 1
+                    },
+                    {
+                        question: "How many virtual matches take place in 24 hours?",
+                        options: ["100", "200", "288", "350"],
+                        correct: 2
+                    },
+                    {
+                        question: "Which letter key is used to enter a customer's username on the POS?",
+                        options: ["Letter N", "Letter U", "Letter C", "Letter K"],
+                        correct: 0
+                    },
+                    {
+                        question: "What is the 4th clickable button in the training knowledge base?",
+                        options: ["Cashout", "Work Ethics", "Common Branch Issues", "Bonuses"],
+                        correct: 2
+                    }
+                ];
+                
+                // Shuffle and pick
+                const shuffled = baseQuestions.sort(() => 0.5 - Math.random());
+                let result = [];
+                for(let i=0; i<count; i++) {
+                    result.push(shuffled[i % shuffled.length]);
+                }
+                return result;
+            }
+            
+            function buildLadder(count) {
+                ladderEl.innerHTML = '';
+                // Show last 10 steps or current progress
+                const steps = Math.min(count, 10);
+                for (let i = steps; i >= 1; i--) {
+                    const step = document.createElement('div');
+                    step.className = 'ladder-step';
+                    step.id = `step-${i}`;
+                    step.innerHTML = `
+                        <span class="step-number">${i}</span>
+                        <span class="step-prize">${(i * 100).toLocaleString()} Pts</span>
+                    `;
+                    ladderEl.appendChild(step);
+                }
+            }
+            
+            function loadQuestion(index) {
+                const q = questions[index];
+                selectedAnswer = null;
+                correctAnswer = q.correct;
+                
+                questionCounterEl.textContent = `Question ${index + 1} of ${questionCount}`;
+                currentQuestionEl.textContent = index + 1;
+                questionTextEl.textContent = q.question;
+                
+                optionsGridEl.innerHTML = '';
+                const letters = ['A', 'B', 'C', 'D'];
+                
+                q.options.forEach((opt, i) => {
+                    const btn = document.createElement('button');
+                    btn.className = 'option-btn';
+                    btn.innerHTML = `
+                        <div class="option-letter">${letters[i]}</div>
+                        <div class="option-text">${opt}</div>
+                    `;
+                    btn.onclick = () => selectOption(i);
+                    optionsGridEl.appendChild(btn);
+                });
+                
+                nextBtn.disabled = true;
+                
+                // Update ladder
+                document.querySelectorAll('.ladder-step').forEach(s => s.classList.remove('current'));
+                const ladderStep = document.getElementById(`step-${(index % 10) + 1}`);
+                if (ladderStep) ladderStep.classList.add('current');
+            }
+            
+            function selectOption(index) {
+                if (selectedAnswer !== null) return;
+                
+                clearInterval(timer);
+                selectedAnswer = index;
+                
+                const btns = optionsGridEl.querySelectorAll('.option-btn');
+                
+                if (index === correctAnswer) {
+                    btns[index].classList.add('correct');
+                    score += 100;
+                    scoreEl.textContent = score;
+                } else {
+                    btns[index].classList.add('wrong');
+                    btns[correctAnswer].classList.add('correct');
+                }
+                
+                btns.forEach(btn => btn.classList.add('disabled'));
+                nextBtn.disabled = false;
+            }
+            
+            function startTimer() {
+                timeLeft = 10;
+                timerEl.textContent = timeLeft;
+                
+                const circle = document.querySelector('.progress');
+                const circumference = 2 * Math.PI * 45;
+                circle.style.strokeDasharray = circumference;
+                
+                timer = setInterval(() => {
+                    timeLeft--;
+                    timerEl.textContent = timeLeft;
+                    
+                    const offset = circumference - (timeLeft / 10) * circumference;
+                    circle.style.strokeDashoffset = offset;
+                    
+                    if (timeLeft <= 0) {
+                        clearInterval(timer);
+                        selectOption(-1); // Time out
+                    }
+                }, 1000);
+            }
+            
+            nextBtn.onclick = () => {
+                currentQuestionIndex++;
+                if (currentQuestionIndex < questionCount) {
+                    loadQuestion(currentQuestionIndex);
+                    startTimer();
+                } else {
+                    showResults();
+                }
+            };
+            
+            function showResults() {
+                const percentage = Math.round((score / (questionCount * 100)) * 100);
+                finalScoreEl.textContent = `${percentage}%`;
+                
+                if (percentage >= 80) {
+                    resultsMessageEl.textContent = "Outstanding! You are a Master Operator.";
+                } else if (percentage >= 70) {
+                    resultsMessageEl.textContent = "Great job! You qualify for a certificate.";
+                } else {
+                    resultsMessageEl.textContent = "Keep training! You'll get there.";
+                }
+                
+                resultsScreen.classList.add('active');
+                
+                // Save to leaderboard
+                saveScore(playerName, percentage, questionCount);
+            }
+            
+            function saveScore(name, score, type) {
+                let leaderboard = JSON.parse(localStorage.getItem('fortebet_leaderboard') || '[]');
+                leaderboard.push({
+                    name,
+                    score,
+                    type: `${type}Q`,
+                    date: new Date().toLocaleDateString()
+                });
+                leaderboard.sort((a, b) => b.score - a.score);
+                localStorage.setItem('fortebet_leaderboard', JSON.stringify(leaderboard.slice(0, 10)));
+            }
+            
+            // Result actions
+            document.getElementById('retryBtn').onclick = () => location.reload();
+            document.getElementById('homeBtn').onclick = () => window.location.href = 'index.html';
+            document.getElementById('leaderboardBtn').onclick = () => window.location.href = 'operator-test.html';
+            
+            quitBtn.onclick = () => {
+                if (confirm('Are you sure you want to quit the challenge?')) {
+                    window.location.href = 'operator-test.html';
+                }
+            };
+            
+            initGame();
+        });
+    </script>
+</body>
+</html>
