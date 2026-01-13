@@ -1,4 +1,4 @@
-// ads.js - Unified Ad Manager with Placeholders
+// ads.js - Unified Ad Manager with Robust Fallbacks
 window.startapp = window.startapp || {};
 
 // Mock SDK behavior if not loaded
@@ -14,35 +14,33 @@ let bannerAdTop, bannerAdBottom, interstitialAd, rewardedAd;
 function initializeAds() {
     console.log("Initializing Ad System...");
     
-    // In a real environment, these would be SDK objects
-    // Here we define them to use our placeholder system
     bannerAdTop = {
         loadAd: (w, h) => console.log(`Banner Top Loaded: ${w}x${h}`),
-        showBanner: (id) => createPlaceholder(id, 'Top Banner', 'Exclusive Rewards')
+        showBanner: (id) => createPlaceholder(id, 'Fortebet Top Partner', 'Exclusive Agent Training Rewards')
     };
     
     bannerAdBottom = {
         loadAd: (w, h) => console.log(`Banner Bottom Loaded: ${w}x${h}`),
-        showBanner: (id) => createPlaceholder(id, 'Bottom Banner', 'Agent Training Tips')
+        showBanner: (id) => createPlaceholder(id, 'Fortebet Bottom Partner', 'Master Everything to Become an Expert')
     };
     
     interstitialAd = {
         loadAd: () => console.log("Interstitial Loaded"),
         showAd: (listener) => {
-            console.log("Showing Interstitial Placeholder");
-            showFullscreenPlaceholder('FULLSCREEN AD', 'Click to continue to module', () => {
+            console.log("Showing Interstitial Fallback");
+            showFullscreenPlaceholder('FORTYBET PARTNER', 'Connecting to training module...', () => {
                 if (listener && listener.adHidden) listener.adHidden();
-            });
+            }, 1500);
         }
     };
     
     rewardedAd = {
         loadAd: () => console.log("Rewarded Ad Loaded"),
         showAd: (listener) => {
-            console.log("Showing Rewarded Placeholder");
-            showFullscreenPlaceholder('WATCH & CONTINUE', 'Wait 5 seconds to get a lifeline...', () => {
+            console.log("Showing Rewarded Fallback");
+            showFullscreenPlaceholder('WATCH & CONTINUE', 'Reward granted after preview', () => {
                 if (listener && listener.adHidden) listener.adHidden();
-            }, 5000);
+            }, 3000);
         }
     };
 }
@@ -103,7 +101,7 @@ function showFullscreenPlaceholder(title, msg, onComplete, duration = 2000) {
             <h1 style="margin: 0;">${title}</h1>
             <p style="margin: 20px 0;">${msg}</p>
             <div id="ad-timer" style="font-size: 24px; font-weight: bold;">${duration/1000}s</div>
-            <button id="close-ad-btn" style="display: none; margin-top: 20px; padding: 10px 20px; background: white; color: #e67e22; border: none; border-radius: 5px; font-weight: bold; cursor: pointer;">CLOSE AD</button>
+            <button id="close-ad-btn" style="display: none; margin-top: 20px; padding: 10px 20px; background: white; color: #e67e22; border: none; border-radius: 5px; font-weight: bold; cursor: pointer;">PROCEED</button>
         </div>
     `;
     
@@ -113,7 +111,7 @@ function showFullscreenPlaceholder(title, msg, onComplete, duration = 2000) {
     const timer = setInterval(() => {
         timeLeft--;
         const timerEl = document.getElementById('ad-timer');
-        if (timerEl) timerEl.textContent = timeLeft + 's';
+        if (timerEl) timerEl.textContent = Math.max(0, timeLeft) + 's';
         
         if (timeLeft <= 0) {
             clearInterval(timer);
@@ -136,17 +134,31 @@ window.loadPageBanners = () => {
 };
 
 window.triggerInterstitial = (onComplete) => {
-    if (interstitialAd) interstitialAd.showAd({ adHidden: onComplete });
-    else if (onComplete) onComplete();
+    // Safety check: always proceed if ad object is missing
+    if (typeof interstitialAd !== 'undefined' && interstitialAd.showAd) {
+        interstitialAd.showAd({ adHidden: onComplete });
+    } else {
+        console.warn("Interstitial object missing, proceeding...");
+        if (onComplete) onComplete();
+    }
 };
 
 window.triggerRewarded = (onComplete) => {
-    if (rewardedAd) rewardedAd.showAd({ adHidden: onComplete });
-    else if (onComplete) onComplete();
+    if (typeof rewardedAd !== 'undefined' && rewardedAd.showAd) {
+        rewardedAd.showAd({ adHidden: onComplete });
+    } else {
+        console.warn("Rewarded object missing, proceeding...");
+        if (onComplete) onComplete();
+    }
 };
 
 // Auto-init
-document.addEventListener('DOMContentLoaded', () => {
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        initializeAds();
+        window.loadPageBanners();
+    });
+} else {
     initializeAds();
     window.loadPageBanners();
-});
+}
