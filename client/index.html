@@ -68,8 +68,34 @@
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
           navigator.serviceWorker.register('/sw.js')
-            .then(reg => console.log('PWA: Service Worker registered'))
+            .then(reg => {
+              console.log('PWA: Service Worker registered');
+              
+              // Detect updates
+              reg.onupdatefound = () => {
+                const installingWorker = reg.installing;
+                installingWorker.onstatechange = () => {
+                  if (installingWorker.state === 'installed') {
+                    if (navigator.serviceWorker.controller) {
+                      // New content is available, show refresh prompt
+                      if (confirm('A new version of Fortebet Training is available! Refresh now to update?')) {
+                        window.location.reload();
+                      }
+                    }
+                  }
+                };
+              };
+            })
             .catch(err => console.log('PWA: Service Worker registration failed', err));
+        });
+        
+        // Handle controller change (reload the page when the new service worker takes over)
+        let refreshing = false;
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+          if (!refreshing) {
+            window.location.reload();
+            refreshing = true;
+          }
         });
       }
     </script>
