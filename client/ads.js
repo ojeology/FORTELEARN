@@ -9,40 +9,53 @@ function initStartApp() {
   console.log("initStartApp called");
   if (typeof startapp !== 'undefined') {
     console.log("startapp is defined, initializing with appId: " + myAppId);
-    startapp.init({
-      appId: myAppId
-    }, function() {
-      console.log("✅ Start.io is ready!");
+    try {
+      startapp.init({
+        appId: myAppId
+      }, function() {
+        console.log("✅ Start.io is ready!");
+        const adContainer = document.getElementById('ad-banner-container');
+        if (adContainer) {
+          adContainer.innerHTML = '<p style="color:green">✅ Start.io ready, loading ad...</p>';
+        }
+        loadBannerAd(); // Try to load a banner
+      }, function(error) {
+        console.error("❌ Start.io failed callback: ", error);
+        const adContainer = document.getElementById('ad-banner-container');
+        if (adContainer) {
+          adContainer.innerHTML = '<p style="color:red">❌ Start.io failed to initialize: ' + JSON.stringify(error) + '</p>';
+        }
+      });
+    } catch (e) {
+      console.error("❌ Start.io init exception: ", e);
       const adContainer = document.getElementById('ad-banner-container');
       if (adContainer) {
-        adContainer.innerHTML = '<p>✅ Start.io ready, loading ad...</p>';
+        adContainer.innerHTML = '<p style="color:red">❌ Start.io init exception: ' + e.message + '</p>';
       }
-      loadBannerAd(); // Try to load a banner
-    }, function(error) {
-      console.error("❌ Start.io failed: ", error);
-      const adContainer = document.getElementById('ad-banner-container');
-      if (adContainer) {
-        adContainer.innerHTML = '<p style="color:red">❌ Start.io failed to initialize: ' + JSON.stringify(error) + '</p>';
-      }
-    });
+    }
   } else {
     console.log("Waiting for Start.io script to load...");
-    // Inject script if not present
-    if (!document.querySelector('script[src*="cdn.startapp.com"]')) {
+    // Check for script tag
+    const existingScript = document.querySelector('script[src*="cdn.startapp.com"]');
+    if (!existingScript) {
       console.log("Script tag missing in head, injecting...");
       var script = document.createElement('script');
       script.src = "https://cdn.startapp.com/sdk/init.js";
       script.type = "text/javascript";
-      script.onerror = function() {
-        console.error("Failed to load Start.io script from CDN");
+      script.async = true;
+      script.onload = function() {
+        console.log("SDK script onload triggered");
+      };
+      script.onerror = function(err) {
+        console.error("Failed to load Start.io script from CDN", err);
         const adContainer = document.getElementById('ad-banner-container');
         if (adContainer) {
-          adContainer.innerHTML = '<p style="color:red">❌ Failed to load ad script from CDN</p>';
+          adContainer.innerHTML = '<p style="color:red">❌ Failed to load ad script from CDN. Please check your internet or ad-blocker.</p>';
         }
       };
       document.head.appendChild(script);
     }
-    setTimeout(initStartApp, 500); // Check again in half a second
+    setTimeout(initStartApp, 1000); // Check again in a second
   }
 }
 
