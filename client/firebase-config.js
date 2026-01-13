@@ -14,15 +14,23 @@ let db;
 try {
   if (typeof firebase !== 'undefined') {
     const app = firebase.initializeApp(firebaseConfig);
-    // Enable offline persistence
-    firebase.firestore().enablePersistence().catch((err) => {
+    // Firestore settings for better performance
+    const settings = {
+      cacheSizeBytes: firebase.firestore.CACHE_SIZE_UNLIMITED
+    };
+    
+    db = firebase.firestore();
+    db.settings(settings);
+    
+    // Enable offline persistence with a catch for multiple tabs
+    db.enablePersistence({ synchronizeTabs: true }).catch((err) => {
         if (err.code == 'failed-precondition') {
-            console.warn("Firestore: Multiple tabs open, persistence can only be enabled in one tab at a time.");
+            console.warn("Firestore: Persistence enabled in another tab.");
         } else if (err.code == 'unimplemented') {
-            console.warn("Firestore: The current browser does not support all of the features required to enable persistence.");
+            console.warn("Firestore: Browser doesn't support persistence.");
         }
     });
-    db = firebase.firestore();
+    
     console.log("✅ Firebase initialized successfully");
   } else {
     console.log("⚠️ Firebase not loaded yet");

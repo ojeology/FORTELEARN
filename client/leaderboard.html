@@ -11,28 +11,34 @@
     <!-- Your Firebase Config -->
     <script src="firebase-config.js"></script>
     <script>
-        // Use standard loadLeaderboard from firebase-config.js if available
-        // but local override to map to specific UI
+        // Force Firebase to use the network if it's available
         async function loadLeaderboardData(filter = 'all') {
             const leaderboardRows = document.getElementById('leaderboardRows');
-            leaderboardRows.innerHTML = '<div class="no-data"><i class="fas fa-spinner fa-spin"></i> Loading from Cloud...</div>';
+            leaderboardRows.innerHTML = '<div class="no-data"><i class="fas fa-spinner fa-spin"></i> Checking Cloud Leaderboard...</div>';
             
             try {
                 let testType = '100-questions';
                 if (filter === '30') testType = '30-questions';
                 
                 let leaderboardData = [];
-                // Force sync if online
-                if (typeof syncLocalProgress === 'function') await syncLocalProgress();
-
+                
                 if (typeof loadLeaderboard === 'function') {
-                    // Try to get data with a timeout
-                    const cloudDataPromise = loadLeaderboard(testType);
-                    const timeoutPromise = new Promise(resolve => setTimeout(() => resolve([]), 5000));
-                    leaderboardData = await Promise.race([cloudDataPromise, timeoutPromise]);
+                    // Try to fetch from server first, then cache
+                    try {
+                        const snapshot = await db.collection('leaderboard')
+                            .where('testType', '==', testType)
+                            .orderBy('score', 'desc')
+                            .limit(20)
+                            .get({ source: isOnline() ? 'server' : 'default' });
+                        
+                        snapshot.forEach(doc => leaderboardData.push(doc.data()));
+                    } catch (e) {
+                        console.warn("Server fetch failed, trying default:", e);
+                        leaderboardData = await loadLeaderboard(testType);
+                    }
                 }
                 
-                // If no Firebase data or offline, fallback to local
+                // If cloud fails, fallback to local storage
                 if (!leaderboardData || leaderboardData.length === 0) {
                     const localData = JSON.parse(localStorage.getItem('fortebetLeaderboard') || '[]');
                     let filtered = localData;
@@ -47,7 +53,6 @@
                 displayLeaderboard(leaderboardData);
             } catch (error) {
                 console.error('Error loading leaderboard:', error);
-                // Last resort fallback
                 const localData = JSON.parse(localStorage.getItem('fortebetLeaderboard') || '[]');
                 displayLeaderboard(localData.slice(0, 20));
             }
