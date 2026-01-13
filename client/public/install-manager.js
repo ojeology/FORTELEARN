@@ -5,34 +5,40 @@ let isStandalone = window.matchMedia('(display-mode: standalone)').matches;
 
 console.log('Install Manager: Initialized', { isIOS, isStandalone });
 
+// Check if user has permanently dismissed the install prompt
+const isPermanentlyDismissed = () => localStorage.getItem('installPermanentlyDismissed') === 'true';
+
 // 1. Capture browser's install prompt
 window.addEventListener('beforeinstallprompt', (e) => {
   console.log('Install Manager: beforeinstallprompt triggered');
   e.preventDefault();
   deferredPrompt = e;
   
-  // Show button immediately for testing if we have the prompt
-  showInstallButton();
-});
-
-// For browsers that don't support beforeinstallprompt (like iOS or Safari)
-// or for testing visibility
-setTimeout(() => {
-  console.log('Install Manager: 5s check', { deferredPrompt: !!deferredPrompt, isStandalone });
-  if (!isStandalone) {
+  if (!isStandalone && !isPermanentlyDismissed()) {
     showInstallButton();
   }
-}, 5000);
+});
+
+// Force visibility check on load and refresh
+window.addEventListener('load', () => {
+  console.log('Install Manager: Page loaded, checking visibility');
+  if (!isStandalone && !isPermanentlyDismissed()) {
+    // Small delay to ensure DOM is ready and beforeinstallprompt has a chance to fire
+    setTimeout(showInstallButton, 1000);
+  }
+});
 
 // 2. Show floating button
 function showInstallButton() {
+  if (isStandalone || isPermanentlyDismissed()) return;
+
   console.log('Install Manager: Showing button');
   const installBtn = document.getElementById('installBtn');
   if (installBtn) {
-    installBtn.style.setProperty('display', 'block', 'important');
+    installBtn.style.setProperty('display', 'flex', 'important');
     installBtn.style.setProperty('opacity', '1', 'important');
     installBtn.style.setProperty('visibility', 'visible', 'important');
-    installBtn.style.setProperty('z-index', '999999', 'important');
+    installBtn.style.setProperty('z-index', '2147483647', 'important');
     installBtn.onclick = showInstallModal;
   } else {
     console.error('Install Manager: installBtn element not found');
@@ -41,7 +47,7 @@ function showInstallButton() {
 
 function hideInstallButton() {
   const btn = document.getElementById('installBtn');
-  if (btn) btn.style.display = 'none';
+  if (btn) btn.style.setProperty('display', 'none', 'important');
 }
 
 // 3. Show modal with instructions
@@ -54,7 +60,6 @@ function showInstallModal() {
     stepsDiv.innerHTML = `<strong style="color: #667eea;">For iPhone/iPad:</strong><ol style="margin: 10px 0 0 15px;"><li>Tap the <strong>Share button</strong> (📤) at bottom</li><li>Select <strong>"Add to Home Screen"</strong></li><li>Tap <strong>"Add"</strong> in top right</li></ol>`;
     installNowBtn.textContent = "Show Me How";
     installNowBtn.onclick = () => {
-      hideInstallModal();
       alert("Look for the Share button (📤) at the bottom of Safari!");
     };
   } else if (deferredPrompt) {
@@ -64,7 +69,9 @@ function showInstallModal() {
   } else {
     stepsDiv.innerHTML = `<strong style="color: #667eea;">Manual Installation:</strong><p style="margin: 10px 0;">Look for "Add to Home Screen" in browser menu (⋮).</p>`;
     installNowBtn.textContent = "Got It";
-    installNowBtn.onclick = hideInstallModal;
+    installNowBtn.onclick = () => {
+      modal.style.display = 'none';
+    };
   }
   
   modal.style.display = 'flex';
@@ -77,28 +84,19 @@ function triggerNativeInstall() {
   deferredPrompt.userChoice.then((choiceResult) => {
     if (choiceResult.outcome === 'accepted') {
       hideInstallButton();
+      localStorage.setItem('installPermanentlyDismissed', 'true');
       console.log('✅ User installed the PWA');
     }
     deferredPrompt = null;
-    hideInstallModal();
+    document.getElementById('installModal').style.display = 'none';
   });
 }
 
-// 5. Close modal
-function hideInstallModal() {
-  document.getElementById('installModal').style.display = 'none';
-  localStorage.setItem('installDismissed', 'true');
-}
-
-// 6. Auto-show for iOS users
-if (isIOS && !isStandalone && !localStorage.getItem('iosPromptShown')) {
-  setTimeout(() => {
-    showInstallModal();
-    localStorage.setItem('iosPromptShown', 'true');
-  }, 8000);
-}
-
-// 7. Hide if already installed
-if (isStandalone) {
-  hideInstallButton();
+// 5. Dismiss logic - only if they explicitly choose to hide it forever
+function permanentlyDismiss() {
+  if (confirm("Would you like to hide the install button forever? You can still install from your browser menu.")) {
+    hideInstallButton();
+    localStorage.setItem('installPermanentlyDismissed', 'true');
+    document.getElementById('installModal').style.display = 'none';
+  }
 }
