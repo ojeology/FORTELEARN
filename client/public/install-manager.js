@@ -5,16 +5,13 @@ let isStandalone = window.matchMedia('(display-mode: standalone)').matches;
 
 console.log('Install Manager: Initialized', { isIOS, isStandalone });
 
-// Check if user has permanently dismissed the install prompt
-const isPermanentlyDismissed = () => localStorage.getItem('installPermanentlyDismissed') === 'true';
-
 // 1. Capture browser's install prompt
 window.addEventListener('beforeinstallprompt', (e) => {
   console.log('Install Manager: beforeinstallprompt triggered');
   e.preventDefault();
   deferredPrompt = e;
   
-  if (!isStandalone && !isPermanentlyDismissed()) {
+  if (!isStandalone) {
     showInstallButton();
   }
 });
@@ -22,7 +19,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
 // Force visibility check on load and refresh
 window.addEventListener('load', () => {
   console.log('Install Manager: Page loaded, checking visibility');
-  if (!isStandalone && !isPermanentlyDismissed()) {
+  if (!isStandalone) {
     // Small delay to ensure DOM is ready and beforeinstallprompt has a chance to fire
     setTimeout(showInstallButton, 1000);
   }
@@ -30,7 +27,7 @@ window.addEventListener('load', () => {
 
 // 2. Show floating button
 function showInstallButton() {
-  if (isStandalone || isPermanentlyDismissed()) return;
+  if (isStandalone) return;
 
   console.log('Install Manager: Showing button');
   const installBtn = document.getElementById('installBtn');
@@ -84,19 +81,9 @@ function triggerNativeInstall() {
   deferredPrompt.userChoice.then((choiceResult) => {
     if (choiceResult.outcome === 'accepted') {
       hideInstallButton();
-      localStorage.setItem('installPermanentlyDismissed', 'true');
       console.log('✅ User installed the PWA');
     }
     deferredPrompt = null;
     document.getElementById('installModal').style.display = 'none';
   });
-}
-
-// 5. Dismiss logic - only if they explicitly choose to hide it forever
-function permanentlyDismiss() {
-  if (confirm("Would you like to hide the install button forever? You can still install from your browser menu.")) {
-    hideInstallButton();
-    localStorage.setItem('installPermanentlyDismissed', 'true');
-    document.getElementById('installModal').style.display = 'none';
-  }
 }
