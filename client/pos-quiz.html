@@ -118,13 +118,41 @@
             const moduleName = 'POS/Terminal';
             const totalQuestions = 7;
             const questions = [
-                { question: "What do you do when you fund a client into a wrong account?", options: ["Nothing", "Ask for refund", "Cancel credit", "Call bank"], correct: 2 },
-                { question: "How do you send money to another terminal?", options: ["F1 button", "F2 button", "Transfer on F4", "F12 button"], correct: 2 },
-                { question: "How many paylines is 'Mad mechanic' slot game?", options: ["3", "5", "10", "20"], correct: 1 },
-                { question: "What are paylines on a slot terminal?", options: ["Visual effects", "Ways winnings are decided", "Credit limits", "Machine IDs"], correct: 1 },
-                { question: "Which key is used to load a booked prematch game ticket?", options: ["Letter T", "Letter I", "Letter N", "Letter K"], correct: 1 },
-                { question: "Which letter key is used to enter a customer's username?", options: ["Letter N", "Letter U", "Letter C", "Letter K"], correct: 0 },
-                { question: "Which letter key is used to enter slot card numbers?", options: ["Letter N", "Letter U", "Letter C", "Letter K"], correct: 3 }
+                {
+                    question: "Which function key is used to pay out winning tickets or cancel tickets?",
+                    options: ["F1", "F2", "F4", "F12"],
+                    correct: 1 // F2
+                },
+                {
+                    question: "What is the purpose of the 'Load (I) Ticket' function?",
+                    options: ["To cancel a virtual ticket", "To load a booking number for prematch selections", "To check the shop balance", "To assign a VIP card"],
+                    correct: 1
+                },
+                {
+                    question: "Which letter key is pressed to enter a customer's username for a deposit or withdrawal?",
+                    options: ["Letter K", "Letter N", "Letter L", "Letter T"],
+                    correct: 1 // Letter N
+                },
+                {
+                    question: "What can you NOT check from the POS/terminal regarding a customer's account?",
+                    options: ["VIP Points balance", "Slot card balance", "Main account betting balance", "Customer's registration date"],
+                    correct: 2 // Main account balance
+                },
+                {
+                    question: "Within how many minutes can a prematch bet be cancelled using F2?",
+                    options: ["5 minutes", "10 minutes", "15 minutes", "30 minutes"],
+                    correct: 1 // 10 minutes
+                },
+                {
+                    question: "What is the main purpose of the F4 button?",
+                    options: ["To play virtual games", "For shop cash management and reports", "To log out of the terminal", "To edit customer details"],
+                    correct: 1
+                },
+                {
+                    question: "Which key combination is used to log out of the terminal?",
+                    options: ["Ctrl + Alt + P", "Alt + F4", "F1 + F12", "Shift + Enter"],
+                    correct: 1 // Alt + F4
+                }
             ];
             let currentQuestion = 0; let userAnswers = new Array(totalQuestions).fill(null);
             const progressBarFill = document.getElementById('progressBarFill');
