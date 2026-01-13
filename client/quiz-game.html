@@ -892,6 +892,17 @@
                     btns[index].classList.add('correct');
                     score += 100;
                     scoreEl.textContent = score;
+                    
+                    // Auto-advance after 1.5 seconds if correct
+                    setTimeout(() => {
+                        if (currentQuestionIndex < questionCount - 1) {
+                            currentQuestionIndex++;
+                            loadQuestion(currentQuestionIndex);
+                            startTimer();
+                        } else {
+                            showResults();
+                        }
+                    }, 1500);
                 } else {
                     btns[index].classList.add('wrong');
                     btns[correctAnswer].classList.add('correct');
