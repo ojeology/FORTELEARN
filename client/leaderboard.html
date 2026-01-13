@@ -11,50 +11,54 @@
     <!-- Your Firebase Config -->
     <script src="firebase-config.js"></script>
     <script>
-        // Force Firebase to use the network if it's available
+        // Global reference for the leaderboard data
+        let currentLeaderboardData = [];
+
         async function loadLeaderboardData(filter = 'all') {
             const leaderboardRows = document.getElementById('leaderboardRows');
-            leaderboardRows.innerHTML = '<div class="no-data"><i class="fas fa-spinner fa-spin"></i> Checking Cloud Leaderboard...</div>';
+            leaderboardRows.innerHTML = '<div class="no-data"><i class="fas fa-spinner fa-spin"></i> Syncing with Cloud...</div>';
             
             try {
                 let testType = '100-questions';
                 if (filter === '30') testType = '30-questions';
                 
-                let leaderboardData = [];
-                
-                if (typeof loadLeaderboard === 'function') {
-                    // Try to fetch from server first, then cache
-                    try {
-                        const snapshot = await db.collection('leaderboard')
-                            .where('testType', '==', testType)
-                            .orderBy('score', 'desc')
-                            .limit(20)
-                            .get({ source: isOnline() ? 'server' : 'default' });
-                        
-                        snapshot.forEach(doc => leaderboardData.push(doc.data()));
-                    } catch (e) {
-                        console.warn("Server fetch failed, trying default:", e);
-                        leaderboardData = await loadLeaderboard(testType);
-                    }
-                }
-                
-                // If cloud fails, fallback to local storage
-                if (!leaderboardData || leaderboardData.length === 0) {
-                    const localData = JSON.parse(localStorage.getItem('fortebetLeaderboard') || '[]');
-                    let filtered = localData;
-                    if (filter === '30') {
-                        filtered = localData.filter(entry => entry.testType === '30Q' || entry.testType === '30-questions' || entry.testType === '30');
-                    } else if (filter === '100') {
-                        filtered = localData.filter(entry => entry.testType === '100Q' || entry.testType === '100-questions' || entry.testType === '100');
-                    }
-                    leaderboardData = filtered.sort((a, b) => b.score - a.score).slice(0, 20);
-                }
-                
-                displayLeaderboard(leaderboardData);
-            } catch (error) {
-                console.error('Error loading leaderboard:', error);
+                // 1. Try to load from Local Storage first for instant display
                 const localData = JSON.parse(localStorage.getItem('fortebetLeaderboard') || '[]');
-                displayLeaderboard(localData.slice(0, 20));
+                let filteredLocal = localData;
+                if (filter === '30') {
+                    filteredLocal = localData.filter(entry => entry.testType === '30Q' || entry.testType === '30-questions' || entry.testType === '30');
+                } else if (filter === '100') {
+                    filteredLocal = localData.filter(entry => entry.testType === '100Q' || entry.testType === '100-questions' || entry.testType === '100');
+                }
+                currentLeaderboardData = filteredLocal.sort((a, b) => b.score - a.score).slice(0, 20);
+                displayLeaderboard(currentLeaderboardData);
+
+                // 2. Then try to fetch from Firebase to update
+                if (typeof db !== 'undefined' && isOnline()) {
+                    // Simplified query to avoid index requirements
+                    const snapshot = await db.collection('leaderboard').limit(50).get();
+                    
+                    if (!snapshot.empty) {
+                        let cloudData = [];
+                        snapshot.forEach(doc => {
+                            const data = doc.data();
+                            // Flexible filtering for test types
+                            const isMatch = (filter === 'all') || 
+                                           (filter === '30' && (data.testType === '30' || data.testType === '30-questions' || data.testType === '30Q')) ||
+                                           (filter === '100' && (data.testType === '100' || data.testType === '100-questions' || data.testType === '100Q'));
+                            
+                            if (isMatch) cloudData.push(data);
+                        });
+                        
+                        // Sort in-browser to avoid Firestore Index requirement
+                        cloudData.sort((a, b) => b.score - a.score);
+                        displayLeaderboard(cloudData.slice(0, 20));
+                        console.log("✅ Leaderboard synced and sorted from cloud");
+                    }
+                }
+            } catch (error) {
+                console.error('Leaderboard sync error:', error);
+                // If cloud fails, we already showed local data
             }
         }
 

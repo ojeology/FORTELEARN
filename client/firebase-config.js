@@ -14,26 +14,15 @@ let db;
 try {
   if (typeof firebase !== 'undefined') {
     const app = firebase.initializeApp(firebaseConfig);
-    // Firestore settings for better performance
-    const settings = {
-      cacheSizeBytes: firebase.firestore.CACHE_SIZE_UNLIMITED
-    };
-    
     db = firebase.firestore();
-    db.settings(settings);
     
-    // Enable offline persistence with a catch for multiple tabs
-    db.enablePersistence({ synchronizeTabs: true }).catch((err) => {
-        if (err.code == 'failed-precondition') {
-            console.warn("Firestore: Persistence enabled in another tab.");
-        } else if (err.code == 'unimplemented') {
-            console.warn("Firestore: Browser doesn't support persistence.");
-        }
-    });
-    
+    // Simple initialization without complex settings first
     console.log("✅ Firebase initialized successfully");
-  } else {
-    console.log("⚠️ Firebase not loaded yet");
+    
+    // Enable persistence if possible
+    db.enablePersistence({ synchronizeTabs: true }).catch((err) => {
+        console.warn("Firestore persistence notice:", err.code);
+    });
   }
 } catch (error) {
   console.error("❌ Firebase error:", error);
