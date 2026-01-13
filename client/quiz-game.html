@@ -842,21 +842,23 @@
             }
             
             function saveScore(name, score, type) {
-                let leaderboard = JSON.parse(localStorage.getItem('fortebet_leaderboard') || '[]');
+                let leaderboard = JSON.parse(localStorage.getItem('fortebetLeaderboard') || '[]');
+                const now = new Date();
                 leaderboard.push({
                     name,
                     score,
-                    type: `${type}Q`,
-                    date: new Date().toLocaleDateString()
+                    testType: `${type}Q`,
+                    date: now.toLocaleDateString(),
+                    time: now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
                 });
                 leaderboard.sort((a, b) => b.score - a.score);
-                localStorage.setItem('fortebet_leaderboard', JSON.stringify(leaderboard.slice(0, 10)));
+                localStorage.setItem('fortebetLeaderboard', JSON.stringify(leaderboard.slice(0, 50)));
             }
             
             // Result actions
             document.getElementById('retryBtn').onclick = () => location.reload();
             document.getElementById('homeBtn').onclick = () => window.location.href = 'index.html';
-            document.getElementById('leaderboardBtn').onclick = () => window.location.href = 'operator-test.html';
+            document.getElementById('leaderboardBtn').onclick = () => window.location.href = 'leaderboard.html';
             
             quitBtn.onclick = () => {
                 if (confirm('Are you sure you want to quit the challenge?')) {
