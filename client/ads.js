@@ -14,23 +14,26 @@ function initStartApp() {
         appId: myAppId
       }, function() {
         console.log("✅ Start.io is ready!");
-        const adContainer = document.getElementById('ad-banner-container');
-        if (adContainer) {
-          adContainer.innerHTML = '<p style="color:green">✅ Start.io ready, loading ad...</p>';
+        const adStatus = document.getElementById('ad-status');
+        if (adStatus) {
+          adStatus.style.color = 'green';
+          adStatus.textContent = '✅ Start.io ready, loading ad...';
         }
         loadBannerAd(); // Try to load a banner
       }, function(error) {
         console.error("❌ Start.io failed callback: ", error);
-        const adContainer = document.getElementById('ad-banner-container');
-        if (adContainer) {
-          adContainer.innerHTML = '<p style="color:red">❌ Start.io failed to initialize: ' + JSON.stringify(error) + '</p>';
+        const adStatus = document.getElementById('ad-status');
+        if (adStatus) {
+          adStatus.style.color = 'red';
+          adStatus.textContent = '❌ Start.io failed to initialize: ' + (error.message || JSON.stringify(error));
         }
       });
     } catch (e) {
       console.error("❌ Start.io init exception: ", e);
-      const adContainer = document.getElementById('ad-banner-container');
-      if (adContainer) {
-        adContainer.innerHTML = '<p style="color:red">❌ Start.io init exception: ' + e.message + '</p>';
+      const adStatus = document.getElementById('ad-status');
+      if (adStatus) {
+        adStatus.style.color = 'red';
+        adStatus.textContent = '❌ Start.io init exception: ' + e.message;
       }
     }
   } else {
@@ -45,39 +48,46 @@ function initStartApp() {
       script.async = true;
       script.onload = function() {
         console.log("SDK script onload triggered");
+        initStartApp();
       };
       script.onerror = function(err) {
         console.error("Failed to load Start.io script from CDN", err);
-        const adContainer = document.getElementById('ad-banner-container');
-        if (adContainer) {
-          adContainer.innerHTML = '<p style="color:red">❌ Failed to load ad script from CDN. Please check your internet or ad-blocker.</p>';
+        const adStatus = document.getElementById('ad-status');
+        if (adStatus) {
+          adStatus.style.color = 'red';
+          adStatus.textContent = '❌ Failed to load ad script from CDN. Please check your internet or ad-blocker.';
         }
       };
       document.head.appendChild(script);
+    } else {
+       setTimeout(initStartApp, 1000); // Check again in a second
     }
-    setTimeout(initStartApp, 1000); // Check again in a second
   }
 }
 
 function loadBannerAd() {
   console.log("Trying to load banner ad for container: ad-banner-container");
   if (typeof startapp !== 'undefined' && startapp.banner) {
-    startapp.banner.display({
-      containerId: 'ad-banner-container',
-      width: 320,
-      height: 50
-    });
-    console.log("Banner ad display function called.");
-    
-    // Check if banner was actually injected
-    setTimeout(function() {
-      const container = document.getElementById('ad-banner-container');
-      if (container && container.children.length > 1) { 
-        console.log("✅ Banner container has content");
-      } else {
-        console.log("⚠️ Banner container still only has placeholder text or is empty");
-      }
-    }, 3000);
+    try {
+        startapp.banner.display({
+          containerId: 'ad-banner-container',
+          width: 320,
+          height: 50
+        });
+        console.log("Banner ad display function called.");
+        
+        // Check if banner was actually injected
+        setTimeout(function() {
+          const container = document.getElementById('ad-banner-container');
+          if (container && container.children.length > 1) { 
+            console.log("✅ Banner container has content");
+          } else {
+            console.log("⚠️ Banner container still only has placeholder text or is empty");
+          }
+        }, 3000);
+    } catch (e) {
+        console.error("Error displaying banner:", e);
+    }
   } else {
     console.error("startapp.banner is not defined");
   }
