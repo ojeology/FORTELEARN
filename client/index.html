@@ -4,6 +4,12 @@
     <title>Fortebet Training</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+
+    <!-- Your Firebase Config -->
+    <script src="firebase-config.js"></script>
 </head>
 <body>
     <header>
@@ -100,28 +106,59 @@
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const progress = localStorage.getItem('fortebetProgress') || '0';
-            const completedModules = JSON.parse(localStorage.getItem('fortebetCompletedModules') || '[]');
-            
-            const progressValue = document.getElementById('progressValue');
-            const progressCircle = document.getElementById('progressCircle');
-            const progressStatusText = document.getElementById('progressStatusText');
-            
-            const percentage = parseInt(progress);
-            progressValue.textContent = `${percentage}%`;
-            
-            // Update circle background to show progress visually
-            progressCircle.style.background = `conic-gradient(#2ecc71 ${percentage * 3.6}deg, #eee 0deg)`;
-            
-            if (percentage === 100) {
-                progressStatusText.textContent = 'All modules complete! Claim your certificate.';
-            } else if (percentage > 0) {
-                progressStatusText.textContent = `You've completed ${completedModules.length} of 6 modules.`;
+        // In index.html, replace the progress loading script with:
+        async function loadProgress() {
+            // Try to sync with Firebase first
+            if (isOnline()) {
+                const syncedProgress = await syncLocalProgress();
+                updateProgressDisplay(syncedProgress.length);
             } else {
-                progressStatusText.textContent = 'Start your first module!';
+                // Offline mode - use local only
+                const localProgress = JSON.parse(localStorage.getItem('fortebetCompletedModules') || '[]');
+                updateProgressDisplay(localProgress.length);
+            }
+        }
+
+        function updateProgressDisplay(completedCount) {
+            const totalModules = 6;
+            const progressPercentage = Math.round((completedCount / totalModules) * 100);
+            
+            const progressCircle = document.querySelector('.circle');
+            const progressValue = document.querySelector('.progress-value');
+            const progressText = document.querySelector('.progress-text p');
+            
+            if (progressCircle) {
+                progressValue.textContent = `${progressPercentage}%`;
+                progressCircle.style.background = `conic-gradient(#27ae60 ${progressPercentage}%, #e0e0e0 ${progressPercentage}%)`;
+                
+                if (completedCount === 0) {
+                    progressText.textContent = 'Start your first module!';
+                } else if (completedCount < totalModules) {
+                    progressText.textContent = `${completedCount}/${totalModules} modules`;
+                    
+                    // Add click to show details
+                    progressText.style.cursor = 'pointer';
+                    progressText.onclick = () => {
+                        const modules = JSON.parse(localStorage.getItem('fortebetCompletedModules') || '[]');
+                        alert(`Completed: ${modules.join(', ') || 'None yet'}\n\nCloud sync: ${isOnline() ? '✅ Online' : '⚠️ Offline'}`);
+                    };
+                } else {
+                    progressText.innerHTML = '<a href="certificate.html" style="color: #27ae60; text-decoration: none; font-weight: bold;">🎉 All Modules Complete! Get Certificate</a>';
+                }
             }
             
+            // Show sync status
+            const syncStatus = document.createElement('div');
+            syncStatus.id = 'syncStatus';
+            syncStatus.style.cssText = 'font-size: 12px; margin-top: 5px; color: #7f8c8d;';
+            syncStatus.innerHTML = isOnline() ? 
+                '<i class="fas fa-cloud"></i> Synced to cloud' : 
+                '<i class="fas fa-wifi-slash"></i> Offline (saved locally)';
+            
+            const existingStatus = document.getElementById('syncStatus');
+            if (existingStatus) existingStatus.remove();
+            document.querySelector('.progress-text').appendChild(syncStatus);
+
             // Highlight completed cards
             const moduleProgress = JSON.parse(localStorage.getItem('fortebetModuleProgress') || '{}');
             const cards = document.querySelectorAll('.card');
@@ -135,7 +172,10 @@
                     }
                 }
             });
-        });
+        }
+
+        // Load progress on page load
+        document.addEventListener('DOMContentLoaded', loadProgress);
     </script>
 </body>
 </html>

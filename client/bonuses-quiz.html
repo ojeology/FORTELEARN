@@ -4,6 +4,12 @@
     <title>Bonuses Quiz - Fortebet</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+
+    <!-- Your Firebase Config -->
+    <script src="firebase-config.js"></script>
     <style>
         /* Module Quiz Styles */
         .module-quiz-container {
@@ -676,37 +682,60 @@
                 }
             };
             
-            function saveModuleProgress(name) {
+            async function markModuleCompleted(moduleName, score, passed) {
+                // Save locally first (always works)
+                let localCompleted = JSON.parse(localStorage.getItem('fortebetCompletedModules') || '[]');
+                if (!localCompleted.includes(moduleName) && passed) {
+                    localCompleted.push(moduleName);
+                    localStorage.setItem('fortebetCompletedModules', JSON.stringify(localCompleted));
+                }
+                
+                // Track in module progress for checkmarks
                 let progress = JSON.parse(localStorage.getItem('fortebetModuleProgress') || '{}');
-                progress[name] = true;
-                localStorage.setItem('fortebetModuleProgress', JSON.stringify(progress));
-                
-                // Track in completed list for dashboard
-                let completedModules = JSON.parse(localStorage.getItem('fortebetCompletedModules') || '[]');
-                if (!completedModules.includes(name)) {
-                    completedModules.push(name);
-                    localStorage.setItem('fortebetCompletedModules', JSON.stringify(completedModules));
+                if (passed) {
+                    progress[moduleName] = true;
+                    localStorage.setItem('fortebetModuleProgress', JSON.stringify(progress));
                 }
-            }
-            
-            // Update main dashboard progress
-            function updateDashboardProgress() {
-                const completedModules = JSON.parse(localStorage.getItem('fortebetCompletedModules') || '[]');
+
+                // Update overall progress percentage
                 const totalModules = 6;
-                const progressPercentage = Math.round((completedModules.length / totalModules) * 100);
-                
-                // Save progress to localStorage
+                const progressPercentage = Math.round((localCompleted.length / totalModules) * 100);
                 localStorage.setItem('fortebetProgress', progressPercentage.toString());
-                
-                // Check if all modules are complete
-                if (completedModules.length === totalModules) {
-                    localStorage.setItem('fortebetAllModulesComplete', 'true');
-                    
-                    // Redirect to certificate page after 2 seconds
-                    setTimeout(() => {
-                        window.location.href = 'training-certificate.html';
-                    }, 2000);
+
+                // Try to save to Firebase
+                let cloudSaved = false;
+                if (isOnline()) {
+                    cloudSaved = await saveModuleProgress(moduleName, score, passed);
+                } else {
+                    // Queue for later sync
+                    addToSyncQueue({
+                        type: 'progress',
+                        module: moduleName,
+                        score: score,
+                        passed: passed,
+                        timestamp: new Date().toISOString()
+                    });
                 }
+                
+                // Show status to user
+                if (passed) {
+                    setTimeout(() => {
+                        if (cloudSaved) {
+                            alert('✅ Module completed and saved to cloud!');
+                        } else if (isOnline()) {
+                            alert('✅ Module completed! (Saved locally - cloud sync failed)');
+                        } else {
+                            alert('✅ Module completed! (Saved locally - will sync when online)');
+                        }
+
+                        if (localCompleted.length === totalModules) {
+                            localStorage.setItem('fortebetAllModulesComplete', 'true');
+                            window.location.href = 'training-certificate.html';
+                        }
+                    }, 500);
+                }
+                
+                return cloudSaved;
             }
 
             function showResults() {
@@ -728,8 +757,7 @@
                     resultsMessage.textContent = `You've mastered the ${moduleName} module with a score of ${percentage}%. You're one step closer to becoming a certified operator!`;
                     adRewardSection.style.display = 'block';
                     completionBadge.style.display = 'inline-block';
-                    saveModuleProgress(moduleName);
-                    updateDashboardProgress();
+                    markModuleCompleted(moduleName, score, passed);
                 } else {
                     resultsScreen.classList.add('failed');
                     resultsTitle.textContent = 'Keep Learning!';
