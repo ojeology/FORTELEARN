@@ -661,6 +661,41 @@
                 completedCount.textContent = completed;
             }
             
+            async function showResults() {
+                score = 0;
+                questions.forEach((q, i) => {
+                    if (userAnswers[i] === q.correct) score++;
+                });
+                
+                const percentage = Math.round((score / totalQuestions) * 100);
+                const passed = percentage >= 85;
+                
+                // Save progress to Firebase
+                if (typeof saveModuleProgress === 'function') {
+                    await saveModuleProgress(moduleName, percentage, passed);
+                }
+                
+                document.getElementById('questionCard').style.display = 'none';
+                document.querySelector('.quiz-nav-module').style.display = 'none';
+                resultsScreen.classList.add('active');
+                resultsScore.textContent = `${percentage}%`;
+                scoreDetails.textContent = `${score}/${totalQuestions}`;
+                
+                if (passed) {
+                    resultsScreen.classList.add('passed');
+                    resultsTitle.textContent = 'Congratulations!';
+                    resultsMessage.textContent = 'You have mastered the Bonuses module. Your progress has been saved to the cloud.';
+                    adRewardSection.style.display = 'block';
+                    completionBadge.style.display = 'inline-block';
+                } else {
+                    resultsScreen.classList.add('failed');
+                    resultsTitle.textContent = 'Keep Practicing!';
+                    resultsMessage.textContent = 'You need 85% to pass this module. Review the training and try again.';
+                    adRewardSection.style.display = 'none';
+                    completionBadge.style.display = 'none';
+                }
+            }
+            
             nextBtn.onclick = () => {
                 if (userAnswers[currentQuestion] === null) {
                     alert('Please select an answer before continuing.');
