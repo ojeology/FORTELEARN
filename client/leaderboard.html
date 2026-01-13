@@ -4,6 +4,12 @@
     <title>Leaderboard - Fortebet</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+
+    <!-- Your Firebase Config -->
+    <script src="firebase-config.js"></script>
     <style>
         .leaderboard-container {
             max-width: 1000px;
@@ -245,44 +251,78 @@
             const clearBtn = document.getElementById('clearLeaderboardBtn');
 
             // Load leaderboard
-            function loadLeaderboard(filter = 'all') {
-                const leaderboard = JSON.parse(localStorage.getItem('fortebetLeaderboard') || '[]');
+            async function loadLeaderboard(filter = 'all') {
+                leaderboardRows.innerHTML = '<div class="no-data"><i class="fas fa-spinner fa-spin"></i> Loading...</div>';
                 
-                // Apply filter
-                let filtered = leaderboard;
-                if (filter === '30') {
-                    filtered = leaderboard.filter(entry => entry.testType === '30Q');
-                } else if (filter === '100') {
-                    filtered = leaderboard.filter(entry => entry.testType === '100Q');
-                } else if (filter === 'today') {
-                    const today = new Date().toLocaleDateString();
-                    filtered = leaderboard.filter(entry => entry.date === today);
+                try {
+                    // Try Firebase first
+                    let leaderboardData = [];
+                    
+                    if (isOnline()) {
+                        leaderboardData = await loadLeaderboardScores(20, filter);
+                    }
+                    
+                    // If no Firebase data or offline, use local
+                    if (leaderboardData.length === 0) {
+                        const localData = JSON.parse(localStorage.getItem('fortebetLeaderboard') || '[]');
+                        
+                        // Apply filter
+                        let filtered = localData;
+                        if (filter === '30') {
+                            filtered = localData.filter(entry => entry.testType === '30Q');
+                        } else if (filter === '100') {
+                            filtered = localData.filter(entry => entry.testType === '100Q');
+                        } else if (filter === 'today') {
+                            const today = new Date().toLocaleDateString();
+                            filtered = localData.filter(entry => entry.date === today);
+                        }
+                        
+                        leaderboardData = filtered.sort((a, b) => b.score - a.score).slice(0, 20);
+                    }
+                    
+                    // Display data
+                    if (leaderboardData.length === 0) {
+                        leaderboardRows.innerHTML = `
+                            <div class="no-data">
+                                <i class="fas fa-chart-line"></i>
+                                <p>No scores yet! Be the first.</p>
+                            </div>
+                        `;
+                        return;
+                    }
+                    
+                    leaderboardRows.innerHTML = '';
+                    leaderboardData.forEach((entry, index) => {
+                        const row = document.createElement('div');
+                        row.className = 'table-row';
+                        row.innerHTML = `
+                            <div class="rank rank-${index + 1}">${index + 1}</div>
+                            <div class="player-name">${entry.name}</div>
+                            <div class="score">${entry.score}%</div>
+                            <div class="test-type">${entry.testType}</div>
+                            <div class="date">${entry.date} ${entry.time || ''}</div>
+                        `;
+                        leaderboardRows.appendChild(row);
+                    });
+                    
+                } catch (error) {
+                    console.error('Error loading leaderboard:', error);
+                    // Fallback to local
+                    const localData = JSON.parse(localStorage.getItem('fortebetLeaderboard') || '[]');
+                    leaderboardRows.innerHTML = '';
+                    localData.slice(0, 20).forEach((entry, index) => {
+                        const row = document.createElement('div');
+                        row.className = 'table-row';
+                        row.innerHTML = `
+                            <div class="rank rank-${index + 1}">${index + 1}</div>
+                            <div class="player-name">${entry.name}</div>
+                            <div class="score">${entry.score}%</div>
+                            <div class="test-type">${entry.testType}</div>
+                            <div class="date">${entry.date}</div>
+                        `;
+                        leaderboardRows.appendChild(row);
+                    });
                 }
-
-                // Display leaderboard
-                if (filtered.length === 0) {
-                    leaderboardRows.innerHTML = `
-                        <div class="no-data">
-                            <i class="fas fa-chart-line" style="font-size: 3rem; margin-bottom: 20px;"></i>
-                            <p>No scores yet! Be the first to take the test.</p>
-                        </div>
-                    `;
-                    return;
-                }
-
-                leaderboardRows.innerHTML = '';
-                filtered.slice(0, 20).forEach((entry, index) => {
-                    const row = document.createElement('div');
-                    row.className = 'table-row';
-                    row.innerHTML = `
-                        <div class="rank rank-${index + 1}">${index + 1}</div>
-                        <div class="player-name">${entry.name}</div>
-                        <div class="score">${entry.score}%</div>
-                        <div class="test-type">${entry.testType}</div>
-                        <div class="date">${entry.date} ${entry.time}</div>
-                    `;
-                    leaderboardRows.appendChild(row);
-                });
             }
 
             // Filter buttons

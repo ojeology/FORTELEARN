@@ -4,6 +4,12 @@
     <title>Operator Quiz - Fortebet</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+
+    <!-- Your Firebase Config -->
+    <script src="firebase-config.js"></script>
     <style>
         /* Quiz Game Styles */
         :root {
@@ -1335,18 +1341,36 @@
                 saveScore(playerName, percentage, questionCount);
             }
             
-            function saveScore(name, score, type) {
-                let leaderboard = JSON.parse(localStorage.getItem('fortebetLeaderboard') || '[]');
-                const now = new Date();
-                leaderboard.push({
-                    name: name || playerName,
-                    score: score !== undefined ? score : Math.round((window.score / (questionCount * 100)) * 100),
-                    testType: `${type || questionCount}Q`,
-                    date: now.toLocaleDateString(),
-                    time: now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            async function saveScore() {
+                const percentage = Math.round((score / (questionCount * 100)) * 100);
+                const playerName = localStorage.getItem('playerName') || 'Anonymous';
+                
+                // Save locally
+                const localLeaderboard = JSON.parse(localStorage.getItem('fortebetLeaderboard') || '[]');
+                localLeaderboard.push({
+                    name: playerName,
+                    score: percentage,
+                    testType: questionCount + 'Q',
+                    date: new Date().toLocaleDateString(),
+                    time: new Date().toLocaleTimeString()
                 });
-                leaderboard.sort((a, b) => b.score - a.score);
-                localStorage.setItem('fortebetLeaderboard', JSON.stringify(leaderboard.slice(0, 50)));
+                localStorage.setItem('fortebetLeaderboard', JSON.stringify(localLeaderboard.slice(-100)));
+                
+                // Try to save to Firebase
+                if (isOnline()) {
+                    const saved = await saveLeaderboardScore(playerName, percentage, questionCount + 'Q');
+                    if (saved) {
+                        console.log('Leaderboard score saved to cloud');
+                    }
+                } else {
+                    addToSyncQueue({
+                        type: 'leaderboard',
+                        name: playerName,
+                        score: percentage,
+                        testType: questionCount + 'Q',
+                        timestamp: new Date().toISOString()
+                    });
+                }
             }
 
             // Show game over screen
