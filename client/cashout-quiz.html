@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cashout Quiz - Fortebet</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* (Same styles as bonuses-quiz.html) */
+        .module-quiz-container { max-width: 900px; margin: 0 auto; padding: 20px; min-height: 100vh; background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%); }
+        .quiz-header-module { background: white; padding: 25px; border-radius: 15px; margin-bottom: 30px; box-shadow: 0 5px 20px rgba(0,0,0,0.08); text-align: center; border-left: 8px solid #27ae60; }
+        .module-icon { font-size: 3rem; color: #27ae60; margin-bottom: 15px; }
+        .quiz-header-module h1 { color: #2c3e50; margin-bottom: 10px; }
+        .quiz-header-module p { color: #7f8c8d; font-size: 1.1rem; }
+        .module-progress { display: flex; align-items: center; background: white; padding: 20px; border-radius: 15px; margin-bottom: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .progress-visual { flex: 1; }
+        .progress-stats { text-align: right; min-width: 150px; }
+        .progress-bar-container { height: 12px; background: #ecf0f1; border-radius: 6px; overflow: hidden; margin-bottom: 10px; }
+        .progress-bar-fill { height: 100%; background: linear-gradient(90deg, #27ae60, #2ecc71); width: 0%; transition: width 0.5s ease; }
+        .progress-text { display: flex; justify-content: space-between; font-size: 0.9rem; color: #5a6c7d; }
+        .completed-count { font-weight: bold; color: #27ae60; }
+        .module-count { color: #3498db; font-weight: bold; }
+        .question-card-module { background: white; border-radius: 15px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-bottom: 25px; }
+        .question-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 2px solid #f1f2f6; }
+        .question-number { font-size: 1.2rem; font-weight: bold; color: #2c3e50; }
+        .question-timer { background: #fff3cd; color: #856404; padding: 8px 15px; border-radius: 20px; font-weight: bold; display: flex; align-items: center; gap: 8px; }
+        .question-text-module { font-size: 1.4rem; color: #2c3e50; line-height: 1.6; margin-bottom: 30px; }
+        .options-grid-module { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 30px; }
+        @media (max-width: 768px) { .options-grid-module { grid-template-columns: 1fr; } }
+        .option-btn-module { padding: 20px; border: 3px solid #e0e0e0; border-radius: 12px; background: white; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; gap: 15px; text-align: left; }
+        .option-btn-module:hover { border-color: #3498db; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(52, 152, 219, 0.2); }
+        .option-btn-module.selected { border-color: #27ae60; background: #e8f5e9; }
+        .option-btn-module.correct { border-color: #27ae60; background: #d4edda; animation: pulseCorrect 1s; }
+        .option-btn-module.wrong { border-color: #e74c3c; background: #f8d7da; animation: shakeWrong 0.5s; }
+        @keyframes pulseCorrect { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+        @keyframes shakeWrong { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+        .option-letter-module { width: 40px; height: 40px; background: #f1f2f6; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #2c3e50; font-size: 1.2rem; }
+        .option-btn-module.selected .option-letter-module { background: #27ae60; color: white; }
+        .option-text-module { flex: 1; font-size: 1.1rem; color: #2c3e50; }
+        .quiz-nav-module { display: flex; justify-content: space-between; margin-top: 30px; }
+        .nav-btn { padding: 15px 30px; border: none; border-radius: 10px; font-size: 1.1rem; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: all 0.3s; }
+        .btn-prev-module { background: #95a5a6; color: white; }
+        .btn-next-module { background: #27ae60; color: white; }
+        .btn-submit-module { background: #3498db; color: white; }
+        .nav-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .nav-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+        .module-results { background: white; border-radius: 20px; padding: 40px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.15); display: none; animation: fadeIn 0.5s ease-out; }
+        .module-results.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .results-icon-module { font-size: 5rem; margin-bottom: 20px; }
+        .passed .results-icon-module { color: #27ae60; }
+        .failed .results-icon-module { color: #e74c3c; }
+        .results-title-module { font-size: 2.5rem; color: #2c3e50; margin-bottom: 15px; }
+        .results-score-module { font-size: 4rem; font-weight: bold; margin: 30px 0; }
+        .passed .results-score-module { color: #27ae60; }
+        .failed .results-score-module { color: #e74c3c; }
+        .score-details { background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 30px 0; display: inline-block; }
+        .results-message-module { font-size: 1.2rem; color: #5a6c7d; line-height: 1.6; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; }
+        .results-actions-module { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+        .result-action-btn { padding: 15px 30px; border: none; border-radius: 10px; font-size: 1.1rem; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: all 0.3s; min-width: 180px; }
+        .btn-retry-module { background: #f39c12; color: white; }
+        .btn-dashboard-module { background: #95a5a6; color: white; }
+        .btn-next-module-card { background: #9b59b6; color: white; }
+        .ad-reward-section { background: linear-gradient(135deg, #fff3cd, #ffeaa7); border: 3px solid #f39c12; border-radius: 15px; padding: 25px; margin: 30px 0; text-align: center; }
+        .ad-reward-section h3 { color: #d68910; margin-bottom: 10px; }
+        .ad-btn-module { background: linear-gradient(135deg, #f39c12, #e67e22); color: white; border: none; padding: 15px 30px; border-radius: 10px; font-size: 1.2rem; font-weight: bold; cursor: pointer; display: inline-flex; align-items: center; gap: 10px; margin: 15px 0; transition: all 0.3s; }
+        .ad-btn-module:hover { transform: scale(1.05); box-shadow: 0 5px 20px rgba(243, 156, 18, 0.4); }
+        .completion-badge { background: linear-gradient(135deg, #27ae60, #2ecc71); color: white; padding: 10px 25px; border-radius: 25px; font-weight: bold; display: inline-block; margin-bottom: 20px; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(39, 174, 96, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(39, 174, 96, 0); } 100% { box-shadow: 0 0 0 0 rgba(39, 174, 96, 0); } }
+    </style>
+</head>
+<body>
+    <div class="module-quiz-container">
+        <div class="quiz-header-module">
+            <div class="module-icon"><i class="fas fa-money-bill-wave"></i></div>
+            <h1>Cashout Procedures Quiz</h1>
+            <p>Test your knowledge about the Fortebet cashout feature</p>
+        </div>
+        <div class="module-progress">
+            <div class="progress-visual">
+                <div class="progress-bar-container"><div class="progress-bar-fill" id="progressBarFill"></div></div>
+                <div class="progress-text"><span>Module Progress</span><span id="moduleProgressText">0/6 modules</span></div>
+            </div>
+            <div class="progress-stats"><div class="completed-count" id="completedCount">0</div><div class="module-count">of 6 modules</div></div>
+        </div>
+        <div class="question-card-module" id="questionCard">
+            <div class="question-header">
+                <div class="question-number" id="questionNumber">Question 1 of 7</div>
+                <div class="question-timer"><i class="fas fa-clock"></i><span id="questionTimer">No time limit</span></div>
+            </div>
+            <div class="question-text-module" id="questionText">Loading question...</div>
+            <div class="options-grid-module" id="optionsGrid"></div>
+        </div>
+        <div class="quiz-nav-module">
+            <button class="nav-btn btn-prev-module" id="prevBtn" disabled><i class="fas fa-arrow-left"></i> Previous</button>
+            <button class="nav-btn btn-next-module" id="nextBtn">Next Question <i class="fas fa-arrow-right"></i></button>
+        </div>
+        <div class="module-results" id="resultsScreen">
+            <div class="results-icon-module"><i class="fas fa-trophy"></i></div>
+            <h1 class="results-title-module" id="resultsTitle">Quiz Completed!</h1>
+            <div class="results-score-module" id="resultsScore">0%</div>
+            <div class="score-details"><p>You scored: <strong id="scoreDetails">0/7</strong> questions</p><p>Required to pass: <strong>6/7</strong> (85%)</p></div>
+            <div class="results-message-module" id="resultsMessage">Loading your results...</div>
+            <div class="ad-reward-section" id="adRewardSection">
+                <h3><i class="fas fa-gift"></i> Double Your Training Points!</h3>
+                <p>Watch a short ad to earn 200 bonus training points</p>
+                <button class="ad-btn-module" id="watchAdBtn"><i class="fas fa-play-circle"></i> Watch Ad (30s)</button>
+            </div>
+            <div class="completion-badge" id="completionBadge"><i class="fas fa-check-circle"></i> Module Completed!</div>
+            <div class="results-actions-module">
+                <button class="result-action-btn btn-retry-module" id="retryBtn"><i class="fas fa-redo"></i> Retry Quiz</button>
+                <button class="result-action-btn btn-dashboard-module" id="dashboardBtn"><i class="fas fa-home"></i> Back to Dashboard</button>
+                <button class="result-action-btn btn-next-module-card" id="nextModuleBtn">Next Module <i class="fas fa-arrow-right"></i></button>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const moduleName = 'Cashout';
+            const totalQuestions = 7;
+            const questions = [
+                { question: "What is cashout?", options: ["A way to deposit", "Settle bet early before events finish", "A type of bonus", "Login method"], correct: 1 },
+                { question: "When can you cash out a ticket?", options: ["Anytime", "Only if losing", "All matches must have live results", "Only on weekends"], correct: 2 },
+                { question: "What is the rule for VIP points during cashout?", options: ["Points are doubled", "Same amount must be available in account", "Points are ignored", "User gets 500 free points"], correct: 1 },
+                { question: "What is the fee deducted during cashout calculation?", options: ["1%", "5%", "10%", "No fee"], correct: 0 },
+                { question: "Cashout is suspended if current odds for any event exceed?", options: ["2.00", "5.00", "10.00", "20.00"], correct: 2 },
+                { question: "What happens if odds remain unchanged from the original bet?", options: ["Cashout is doubled", "Cashout is suspended", "Automatic payout", "No effect"], correct: 1 },
+                { question: "What is the cashout calculation formula?", options: ["(Potential ÷ Current Odds) - 1% fee", "Stake x 2", "Winnings + Bonus", "Odds - 1.00"], correct: 0 }
+            ];
+            let currentQuestion = 0; let userAnswers = new Array(totalQuestions).fill(null);
+            const progressBarFill = document.getElementById('progressBarFill');
+            const moduleProgressText = document.getElementById('moduleProgressText');
+            const completedCount = document.getElementById('completedCount');
+            const questionNumber = document.getElementById('questionNumber');
+            const questionText = document.getElementById('questionText');
+            const optionsGrid = document.getElementById('optionsGrid');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const resultsScreen = document.getElementById('resultsScreen');
+            const resultsScore = document.getElementById('resultsScore');
+            const resultsTitle = document.getElementById('resultsTitle');
+            const resultsMessage = document.getElementById('resultsMessage');
+            const scoreDetails = document.getElementById('scoreDetails');
+            const adRewardSection = document.getElementById('adRewardSection');
+            const completionBadge = document.getElementById('completionBadge');
+            function initQuiz() { loadQuestion(currentQuestion); updateModuleOverallProgress(); }
+            function loadQuestion(index) {
+                const q = questions[index]; questionText.textContent = q.question; questionNumber.textContent = `Question ${index + 1} of ${totalQuestions}`;
+                optionsGrid.innerHTML = ''; const letters = ['A', 'B', 'C', 'D'];
+                q.options.forEach((opt, i) => {
+                    const btn = document.createElement('button'); btn.className = 'option-btn-module';
+                    if (userAnswers[index] === i) btn.classList.add('selected');
+                    btn.innerHTML = `<div class="option-letter-module">${letters[i]}</div><div class="option-text-module">${opt}</div>`;
+                    btn.onclick = () => selectOption(i); optionsGrid.appendChild(btn);
+                });
+                updateNavButtons(); updateProgressBar();
+            }
+            function selectOption(index) { userAnswers[currentQuestion] = index; const btns = optionsGrid.querySelectorAll('.option-btn-module'); btns.forEach((btn, i) => { if (i === index) btn.classList.add('selected'); else btn.classList.remove('selected'); }); updateNavButtons(); }
+            function updateNavButtons() { prevBtn.disabled = currentQuestion === 0; if (currentQuestion === totalQuestions - 1) { nextBtn.innerHTML = 'Submit Quiz <i class="fas fa-check-circle"></i>'; nextBtn.className = 'nav-btn btn-submit-module'; } else { nextBtn.innerHTML = 'Next Question <i class="fas fa-arrow-right"></i>'; nextBtn.className = 'nav-btn btn-next-module'; } }
+            function updateProgressBar() { const progress = ((currentQuestion) / totalQuestions) * 100; progressBarFill.style.width = `${progress}%`; }
+            function updateModuleOverallProgress() { const progress = JSON.parse(localStorage.getItem('fortebetModuleProgress') || '{}'); const completed = Object.keys(progress).length; moduleProgressText.textContent = `${completed}/6 modules`; completedCount.textContent = completed; }
+            nextBtn.onclick = () => { if (userAnswers[currentQuestion] === null) { alert('Please select an answer before continuing.'); return; } if (currentQuestion < totalQuestions - 1) { currentQuestion++; loadQuestion(currentQuestion); } else { showResults(); } };
+            prevBtn.onclick = () => { if (currentQuestion > 0) { currentQuestion--; loadQuestion(currentQuestion); } };
+            function showResults() {
+                let score = 0; userAnswers.forEach((ans, i) => { if (ans === questions[i].correct) score++; });
+                const percentage = Math.round((score / totalQuestions) * 100); const passed = percentage >= 85;
+                document.getElementById('questionCard').style.display = 'none'; document.querySelector('.quiz-nav-module').style.display = 'none';
+                resultsScreen.classList.add('active');
+                if (passed) { resultsScreen.classList.add('passed'); resultsTitle.textContent = 'Congratulations!'; resultsMessage.textContent = `You've mastered the module with a score of ${percentage}%!`; adRewardSection.style.display = 'block'; completionBadge.style.display = 'inline-block'; saveModuleProgress(moduleName); }
+                else { resultsScreen.classList.add('failed'); resultsTitle.textContent = 'Keep Learning!'; resultsMessage.textContent = `You scored ${percentage}%. You need at least 85% to pass.`; adRewardSection.style.display = 'none'; completionBadge.style.display = 'none'; }
+                resultsScore.textContent = `${percentage}%`; scoreDetails.textContent = `${score}/${totalQuestions}`; updateModuleOverallProgress();
+            }
+            function saveModuleProgress(name) { let progress = JSON.parse(localStorage.getItem('fortebetModuleProgress') || '{}'); progress[name] = true; localStorage.setItem('fortebetModuleProgress', JSON.stringify(progress)); }
+            document.getElementById('retryBtn').onclick = () => location.reload();
+            document.getElementById('dashboardBtn').onclick = () => window.location.href = 'index.html';
+            document.getElementById('nextModuleBtn').onclick = () => { window.location.href = 'ethics-quiz.html'; };
+            initQuiz();
+        });
+    </script>
+</body>
+</html>
