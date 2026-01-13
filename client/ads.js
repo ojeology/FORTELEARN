@@ -8,29 +8,37 @@ let myAppId = "200774828";
 function initStartApp() {
   console.log("initStartApp called");
   if (typeof startapp !== 'undefined') {
-    console.log("startapp is defined, initializing...");
+    console.log("startapp is defined, initializing with appId: " + myAppId);
     startapp.init({
       appId: myAppId
     }, function() {
       console.log("✅ Start.io is ready!");
-      document.getElementById('ad-banner-container').innerHTML = '<p>✅ Start.io ready, loading ad...</p>';
+      const adContainer = document.getElementById('ad-banner-container');
+      if (adContainer) {
+        adContainer.innerHTML = '<p>✅ Start.io ready, loading ad...</p>';
+      }
       loadBannerAd(); // Try to load a banner
     }, function(error) {
       console.error("❌ Start.io failed: ", error);
-      document.getElementById('ad-banner-container').innerHTML = '<p style="color:red">❌ Start.io failed to initialize</p>';
+      const adContainer = document.getElementById('ad-banner-container');
+      if (adContainer) {
+        adContainer.innerHTML = '<p style="color:red">❌ Start.io failed to initialize: ' + JSON.stringify(error) + '</p>';
+      }
     });
   } else {
     console.log("Waiting for Start.io script to load...");
-    // Inject script if not present with error handling
+    // Inject script if not present
     if (!document.querySelector('script[src*="cdn.startapp.com"]')) {
-      console.log("Script tag missing, injecting...");
+      console.log("Script tag missing in head, injecting...");
       var script = document.createElement('script');
       script.src = "https://cdn.startapp.com/sdk/init.js";
       script.type = "text/javascript";
-      script.crossOrigin = "anonymous";
       script.onerror = function() {
         console.error("Failed to load Start.io script from CDN");
-        document.getElementById('ad-banner-container').innerHTML = '<p style="color:red">❌ Failed to load ad script</p>';
+        const adContainer = document.getElementById('ad-banner-container');
+        if (adContainer) {
+          adContainer.innerHTML = '<p style="color:red">❌ Failed to load ad script from CDN</p>';
+        }
       };
       document.head.appendChild(script);
     }
@@ -39,24 +47,26 @@ function initStartApp() {
 }
 
 function loadBannerAd() {
-  console.log("Trying to load banner ad...");
-  if (typeof startapp !== 'undefined') {
+  console.log("Trying to load banner ad for container: ad-banner-container");
+  if (typeof startapp !== 'undefined' && startapp.banner) {
     startapp.banner.display({
       containerId: 'ad-banner-container',
       width: 320,
       height: 50
     });
-    console.log("Banner ad function called.");
+    console.log("Banner ad display function called.");
     
     // Check if banner was actually injected
     setTimeout(function() {
       const container = document.getElementById('ad-banner-container');
-      if (container && container.children.length > 1) { // More than just the placeholder <p>
+      if (container && container.children.length > 1) { 
         console.log("✅ Banner container has content");
       } else {
-        console.log("⚠️ Banner container still only has placeholder");
+        console.log("⚠️ Banner container still only has placeholder text or is empty");
       }
-    }, 2000);
+    }, 3000);
+  } else {
+    console.error("startapp.banner is not defined");
   }
 }
 
