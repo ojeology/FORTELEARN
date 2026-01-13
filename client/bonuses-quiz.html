@@ -676,6 +676,39 @@
                 }
             };
             
+            function saveModuleProgress(name) {
+                let progress = JSON.parse(localStorage.getItem('fortebetModuleProgress') || '{}');
+                progress[name] = true;
+                localStorage.setItem('fortebetModuleProgress', JSON.stringify(progress));
+                
+                // Track in completed list for dashboard
+                let completedModules = JSON.parse(localStorage.getItem('fortebetCompletedModules') || '[]');
+                if (!completedModules.includes(name)) {
+                    completedModules.push(name);
+                    localStorage.setItem('fortebetCompletedModules', JSON.stringify(completedModules));
+                }
+            }
+            
+            // Update main dashboard progress
+            function updateDashboardProgress() {
+                const completedModules = JSON.parse(localStorage.getItem('fortebetCompletedModules') || '[]');
+                const totalModules = 6;
+                const progressPercentage = Math.round((completedModules.length / totalModules) * 100);
+                
+                // Save progress to localStorage
+                localStorage.setItem('fortebetProgress', progressPercentage.toString());
+                
+                // Check if all modules are complete
+                if (completedModules.length === totalModules) {
+                    localStorage.setItem('fortebetAllModulesComplete', 'true');
+                    
+                    // Redirect to certificate page after 2 seconds
+                    setTimeout(() => {
+                        window.location.href = 'training-certificate.html';
+                    }, 2000);
+                }
+            }
+
             function showResults() {
                 score = 0;
                 userAnswers.forEach((answer, i) => {
@@ -687,8 +720,8 @@
                 
                 document.getElementById('questionCard').style.display = 'none';
                 document.querySelector('.quiz-nav-module').style.display = 'none';
-                
                 resultsScreen.classList.add('active');
+                
                 if (passed) {
                     resultsScreen.classList.add('passed');
                     resultsTitle.textContent = 'Congratulations!';
@@ -696,6 +729,7 @@
                     adRewardSection.style.display = 'block';
                     completionBadge.style.display = 'inline-block';
                     saveModuleProgress(moduleName);
+                    updateDashboardProgress();
                 } else {
                     resultsScreen.classList.add('failed');
                     resultsTitle.textContent = 'Keep Learning!';
@@ -707,12 +741,6 @@
                 resultsScore.textContent = `${percentage}%`;
                 scoreDetails.textContent = `${score}/${totalQuestions}`;
                 updateModuleOverallProgress();
-            }
-            
-            function saveModuleProgress(name) {
-                let progress = JSON.parse(localStorage.getItem('fortebetModuleProgress') || '{}');
-                progress[name] = true;
-                localStorage.setItem('fortebetModuleProgress', JSON.stringify(progress));
             }
             
             document.getElementById('retryBtn').onclick = () => location.reload();
