@@ -5,6 +5,17 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script type="text/javascript" src="https://cdn.startapp.com/sdk/init.js"></script>
+    <script type="text/javascript">
+      // Backup initialization if ads.js fails to load
+      window.addEventListener('load', function() {
+        if (typeof startapp === 'undefined') {
+          console.log("Start.io script not found, retrying injection...");
+          var s = document.createElement('script');
+          s.src = "https://cdn.startapp.com/sdk/init.js";
+          document.head.appendChild(s);
+        }
+      });
+    </script>
     <script type="text/javascript" src="ads.js"></script>
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>

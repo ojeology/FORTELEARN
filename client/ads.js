@@ -25,43 +25,15 @@ function initStartApp() {
         const adStatus = document.getElementById('ad-status');
         if (adStatus) {
           adStatus.style.color = 'red';
-          adStatus.textContent = '❌ Start.io failed to initialize: ' + (error.message || JSON.stringify(error));
+          adStatus.textContent = '❌ Start.io failed to initialize. If you are using an ad-blocker, please disable it.';
         }
       });
     } catch (e) {
       console.error("❌ Start.io init exception: ", e);
-      const adStatus = document.getElementById('ad-status');
-      if (adStatus) {
-        adStatus.style.color = 'red';
-        adStatus.textContent = '❌ Start.io init exception: ' + e.message;
-      }
     }
   } else {
     console.log("Waiting for Start.io script to load...");
-    // Check for script tag
-    const existingScript = document.querySelector('script[src*="cdn.startapp.com"]');
-    if (!existingScript) {
-      console.log("Script tag missing in head, injecting...");
-      var script = document.createElement('script');
-      script.src = "https://cdn.startapp.com/sdk/init.js";
-      script.type = "text/javascript";
-      script.async = true;
-      script.onload = function() {
-        console.log("SDK script onload triggered");
-        initStartApp();
-      };
-      script.onerror = function(err) {
-        console.error("Failed to load Start.io script from CDN", err);
-        const adStatus = document.getElementById('ad-status');
-        if (adStatus) {
-          adStatus.style.color = 'red';
-          adStatus.textContent = '❌ Failed to load ad script from CDN. Please check your internet or ad-blocker.';
-        }
-      };
-      document.head.appendChild(script);
-    } else {
-       setTimeout(initStartApp, 1000); // Check again in a second
-    }
+    setTimeout(initStartApp, 1000); 
   }
 }
 
