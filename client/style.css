@@ -459,3 +459,324 @@ footer {
     background: #219653;
     transform: translateY(-2px);
 }
+
+/* Operator Test Selection Page */
+.test-header {
+    text-align: center;
+    background: linear-gradient(135deg, #2c3e50 0%, #4a6491 100%);
+    color: white;
+    padding: 40px 20px;
+    border-radius: 0 0 20px 20px;
+    margin-bottom: 40px;
+}
+
+.test-header h1 {
+    color: white;
+    font-size: 2.5rem;
+    margin: 20px 0 10px;
+}
+
+.test-header .subtitle {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+.test-header .back-btn {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.test-header .back-btn:hover {
+    background: white;
+    color: #2c3e50;
+}
+
+/* Test Selection Layout */
+.test-selection {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Name Input Section */
+.name-section {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.name-section h2 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+#playerName {
+    width: 300px;
+    max-width: 90%;
+    padding: 15px;
+    font-size: 1.2rem;
+    border: 3px solid #27ae60;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+#playerName:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3);
+}
+
+.hint {
+    color: #7f8c8d;
+    font-size: 0.9rem;
+    margin-top: 10px;
+}
+
+/* Test Options */
+.test-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+.test-card {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    position: relative;
+    border: 2px solid #e0e0e0;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.test-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+}
+
+.test-card.premium {
+    border-color: #f39c12;
+    background: linear-gradient(135deg, #fffaf0 0%, #fff5e6 100%);
+}
+
+.test-badge {
+    position: absolute;
+    top: -12px;
+    right: 20px;
+    background: #27ae60;
+    color: white;
+    padding: 6px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+.test-card.premium .test-badge {
+    background: #f39c12;
+}
+
+.test-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #27ae60, #2ecc71);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    color: white;
+    font-size: 36px;
+}
+
+.test-card.premium .test-icon {
+    background: linear-gradient(135deg, #f39c12, #e67e22);
+}
+
+.test-card h3 {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.test-card h2 {
+    color: #2c3e50;
+    font-size: 2.2rem;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.test-features {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 30px;
+}
+
+.test-features li {
+    padding: 8px 0;
+    color: #5a6c7d;
+    display: flex;
+    align-items: center;
+}
+
+.test-features li i {
+    color: #27ae60;
+    margin-right: 10px;
+    font-size: 1.1rem;
+}
+
+.test-stats {
+    display: flex;
+    justify-content: space-between;
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    font-weight: bold;
+}
+
+.test-stats span {
+    color: #2c3e50;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.start-btn {
+    width: 100%;
+    padding: 18px;
+    background: linear-gradient(135deg, #27ae60, #2ecc71);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.start-btn:hover {
+    background: linear-gradient(135deg, #219653, #27ae60);
+    transform: translateY(-2px);
+    box-shadow: 0 7px 20px rgba(39, 174, 96, 0.3);
+}
+
+.premium-btn {
+    background: linear-gradient(135deg, #f39c12, #e67e22);
+}
+
+.premium-btn:hover {
+    background: linear-gradient(135deg, #d68910, #f39c12);
+    box-shadow: 0 7px 20px rgba(243, 156, 18, 0.3);
+}
+
+/* Leaderboard Preview */
+.leaderboard-preview {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.leaderboard-preview h2 {
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.leaderboard-table {
+    border: 2px solid #f1f1f1;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.leaderboard-header {
+    display: grid;
+    grid-template-columns: 80px 1fr 100px 100px;
+    background: #2c3e50;
+    color: white;
+    padding: 15px;
+    font-weight: bold;
+}
+
+.leaderboard-rows {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.leaderboard-row {
+    display: grid;
+    grid-template-columns: 80px 1fr 100px 100px;
+    padding: 12px 15px;
+    border-bottom: 1px solid #f1f1f1;
+    align-items: center;
+}
+
+.leaderboard-row:nth-child(odd) {
+    background: #f9f9f9;
+}
+
+.leaderboard-row:first-child .rank {
+    background: gold;
+    color: #333;
+}
+
+.leaderboard-row:nth-child(2) .rank {
+    background: silver;
+    color: #333;
+}
+
+.leaderboard-row:nth-child(3) .rank {
+    background: #cd7f32;
+    color: white;
+}
+
+.rank {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background: #27ae60;
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 30px;
+    font-weight: bold;
+}
+
+.name {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.score {
+    font-weight: bold;
+    color: #27ae60;
+}
+
+.test-type {
+    background: #e8f5e9;
+    color: #27ae60;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.leaderboard-note {
+    text-align: center;
+    color: #7f8c8d;
+    margin-top: 20px;
+    font-style: italic;
+}
