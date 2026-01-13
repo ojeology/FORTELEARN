@@ -7,6 +7,11 @@ let myAppId = "200774828";
 // Function to start Start.io
 function initStartApp() {
   console.log("initStartApp called");
+  
+  // Check if we already have the status element
+  const adStatus = document.getElementById('ad-status');
+  if (adStatus && adStatus.textContent.includes('✅')) return;
+
   if (typeof startapp !== 'undefined') {
     console.log("startapp is defined, initializing with appId: " + myAppId);
     try {
@@ -14,7 +19,6 @@ function initStartApp() {
         appId: myAppId
       }, function() {
         console.log("✅ Start.io is ready!");
-        const adStatus = document.getElementById('ad-status');
         if (adStatus) {
           adStatus.style.color = 'green';
           adStatus.textContent = '✅ Start.io ready, loading ad...';
@@ -22,7 +26,6 @@ function initStartApp() {
         loadBannerAd(); // Try to load a banner
       }, function(error) {
         console.error("❌ Start.io failed callback: ", error);
-        const adStatus = document.getElementById('ad-status');
         if (adStatus) {
           adStatus.style.color = 'red';
           adStatus.textContent = '❌ Start.io failed to initialize. If you are using an ad-blocker, please disable it.';
@@ -33,9 +36,61 @@ function initStartApp() {
     }
   } else {
     console.log("Waiting for Start.io script to load...");
-    setTimeout(initStartApp, 1000); 
+    // If it's been 5 seconds and still not loaded, show error
+    setTimeout(function() {
+        if (typeof startapp === 'undefined' && adStatus) {
+            adStatus.style.color = 'orange';
+            adStatus.textContent = '⚠️ Waiting for script... check your internet or ad-blocker.';
+        }
+    }, 5000);
+    setTimeout(initStartApp, 2000); 
   }
 }
+
+function loadBannerAd() {
+  console.log("Trying to load banner ad for container: ad-banner-container");
+  if (typeof startapp !== 'undefined' && startapp.banner) {
+    try {
+        startapp.banner.display({
+          containerId: 'ad-banner-container',
+          width: 320,
+          height: 50
+        });
+        console.log("Banner ad display function called.");
+        
+        // Show success in UI
+        const adStatus = document.getElementById('ad-status');
+        if (adStatus) {
+            adStatus.textContent = '✅ Ad requested from Start.io';
+        }
+    } catch (e) {
+        console.error("Error displaying banner:", e);
+    }
+  } else {
+    console.error("startapp.banner is not defined");
+  }
+}
+
+// Manual retry function
+function retryAds() {
+    const adStatus = document.getElementById('ad-status');
+    if (adStatus) adStatus.textContent = 'Retrying...';
+    
+    // Inject script again just in case
+    const s = document.createElement('script');
+    s.src = "https://cdn.startapp.com/sdk/init.js";
+    document.head.appendChild(s);
+    
+    setTimeout(initStartApp, 1000);
+}
+
+// Start the process when the page is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initStartApp);
+} else {
+  initStartApp();
+}
+
 
 function loadBannerAd() {
   console.log("Trying to load banner ad for container: ad-banner-container");
