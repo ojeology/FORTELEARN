@@ -288,6 +288,30 @@
         document.getElementById('module-title').innerHTML = `<i class="fas fa-book"></i> ${moduleName} Training`;
         document.getElementById('content-subtitle').textContent = data.subtitle;
         document.getElementById('module-content').innerHTML = data.content;
+
+        // Update the quiz button link based on current module
+        const quizBtn = document.querySelector('.quiz-btn');
+        if (quizBtn) {
+            // Map each module to its quiz page
+            const moduleQuizMap = {
+                'Bonuses': 'bonuses-quiz.html',
+                'POS/Terminal': 'pos-quiz.html',
+                'Cashout': 'cashout-quiz.html',
+                'Work Ethics': 'ethics-quiz.html',
+                'Deposits & Withdrawals': 'deposits-quiz.html',
+                'Common Issues': 'issues-quiz.html'
+            };
+            
+            // Get the current module name
+            const currentModule = decodeURIComponent(moduleName);
+            
+            // Set the correct quiz page link
+            const quizPage = moduleQuizMap[currentModule] || 'bonuses-quiz.html';
+            quizBtn.href = quizPage;
+            
+            // Also update the button text to show which module quiz
+            quizBtn.innerHTML = `<i class="fas fa-play-circle"></i> Take ${currentModule} Quiz`;
+        }
     </script>
 </body>
 </html>
