@@ -15,13 +15,13 @@
             
             <div class="progress-section">
                 <div class="progress-circle">
-                    <div class="circle">
-                        <span class="progress-value">0%</span>
+                    <div class="circle" id="progressCircle">
+                        <span class="progress-value" id="progressValue">0%</span>
                     </div>
                 </div>
                 <div class="progress-text">
                     <h3>Your Progress</h3>
-                    <p>Start your first module!</p>
+                    <p id="progressStatusText">Start your first module!</p>
                 </div>
             </div>
         </div>
@@ -98,5 +98,44 @@
     <footer>
         <p>© 2024 Fortebet Training Portal</p>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const progress = localStorage.getItem('fortebetProgress') || '0';
+            const completedModules = JSON.parse(localStorage.getItem('fortebetCompletedModules') || '[]');
+            
+            const progressValue = document.getElementById('progressValue');
+            const progressCircle = document.getElementById('progressCircle');
+            const progressStatusText = document.getElementById('progressStatusText');
+            
+            const percentage = parseInt(progress);
+            progressValue.textContent = `${percentage}%`;
+            
+            // Update circle background to show progress visually
+            progressCircle.style.background = `conic-gradient(#2ecc71 ${percentage * 3.6}deg, #eee 0deg)`;
+            
+            if (percentage === 100) {
+                progressStatusText.textContent = 'All modules complete! Claim your certificate.';
+            } else if (percentage > 0) {
+                progressStatusText.textContent = `You've completed ${completedModules.length} of 6 modules.`;
+            } else {
+                progressStatusText.textContent = 'Start your first module!';
+            }
+            
+            // Highlight completed cards
+            const moduleProgress = JSON.parse(localStorage.getItem('fortebetModuleProgress') || '{}');
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                const title = card.querySelector('h3').textContent.trim();
+                if (moduleProgress[title]) {
+                    card.classList.add('module-completed');
+                    const link = card.querySelector('a');
+                    if (link && title !== 'Operator Challenge') {
+                        link.innerHTML = 'Review Module <i class="fas fa-check-circle"></i>';
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>
