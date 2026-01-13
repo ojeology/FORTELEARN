@@ -12,43 +12,38 @@ function initStartApp() {
   const adStatus = document.getElementById('ad-status');
   if (adStatus && adStatus.textContent.includes('✅')) return;
 
-  if (typeof startapp !== 'undefined' && typeof startapp.init === 'function') {
-    console.log("startapp is defined, initializing with appId: " + myAppId);
+  if (typeof startapp !== 'undefined') {
+    console.log("startapp is available, initializing with appId: " + myAppId);
     try {
       startapp.init({
         appId: myAppId
       }, function() {
-        console.log("✅ Start.io is ready!");
+        console.log("✅ Start.io initialization successful");
         if (adStatus) {
           adStatus.style.color = 'green';
           adStatus.textContent = '✅ Ads Ready';
         }
         loadBannerAd(); 
       }, function(error) {
-        console.error("❌ Start.io initialization error: ", error);
+        console.error("❌ Start.io error: ", error);
         if (adStatus) {
-          adStatus.style.color = 'red';
-          adStatus.textContent = '❌ Ad loading blocked or failed.';
+          adStatus.style.color = 'orange';
+          adStatus.textContent = '⚠️ Ads limited by provider.';
         }
+        loadBannerAd(); // Load placeholder on error
       });
     } catch (e) {
-      console.error("❌ Start.io exception: ", e);
+      console.error("❌ Exception during init: ", e);
+      loadBannerAd();
     }
   } else {
-    console.log("Waiting for Start.io script to load...");
-    // If it's been 5 seconds and still not loaded, show error
-    setTimeout(function() {
-        if (typeof startapp === 'undefined' && adStatus) {
-            adStatus.style.color = 'orange';
-            adStatus.textContent = '⚠️ Waiting for script... check your internet or ad-blocker.';
-        }
-    }, 5000);
-    setTimeout(initStartApp, 2000); 
+    console.log("Waiting for script...");
+    setTimeout(initStartApp, 1000); 
   }
 }
 
 function loadBannerAd() {
-  console.log("Trying to load banner ad for container: ad-banner-container");
+  console.log("Loading banner...");
   if (typeof startapp !== 'undefined' && startapp.banner) {
     try {
         startapp.banner.display({
@@ -56,18 +51,9 @@ function loadBannerAd() {
           width: 320,
           height: 50
         });
-        console.log("Banner ad display function called.");
-        
-        // Show success in UI
-        const adStatus = document.getElementById('ad-status');
-        if (adStatus) {
-            adStatus.textContent = '✅ Ad requested from Start.io';
-        }
     } catch (e) {
         console.error("Error displaying banner:", e);
     }
-  } else {
-    console.error("startapp.banner is not defined");
   }
 }
 
