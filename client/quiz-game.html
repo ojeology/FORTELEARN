@@ -642,7 +642,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.95);
             display: none;
             align-items: center;
             justify-content: center;
@@ -654,18 +654,19 @@
         }
 
         .ad-popup-content {
-            background: white;
+            background: #1a1a1a;
             border-radius: 15px;
-            width: 90%;
-            max-width: 400px;
+            width: 95%;
+            max-width: 350px;
             overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            box-shadow: 0 20px 60px rgba(0,0,0,1);
+            border: 2px solid #f1c40f;
         }
 
         .ad-header {
-            background: #3498db;
-            color: white;
-            padding: 15px 20px;
+            background: #f1c40f;
+            color: #000;
+            padding: 12px 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -673,70 +674,45 @@
 
         .ad-header h3 {
             margin: 0;
+            font-size: 1rem;
             display: flex;
             align-items: center;
-            gap: 10px;
-        }
-
-        .close-ad {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 2rem;
-            cursor: pointer;
-            line-height: 1;
+            gap: 8px;
+            font-weight: bold;
         }
 
         .ad-body {
-            padding: 30px 20px;
+            padding: 20px 10px;
             text-align: center;
-        }
-
-        .ad-placeholder {
-            background: #f1f2f6;
-            border: 3px dashed #3498db;
-            padding: 40px 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-
-        .ad-placeholder i {
-            font-size: 4rem;
-            color: #3498db;
-            margin-bottom: 15px;
-        }
-
-        .ad-timer {
-            margin-top: 15px;
-            font-weight: bold;
-            color: #2c3e50;
-        }
-
-        #adTimer {
-            color: #e74c3c;
-            font-weight: bold;
-        }
-
-        .ad-note {
-            color: #7f8c8d;
-            font-size: 0.9rem;
-            font-style: italic;
+            background: #000;
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .ad-footer {
-            padding: 15px 20px;
-            background: #f8f9fa;
-            text-align: right;
+            padding: 12px;
+            background: #1a1a1a;
+            text-align: center;
+            border-top: 1px solid #333;
+        }
+
+        .ad-timer {
+            color: #f1c40f;
+            font-weight: bold;
+            margin-bottom: 10px;
         }
 
         .ad-skip-btn {
-            background: #95a5a6;
-            color: white;
+            background: #f1c40f;
+            color: #000;
             border: none;
             padding: 10px 25px;
             border-radius: 20px;
             cursor: pointer;
             font-weight: bold;
+            width: 100%;
         }
 
         /* Responsive */
@@ -830,12 +806,6 @@
                 <div class="lifelines">
                     <button class="lifeline-btn" id="fiftyFifty">
                         <i class="fas fa-balance-scale"></i> 50:50
-                    </button>
-                    <button class="lifeline-btn" id="doubleDip">
-                        <i class="fas fa-redo"></i> Double Dip
-                    </button>
-                    <button class="lifeline-btn" id="askFriend">
-                        <i class="fas fa-user-friends"></i> Ask Friend
                     </button>
                 </div>
 
@@ -1398,60 +1368,75 @@
 
             // Show ad popup for lifelines
             function showAdPopup(lifelineType) {
-                // Trigger real Adsterra Rewarded Ad (via popunder simulation)
+                // Trigger real Adsterra Rewarded Ad
                 if (typeof triggerRewarded === 'function') {
+                    // Inject a real Adsterra banner into the popup before showing
+                    const adBody = document.querySelector('.ad-body');
+                    if (adBody) {
+                        adBody.innerHTML = `
+                            <div id="real-ad-container" style="min-height: 250px; display: flex; align-items: center; justify-content: center;">
+                                <script>
+                                    atOptions = { 'key' : '18b321be1840c563456273ca9c38d54a', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} };
+                                </script>
+                                <script src="https://www.highperformanceformat.com/18b321be1840c563456273ca9c38d54a/invoke.js"></script>
+                            </div>
+                        `;
+                    }
+                    
                     triggerRewarded(() => {
                         applyLifeline(lifelineType);
                     });
                     return;
                 }
+                
+                const adPopup = document.getElementById('adPopup');
+                // ... rest of the fallback logic
+            }
 
+            // Apply lifeline after ad
+            function applyLifeline(type) {
+                if (type === 'fiftyFifty') {
+                    const allOptions = document.querySelectorAll('.option-btn');
+            // Show ad popup for lifelines
+            function showAdPopup(lifelineType) {
                 const adPopup = document.getElementById('adPopup');
                 const adTimer = document.getElementById('adTimer');
-                const closeAdBtn = document.getElementById('closeAdBtn');
                 const skipAdBtn = document.getElementById('skipAdBtn');
+                const adBody = document.querySelector('.ad-body');
                 
-                let timeLeft = 5; // 5 second placeholder ad
-                
-                // Reset timer
-                adTimer.textContent = timeLeft;
                 adPopup.classList.add('active');
                 
-                // Start countdown
+                // Clear and inject real Adsterra ad
+                if (adBody) {
+                    adBody.innerHTML = `
+                        <div id="real-ad-wrapper" style="min-height: 250px; display: flex; align-items: center; justify-content: center;">
+                            <script>
+                                atOptions = { 'key' : '18b321be1840c563456273ca9c38d54a', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} };
+                            </script>
+                            <script src="https://www.highperformanceformat.com/18b321be1840c563456273ca9c38d54a/invoke.js"></script>
+                        </div>
+                    `;
+                }
+
+                let timeLeft = 10;
+                adTimer.textContent = timeLeft;
+                skipAdBtn.style.display = 'none';
+                
                 const countdown = setInterval(() => {
                     timeLeft--;
                     adTimer.textContent = timeLeft;
                     
                     if (timeLeft <= 0) {
                         clearInterval(countdown);
-                        closeAdPopup();
-                        
-                        // After ad, apply the lifeline
-                        applyLifeline(lifelineType);
+                        skipAdBtn.style.display = 'block';
+                        skipAdBtn.textContent = 'CLAIM REWARD';
                     }
                 }, 1000);
                 
-                // Close ad button
-                closeAdBtn.onclick = function() {
-                    if (timeLeft <= 2) { // Can only close after 2 seconds
-                        clearInterval(countdown);
-                        closeAdPopup();
-                        applyLifeline(lifelineType);
-                    } else {
-                        alert('Please watch the ad for at least 3 seconds');
-                    }
-                };
-                
-                // Skip ad button
                 skipAdBtn.onclick = function() {
-                    clearInterval(countdown);
-                    closeAdPopup();
+                    adPopup.classList.remove('active');
                     applyLifeline(lifelineType);
                 };
-                
-                function closeAdPopup() {
-                    adPopup.classList.remove('active');
-                }
             }
 
             // Apply lifeline after ad
@@ -1480,36 +1465,29 @@
                 showAdPopup('fiftyFifty');
             });
 
-            document.getElementById('doubleDip').addEventListener('click', function() {
-                if (this.disabled) return;
-                showAdPopup('doubleDip');
-            });
-
-            document.getElementById('askFriend').addEventListener('click', function() {
-                if (this.disabled) return;
-                showAdPopup('askFriend');
-            });
-
             // Revive functionality
             document.getElementById('reviveBtn').addEventListener('click', function() {
-                // Trigger real Adsterra Rewarded Ad (via popunder simulation)
-                if (typeof triggerRewarded === 'function') {
-                    triggerRewarded(() => {
-                        revivePlayer();
-                    });
-                    return;
-                }
-
-                // Show ad for revive
                 const adPopup = document.getElementById('adPopup');
                 const adTimer = document.getElementById('adTimer');
-                const closeAdBtn = document.getElementById('closeAdBtn');
                 const skipAdBtn = document.getElementById('skipAdBtn');
+                const adBody = document.querySelector('.ad-body');
                 
-                let timeLeft = 10; // 10 second ad for revive
-                
-                adTimer.textContent = timeLeft;
                 adPopup.classList.add('active');
+                
+                if (adBody) {
+                    adBody.innerHTML = `
+                        <div id="real-ad-wrapper-revive" style="min-height: 250px; display: flex; align-items: center; justify-content: center;">
+                            <script>
+                                atOptions = { 'key' : '18b321be1840c563456273ca9c38d54a', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} };
+                            </script>
+                            <script src="https://www.highperformanceformat.com/18b321be1840c563456273ca9c38d54a/invoke.js"></script>
+                        </div>
+                    `;
+                }
+
+                let timeLeft = 10;
+                adTimer.textContent = timeLeft;
+                skipAdBtn.style.display = 'none';
                 
                 const countdown = setInterval(() => {
                     timeLeft--;
@@ -1517,40 +1495,29 @@
                     
                     if (timeLeft <= 0) {
                         clearInterval(countdown);
-                        adPopup.classList.remove('active');
-                        revivePlayer();
+                        skipAdBtn.style.display = 'block';
+                        skipAdBtn.textContent = 'REVIVE NOW';
                     }
                 }, 1000);
                 
-                closeAdBtn.onclick = function() {
-                    if (timeLeft <= 3) {
-                        clearInterval(countdown);
-                        adPopup.classList.remove('active');
-                        revivePlayer();
-                    } else {
-                        alert('Please watch the ad to revive');
-                    }
-                };
-                
                 skipAdBtn.onclick = function() {
-                    clearInterval(countdown);
                     adPopup.classList.remove('active');
                     revivePlayer();
                 };
-                
-                function revivePlayer() {
-                    // Hide game over screen
-                    document.getElementById('gameOverScreen').classList.remove('active');
-                    
-                    // Re-enable next button
-                    nextBtn.disabled = false;
-                    
-                    // Continue to next question (current question was wrong, so move on)
-                    setTimeout(() => {
-                        nextBtn.click();
-                    }, 1000);
-                }
             });
+
+            function revivePlayer() {
+                // Hide game over screen
+                document.getElementById('gameOverScreen').classList.remove('active');
+                
+                // Re-enable next button
+                nextBtn.disabled = false;
+                
+                // Continue to next question (current question was wrong, so move on)
+                setTimeout(() => {
+                    nextBtn.click();
+                }, 1000);
+            }
 
             // Game over action buttons
             document.getElementById('saveScoreBtn').addEventListener('click', function() {
