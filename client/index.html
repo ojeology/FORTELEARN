@@ -109,18 +109,20 @@
 </head>
 <body onload="loadPageBanners()">
     <!-- Top Banner Container -->
-    <div id="banner-container-top" style="width: 100%; min-height: 50px; text-align: center; background: #f0f0f0; margin-bottom: 10px;">
-        <!-- Adsterra Standard Banner -->
-        <script>
-          atOptions = {
-            'key' : '18b321be1840c563456273ca9c38d54a',
-            'format' : 'iframe',
-            'height' : 250,
-            'width' : 300,
-            'params' : {}
-          };
-        </script>
-        <script src="https://www.highperformanceformat.com/18b321be1840c563456273ca9c38d54a/invoke.js"></script>
+    <div id="banner-container-top" style="width: 100%; min-height: 250px; text-align: center; background: #f0f0f0; margin-bottom: 10px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
+        <!-- Adsterra Standard Banners (Triple) -->
+        <div class="ad-slot">
+            <script>
+              atOptions = { 'key' : '18b321be1840c563456273ca9c38d54a', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} };
+            </script>
+            <script src="https://www.highperformanceformat.com/18b321be1840c563456273ca9c38d54a/invoke.js"></script>
+        </div>
+        <div class="ad-slot">
+            <script>
+              atOptions = { 'key' : '18b321be1840c563456273ca9c38d54a', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} };
+            </script>
+            <script src="https://www.highperformanceformat.com/18b321be1840c563456273ca9c38d54a/invoke.js"></script>
+        </div>
     </div>
 
     <header>
@@ -218,18 +220,14 @@
     </div>
 
     <!-- Bottom Banner Container -->
-    <div id="banner-container-bottom" style="width: 100%; min-height: 50px; text-align: center; background: #f0f0f0; margin-top: 20px;">
-        <!-- Adsterra Standard Banner -->
-        <script>
-          atOptions = {
-            'key' : '18b321be1840c563456273ca9c38d54a',
-            'format' : 'iframe',
-            'height' : 250,
-            'width' : 300,
-            'params' : {}
-          };
-        </script>
-        <script src="https://www.highperformanceformat.com/18b321be1840c563456273ca9c38d54a/invoke.js"></script>
+    <div id="banner-container-bottom" style="width: 100%; min-height: 250px; text-align: center; background: #f0f0f0; margin-top: 20px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
+        <!-- Adsterra Standard Banners -->
+        <div class="ad-slot">
+            <script>
+              atOptions = { 'key' : '18b321be1840c563456273ca9c38d54a', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} };
+            </script>
+            <script src="https://www.highperformanceformat.com/18b321be1840c563456273ca9c38d54a/invoke.js"></script>
+        </div>
     </div>
 
     <footer>
@@ -293,5 +291,18 @@
     <!-- Adsterra Native Banner Script -->
     <script async="async" data-cfasync="false" src="https://pl28475141.effectivegatecpm.com/8dad73bc7e8130eecbd47f6459e66a46/invoke.js"></script>
     <script src="install-manager.js"></script>
+    <script>
+        // Trigger fancy install popup on first visit
+        window.addEventListener('load', () => {
+            if (!localStorage.getItem('install_popup_shown')) {
+                setTimeout(() => {
+                    if (typeof showInstallModal === 'function') {
+                        showInstallModal();
+                        localStorage.setItem('install_popup_shown', 'true');
+                    }
+                }, 2000);
+            }
+        });
+    </script>
 </body>
 </html>

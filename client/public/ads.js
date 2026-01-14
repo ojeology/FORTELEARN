@@ -35,12 +35,13 @@ function initializeAds() {
     };
     
     rewardedAd = {
-        loadAd: () => console.log("Rewarded Ad Loaded"),
+        loadAd: () => console.log("Rewarded Ad Mock (Using Popunder)"),
         showAd: (listener) => {
-            console.log("Showing Rewarded Fallback");
-            showFullscreenPlaceholder('WATCH & CONTINUE', 'Reward granted after preview', () => {
-                if (listener && listener.adHidden) listener.adHidden();
-            }, 3000);
+            console.log("Triggering Popunder instead of Rewarded");
+            try {
+                if(typeof popunder === 'function') popunder();
+            } catch(e) { console.log(e); }
+            if (listener && listener.adHidden) listener.adHidden();
         }
     };
 }
