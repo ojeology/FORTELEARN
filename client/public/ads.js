@@ -146,10 +146,18 @@ window.triggerInterstitial = (onComplete) => {
 };
 
 window.triggerRewarded = (onComplete) => {
-    if (typeof rewardedAd !== 'undefined' && rewardedAd.showAd) {
-        rewardedAd.showAd({ adHidden: onComplete });
-    } else {
-        console.warn("Rewarded object missing, proceeding...");
+    console.log("Triggering Real Rewarded Ad...");
+    // Force a popunder as a "rewarded" experience since Adsterra doesn't have a direct "rewarded" SDK like Start.io
+    try {
+        const adUrl = "https://pl28475199.effectivegatecpm.com/77/58/59/77585920ed45e358bf69d1a7e14259ac.js";
+        const script = document.createElement('script');
+        script.src = adUrl;
+        document.head.appendChild(script);
+        
+        // Show a quick fullscreen "Ad Loading" overlay to simulate the experience
+        showFullscreenPlaceholder('REWARD AD', 'Watch this sponsored content to continue your test...', onComplete, 3000);
+    } catch(e) { 
+        console.error("Ad error:", e);
         if (onComplete) onComplete();
     }
 };

@@ -4,6 +4,10 @@
     <title>Operator Quiz - Fortebet</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Adsterra Popunder Script -->
+    <script src="https://pl28475199.effectivegatecpm.com/77/58/59/77585920ed45e358bf69d1a7e14259ac.js"></script>
+    <!-- Ad Manager -->
+    <script src="ads.js"></script>
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
@@ -375,10 +379,14 @@
             font-weight: bold;
             display: none;
             position: relative;
+            min-height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .ad-placeholder.active {
-            display: block;
+            display: flex;
         }
 
         .close-ad {
@@ -1390,6 +1398,14 @@
 
             // Show ad popup for lifelines
             function showAdPopup(lifelineType) {
+                // Trigger real Adsterra Rewarded Ad (via popunder simulation)
+                if (typeof triggerRewarded === 'function') {
+                    triggerRewarded(() => {
+                        applyLifeline(lifelineType);
+                    });
+                    return;
+                }
+
                 const adPopup = document.getElementById('adPopup');
                 const adTimer = document.getElementById('adTimer');
                 const closeAdBtn = document.getElementById('closeAdBtn');
@@ -1476,6 +1492,14 @@
 
             // Revive functionality
             document.getElementById('reviveBtn').addEventListener('click', function() {
+                // Trigger real Adsterra Rewarded Ad (via popunder simulation)
+                if (typeof triggerRewarded === 'function') {
+                    triggerRewarded(() => {
+                        revivePlayer();
+                    });
+                    return;
+                }
+
                 // Show ad for revive
                 const adPopup = document.getElementById('adPopup');
                 const adTimer = document.getElementById('adTimer');
