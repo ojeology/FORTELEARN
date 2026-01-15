@@ -146,37 +146,10 @@ window.triggerInterstitial = (onComplete) => {
 };
 
 window.triggerRewarded = (onComplete) => {
-    console.log("Triggering Real Rewarded Ad...");
-    
-    // Attempt to inject a real banner into any visible ad containers
-    const containers = ['real-ad-wrapper', 'real-ad-wrapper-revive', 'ad-body'];
-    containers.forEach(id => {
-        const el = document.getElementById(id) || document.querySelector('.' + id);
-        if (el) {
-            el.innerHTML = `
-                <div style="min-height: 250px; display: flex; align-items: center; justify-content: center; background: #000;">
-                    <script>
-                        atOptions = { 'key' : '18b321be1840c563456273ca9c38d54a', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} };
-                    </script>
-                    <script src="https://www.highperformanceformat.com/18b321be1840c563456273ca9c38d54a/invoke.js"></script>
-                </div>
-            `;
-        }
-    });
-
-    try {
-        // Trigger Popunder as well
-        const adUrl = "https://pl28475199.effectivegatecpm.com/77/58/59/77585920ed45e358bf69d1a7e14259ac.js";
-        const script = document.createElement('script');
-        script.src = adUrl;
-        document.head.appendChild(script);
-        
-        // Return control after a short delay
-        setTimeout(() => {
-            if (onComplete) onComplete();
-        }, 2000);
-    } catch(e) { 
-        console.error("Ad error:", e);
+    if (typeof rewardedAd !== 'undefined' && rewardedAd.showAd) {
+        rewardedAd.showAd({ adHidden: onComplete });
+    } else {
+        console.warn("Rewarded object missing, proceeding...");
         if (onComplete) onComplete();
     }
 };
