@@ -16,31 +16,31 @@ async function seedDatabase() {
   await storage.createSubsection({ 
     sectionId: bonuses.id, 
     title: "Welcome Bonus", 
-    content: "Bonus for newly registered customers. 3x (300%) of first deposit.\nEligible bets: Prematch or Inplay.\nRedeem: Min 3 selections, total odds 3.00+. 2% of stake moved from bonus to main account.\nMax: ₦1,000,000. Expires in 90 days.", 
+    content: "Welcome bonus is a bonus given to newly registered customers of fortebet.\n\nIt is 3x their total deposit or 300 percent of their account balance at the moment of placing their first eligible bet. A customer first eligible bet is either a prematch game or I play(live) game. Once this is met the customers are given 3x of their deposits which is stored inside their fortebet welcome bonus account which is not redeemable yet.\n\nFor a customer to redeem this bonus, the customers needs to play a prematch or I play game with a minimum of three selections and total odds of 3.00 or more.\n\nWhenever a customer does this (2) percent of the customers stake is deducted from the customer welcome bonus balance and credited to the customer main account balance which the customer can withdraw, or used to place bets.\n\nNOTE: the maximum a customer can get on his welcome bonus account is 1 million naira. meaning no matter the amount the customer deposit he will not be getting more than 1 million naira.\n\nLastly welcome bonus lasts for 90 days starting from the day the customer made his first deposit.", 
     displayOrder: 1 
   });
   await storage.createSubsection({ 
     sectionId: bonuses.id, 
     title: "Multiple Booster Bonus", 
-    content: "Online & Branch. Min 5 events, each event odds 1.25+.\nChart:\n5: 5% | 10: 30% | 20: 80% | 50: 250% (Max)\nMax events per ticket: 150.", 
+    content: "This is a bonus given to all customers of fortebet (registered online and regular customers who play at the branch) who plays prematch and inplay games, it increases their chances of winning big.\n\nTo get multiple booster bonus a customer must select a minimum of five events and each event must have odds of 1.25 or more. Once this requirements is met the customers get a (5) percent multiple booster bonus.\n\nThe maximum number of events on a single ticket is 150. But once you have 50 events on your ticket with odds of 1.25 you will get the maximum multiple booster bonus which is 250 percent and that's the maximum.\n\nNOTE: even if all your 150 events have odds of 1.25 or more you will still be getting 250 percent multiple booster bonus.\n\nCHART OF MULTIPLE BOOSTER BONUS:\n5 EVENTS: 5 PERCENT\n6 EVENTS: 10\n7 EVENTS: 15\n8 EVENTS: 20\n9 EVENTS: 25\n10 EVENTS: 30\n12 EVENTS: 40\n14 EVENTS: 50\n16 EVENTS: 60\n18 EVENTS: 70\n20 EVENTS: 80\n25 EVENTS: 100\n30 EVENTS: 125\n35 EVENTS: 150\n40 EVENTS: 175\n45 EVENTS: 200\n50 EVENTS: 250", 
     displayOrder: 2 
   });
   await storage.createSubsection({ 
     sectionId: bonuses.id, 
     title: "Cashback Bonus", 
-    content: "Online customers only. Reclaim stake if exactly one event lost.\nOdds (remaining): 75-149.99 (1x stake), 150-299.99 (2x), 300+ (3x).", 
+    content: "This is a bonus given to only registered customers of fortebet (customer who have an account and plays prematch and inplay online).\n\nThis bonus allows customers to reclaim up to 3x of their stake after final evaluation of their bets with only one selection lost. For a customer to be eligible for cash back bonus, the customer must select a minimum of two events or more, exactly One event must be lost and the odds of the remaining events must fall into the range below:\n\n0 - 74.99: No cashback\n75 - 149.99: 1x stake back\n150 - 299.99: 2x stake back\n300 and above: 3x stake back", 
     displayOrder: 3 
   });
   await storage.createSubsection({ 
     sectionId: bonuses.id, 
     title: "Online Virtual Bonus", 
-    content: "Online virtual players only. Max 3 events.\n1 event: 1% | 2 events: 2% | 3 events: 3% (Max).", 
+    content: "This is a bonus given to only registered customers of fortebet (customer that have accounts with fortebet and plays virtual online) it also increases their chances of winning big as it adds to total payout.\n\nFor one event selected and staked on: 1% online virtual bonus\nFor two events selected: 2% online virtual bonus\nFor three events selected: 3% online virtual bonus (maximum).\n\nNOTE: the maximum number of virtual events you can select once is three events and each event starts five minutes after each one. 288 virtual matches per 24 hours.", 
     displayOrder: 4 
   });
   await storage.createSubsection({ 
     sectionId: bonuses.id, 
     title: "VIP Points", 
-    content: "Earned by playing online or branch slots with card. 20k points for email verification.\nConversion: 25k=₦200, 110k=₦1k, 1M=₦10k.\nVIP card slot withdrawals need authorization code.", 
+    content: "These are bonus points given to only registered customers of fortebet who play all games online (Prematch, Inplay, Aviator, Slots).\n\nCustomers who plays slot at the branch with their vip cards, and customer who registered an account with and verify their email adress also get vip points. (An instant 20,000 vip points is given to customers who verify their email adress.)\n\nVIP Points Conversion:\n25,000 = 200 naira\n110,000 = 1,000 naira\n1,000,000 = 10,000 naira\n\nVIP points can be converted to cash that can be used to play bets or withdrawn.", 
     displayOrder: 5 
   });
 
@@ -99,15 +99,33 @@ async function seedDatabase() {
   const cashout = await storage.createSection({ title: "CASHOUT", slug: "cashout", displayOrder: 3 });
   await storage.createSubsection({ 
     sectionId: cashout.id, 
-    title: "Rules & Conditions", 
-    content: "Settle bet early. Conditions: All matches must be live, odds must be available for all selections. Only for online tickets.\n\nVIP Points Rule: If you earned points from the bet, you must have that many points in your account to cash out. This prevents exploitation.", 
+    title: "What is Cashout?", 
+    content: "Cashout is a dynamic betting feature that allows you to settle your bet before all events on your ticket are completed. Instead of waiting for the final outcomes, you can lock in a profit or minimize losses based on live match situations and current odds.\n\nKey Benefits:\n· Risk Management: Secure guaranteed returns when your bet is winning\n· Loss Reduction: Cut potential losses when games aren't going as predicted\n· Strategic Flexibility: React to live match developments (red cards, injuries, weather changes)\n· Instant Access: Receive funds immediately rather than waiting for event completion", 
     displayOrder: 1 
   });
   await storage.createSubsection({ 
     sectionId: cashout.id, 
-    title: "Fair Cashout Calculation", 
-    content: "Formula: (Potential Winnings ÷ Total Current Odds) - 1% Fee.\nSuspended if: Void event, Odds > 10.00, or odds haven't changed.", 
+    title: "When Can I Cash Out?", 
+    content: "Cashout availability depends on specific conditions being met simultaneously:\n\n1. All Matches Must Have Official Live Status\n· Each event on your ticket must be in-play (game has started but not finished)\n· Pre-match or postponed events will disable cashout\n· Events must be officially recognized as 'live' by our trading team\n· Note: Some events may be live but cashout-suspended due to critical moments (penalties, last minutes, etc.)\n\n2. Current Odds Must Be Available for All Selections\n· Our trading team must be actively pricing each selection\n· If odds aren't being updated for any selection, cashout becomes unavailable\n· This ensures fair, market-reflective cashout values\n\n3. Dynamic Availability\n· Cashout availability changes throughout events\n· May become temporarily unavailable during: Goals being reviewed by VAR, Penalty situations, Last 5 minutes of close matches, Technical issues with data feeds", 
     displayOrder: 2 
+  });
+  await storage.createSubsection({ 
+    sectionId: cashout.id, 
+    title: "Important Rule: VIP Points System", 
+    content: "The Rule: If you received VIP points for placing a bet, you must maintain the same number of VIP points in your account to cash out that bet.\n\nWhy This Exists:\n· Prevents Point Farming: Stops users from placing bets, earning VIP points, then immediately cashing out without risk\n· Ensures Fair Play: Maintains integrity of our VIP rewards program\n· Encourages Genuine Betting: Rewards users who let bets run to completion\n\nHow It Works:\n1. You place a ₦10,000 bet and receive 100 VIP points as a reward\n2. You use 50 VIP points on other rewards, leaving 50 in your account\n3. You cannot cash out the ₦10,000 bet until you restore your VIP points to 100\n4. Once you earn/gain back the 50 missing points, cashout becomes available", 
+    displayOrder: 3 
+  });
+  await storage.createSubsection({ 
+    sectionId: cashout.id, 
+    title: "Fair Cashout: Transparent Calculation", 
+    content: "Calculation Formula:\nCashout Value = (Potential Winnings ÷ Total Current Odds) - 1% Processing Fee\n\nUnderstanding Components:\n· Potential Winnings: Your total return if all remaining selections win\n· Total Current Odds: Live combined odds of all remaining selections\n· 1% Processing Fee: Small charge for instant settlement service\n\nExample Walkthrough:\nOriginal Bet: ₦1,000 on 3 matches @ 10.80 odds (₦10,800 potential win)\nCurrent Total Odds for remaining matches: 1.80\nCalculation: (₦10,800 ÷ 1.80) = ₦6,000\nMinus 1% Fee: ₦6,000 - ₦60 = ₦5,940\nYour Cashout Offer: ₦5,940", 
+    displayOrder: 4 
+  });
+  await storage.createSubsection({ 
+    sectionId: cashout.id, 
+    title: "Fair Cashout Suspension Rules", 
+    content: "Cashout is temporarily suspended in these specific scenarios:\n\n1. Any Event Settled as Void: System recalibrates the entire ticket. Cashout remains suspended until void event is officially resolved and new odds are calculated.\n\n2. Current Odds Exceed 10.00: Extreme odds indicate highly volatile or unusual match situations. Protects both users and ForteBet from market anomalies.\n\n3. All Odds Unchanged from Original: Indicates no significant match developments. Cashout becomes available when at least one selection's odds change.", 
+    displayOrder: 5 
   });
 
   // 4. DEPOSITS & WITHDRAWALS
@@ -115,13 +133,13 @@ async function seedDatabase() {
   await storage.createSubsection({ 
     sectionId: dw.id, 
     title: "How to Deposit", 
-    content: "1. Branch: 'Client In' with username. Min ₦200.\n2. Card: Secure online payment. Min ₦200, Max ₦250k/tx.\n3. Bank Transfer: First deposit sets account name. Min ₦200.\n4. OPay: Available after first card/transfer deposit. Min ₦100.", 
+    content: "There are four ways to deposit money into your ForteBet account.\n\n1. Deposit at a Branch\nProcess:\n1. Visit any ForteBet branch.\n2. Inform the operator you wish to make a 'Client In' deposit.\n3. Provide your registered username and the cash amount.\n4. Your online account will be credited instantly.\n5. You will receive a transaction slip; please verify all details are correct.\n\nCorrection Window: Transactions can be cancelled within 10 minutes in case of an error.\n\nLimits:\n· Minimum: ₦200.00 per transaction.\n· Maximum: Unlimited.\n\n2. Deposit via Credit/Debit Card\nProcess:\n1. Select ‘DEPOSIT WITH A NEW CARD’ and enter your card details, or choose a previously saved card.\n2. Specify the deposit amount and click 'TOP UP NOW'.\n3. Complete the secure payment form.\n4. You may need to authenticate the transaction via a One-Time Password (OTP) sent to your phone by your bank.\n5. Upon successful processing, funds are credited to your account instantly.\n\nSupport: If your account is debited but not credited, contact us immediately at 0800 009 009 009 or info@fortebet.ng.\n\nLimits & Fees:\n· Minimum: ₦200.00\n· Maximum: ₦250,000.00 per transaction / ₦1,000,000.00 per 24 hours.\n· Processing Time: Instant.\n· Fees: Only your bank's standard charges apply. No fees from ForteBet.\n\n3. Deposit via Instant Bank Transfer\nImportant: The name on the bank account used for your first transfer deposit will become your official ForteBet account name. Withdrawals can only be processed to this designated name.\n\nProcess:\n1. Specify the deposit amount and click 'TOP UP NOW'.\n2. You will receive a temporary bank account number, valid for 30 minutes.\n3. Use your online banking or USSD to transfer the exact amount to this account.\n4. You will be redirected back to ForteBet, and your account will be credited instantly.\n\nSupport: If your account is debited but not credited, contact us immediately at 0800 009 009 009 or info@fortebet.ng.\n\nLimits & Fees:\n· Minimum: ₦200.00\n· Maximum: ₦500,000.00 per transaction / ₦1,000,000.00 per 24 hours.\n· Processing Time: Instant.\n· Fees: Only your bank's standard charges apply. No fees from ForteBet.\n\n4. Deposit via OPay Wallet\nNote: OPay deposit methods are accessible only after your first deposit has been made via Bank Transfer or Bank Card.\n\nProcess:\n1. Select your preferred OPay Wallet method, specify the amount, and click 'TOP UP NOW'.\n2. The OPay interface will open for you to confirm the transaction.\n3. Upon successful processing, you will be redirected back, and your account will be credited instantly.\n\nSupport: If your account is debited but not credited, contact us immediately at 0800 009 009 009 or info@fortebet.ng.\n\nLimits & Fees:\n· Minimum: ₦100.00\n· Maximum: Limited by your personal OPay wallet limits.\n· Processing Time: Instant.\n· Fees: Only applicable wallet/bank fees apply. No fees from ForteBet.", 
     displayOrder: 1 
   });
   await storage.createSubsection({ 
     sectionId: dw.id, 
     title: "How to Withdraw", 
-    content: "1. Withdrawal via Bank Transfer\n⚠️ PREREQUISITE: Must have first deposited via Bank Transfer or Bank Card. Withdrawals only to registered name.\nStep 1: Fill bank details, click \"WITHDRAW\"\nStep 2: Enter OTP sent to your registered phone\nStep 3: Confirm all bank details are correct\nStep 4: Request marked pending - amount debited from account\nMinimum: ₦200.00\nMaximum: ₦10,000,000 per 24 hours\nProcessing: Typically 5 minutes (review may take up to 24 hours)\nFees: Only bank charges apply | ForteBet: No fees\nSupport: Call 0800 009 009 009 for guidance\n\n2. Withdrawal at a Branch\nStep 1: Visit any ForteBet branch\nStep 2: Provide username and 4-digit code from SMS\nStep 3: Operator processes \"Client Cash Out\"\nStep 4: Receive your winnings in cash\nMinimum: ₦200.00 per transaction\nMaximum: ₦10,000,000 per transaction", 
+    content: "1. Withdrawal via Bank Transfer\nPrerequisite: You must have first deposited using Bank Transfer or Bank Card. Withdrawals can only be processed to this designated name.\n\nProcess:\n1. Fill in the withdrawal form with your bank account details and click 'WITHDRAW'.\n2. An OTP will be sent to your registered mobile number to authorize the request.\n3. Confirm all bank details are correct to initiate the withdrawal.\n4. The requested amount will be debited from your ForteBet account, and the request will be marked as pending.\n\nImportant: All withdrawals are subject to approval. Processing should not exceed 24 hours.\n\nSupport: For guidance, call 0800 009 009 009.\n\nLimits & Fees:\n· Minimum: ₦200.00\n· Maximum: ₦10,000,000.00 per 24 hours.\n· Processing Time: Typically within 5 minutes, but we reserve the right to review transactions within 24 hours.\n· Fees: Only your bank's standard charges apply. No fees from ForteBet.\n\n2. Withdrawal at a Branch\nProcess:\n1. Visit any ForteBet branch.\n2. Provide the operator with your registered username and the 4-digit authorization code sent to your registered phone number.\n3. The operator will process the 'Client Cash Out' and ask for the code.\n4. You will receive your winnings in cash.\n\nLimits:\n· Minimum: ₦200.00 per transaction.\n· Maximum: ₦10,000,000.00 per transaction.", 
     displayOrder: 2 
   });
 
@@ -156,9 +174,15 @@ async function seedDatabase() {
   });
   await storage.createSubsection({ 
     sectionId: ops.id, 
-    title: "Common Issues", 
-    content: "OTP not received: Restart phone, check SIM match, check DND, check storage. If still missing, report to CUG group.\nFailed Print: Report to group with Branch, POS ID, Ticket Type, Ticket ID, Reason. Support sends 4-digit code.\nNetwork unstable: Check router receiving network, report to group.", 
+    title: "Common Branch Issues", 
+    content: "1. WHEN A CUSTOMER IS NOT RECEIVING OTP:\n· Restart the phone\n· Check if the SIM card number matches the number on the account.\n· Check if the phone isn't on DND\n· Check if the phone storage isn't full\n· If all above has been done, use the CUG (company phone) to report in the issue group with: Branch Name, Customer Phone Number, Service Provider, Customer Username, and Issue Description.\n\n2. WHEN A TICKET FAILED TO PRINT OUT COMPLETELY:\nReport to group with: Branch Name, POS ID, Type (prematch/virtual), Ticket ID, and Reason (e.g., Network glitch).\n\n3. WHEN THE NETWORK AT THE BRANCH IS NOT STABLE:\nReport with: Branch Name and Issue (e.g., Router not receiving network).\n\n4. WHEN A NEW ITEM IS PURCHASED AT THE BRANCH:\nTake a picture of item and receipt, post in problem group with description.\n\n5. HOW TO CHECK TICKET THAT FAILED TO PRINT OUT:\nUse 'Control + alternate + p'.", 
     displayOrder: 3 
+  });
+  await storage.createSubsection({ 
+    sectionId: ops.id, 
+    title: "Administrative Procedures", 
+    content: "HOW TO SEND TO COLLECT:\nThe operator on the main terminal prints the collection by going to 'To collect', prints it out, and sends a report of total cash, opay balance, and total balance available to the manager who sends it to the manager group.", 
+    displayOrder: 6 
   });
   await storage.createSubsection({ 
     sectionId: ops.id, 
@@ -226,8 +250,8 @@ async function seedDatabase() {
   }
 }
 
-export function registerRoutes(app: Express): Server {
-  seedDatabase().catch(console.error);
+export async function registerRoutes(app: Express): Promise<Server> {
+  await seedDatabase().catch(console.error);
 
   app.get("/api/sections", async (_req, res) => {
     const sections = await storage.getSectionsWithSubsections();
@@ -253,48 +277,9 @@ export function registerRoutes(app: Express): Server {
   });
 
   app.post("/api/leaderboard", async (req, res) => {
-    const parsed = api.leaderboard.post.body.safeParse(req.body);
-    if (!parsed.success) return res.status(400).json({ message: "Invalid body" });
-    const entry = await storage.addToLeaderboard(parsed.data);
+    const entry = await storage.addToLeaderboard(req.body);
     res.json(entry);
   });
 
-  // httpServer is handled in server/index.ts, just returning a placeholder here
-  // or rather, the template expects registerRoutes to NOT start the server itself
-  // but to define routes. Let's fix the signature to match index.ts call.
   return {} as Server;
-}
-
-export function registerRoutesWithServer(server: Server, app: Express) {
-  seedDatabase().catch(console.error);
-
-  app.get("/api/sections", async (_req, res) => {
-    const sections = await storage.getSectionsWithSubsections();
-    res.json(sections);
-  });
-
-  app.get("/api/sections/:slug", async (req, res) => {
-    const section = await storage.getSectionBySlug(req.params.slug);
-    if (!section) return res.status(404).json({ message: "Section not found" });
-    res.json(section);
-  });
-
-  app.get("/api/quiz/questions", async (req, res) => {
-    const level = req.query.level as string;
-    if (!level) return res.status(400).json({ message: "Level is required" });
-    const questions = await storage.getQuestionsByLevel(level);
-    res.json(questions);
-  });
-
-  app.get("/api/leaderboard", async (_req, res) => {
-    const entries = await storage.getLeaderboard();
-    res.json(entries);
-  });
-
-  app.post("/api/leaderboard", async (req, res) => {
-    const parsed = api.leaderboard.post.body.safeParse(req.body);
-    if (!parsed.success) return res.status(400).json({ message: "Invalid body" });
-    const entry = await storage.addToLeaderboard(parsed.data);
-    res.json(entry);
-  });
 }
