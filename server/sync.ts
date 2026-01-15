@@ -33,12 +33,12 @@ async function syncFilesToDb() {
       const existingSub = sectionWithSubs?.subsections?.find(s => s.title.toLowerCase() === title.toLowerCase());
 
       if (existingSub) {
-        console.log(`Sync: Updating subsection "${title}" in section "${sectionSlug}"`);
+        console.log(`Sync: Updating subsection "${title}" in section "${sectionSlug}" (content length: ${content.length})`);
         await storage.updateSubsection(existingSub.id, {
           content: content,
         });
       } else {
-        console.log(`Sync: Creating new subsection "${title}" in section "${sectionSlug}"`);
+        console.log(`Sync: Creating new subsection "${title}" in section "${sectionSlug}" (content length: ${content.length})`);
         await storage.createSubsection({
           sectionId: section!.id,
           title: title.charAt(0).toUpperCase() + title.slice(1),
