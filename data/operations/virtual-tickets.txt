@@ -1,0 +1,23 @@
+1. Virtual Sports Betting
+
+Virtual sports are computer-simulated events that are settled instantly, offering continuous gameplay.
+
+· Schedule: A new game starts every 5 minutes, resulting in 288 games per 24 hours.
+· Availability: Playable both online and at branch terminals. Only online players earn VIP points and are eligible for the online virtual bonus.
+· Betting Options: 1X2, Double Chance, Over/Under, First Half DC, Correct Score, First Half Winner, GG/NG.
+
+2. Operator Procedures: Cancelling Bets
+
+Operators can cancel a bet in three ways:
+1. Cancel Last: Void the most recently placed bet.
+2. Scan Barcode & Cancel: Scan the ticket's barcode.
+3. Enter Code Manually: Input a ticket's code manually.
+
+Procedure for Failed Ticket Print:
+Report in the issue group with: Branch Name, POS ID, Ticket Type, Ticket ID, and Reason. The support team will provide a 4-digit cancellation code.
+
+Important Rules:
+· NO credit bets allowed. Funds must be fully deposited first.
+· Virtual tickets can be cancelled any time before the first event starts.
+· Virtual sports tickets cannot be cancelled by customers online; only by operators.
+· Operators MUST preview virtual bets before placing them.

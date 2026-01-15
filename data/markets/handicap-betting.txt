@@ -1,0 +1,28 @@
+Handicaps give a virtual advantage or disadvantage to a team to make betting on a one-sided match more balanced and interesting.
+
+1. Asian Handicap (The Most Common in Soccer)
+
+· The Core Concept: This handicap uses quarter-goal increments (.25, .75) to eliminate the possibility of a draw (a "push"). Your stake is either fully won or fully lost. The .25 split means half your stake goes on one line and half on another.
+· How It Works: A team is given a negative handicap (they must overcome it) or a positive handicap (they receive it).
+· Common Lines & Outcomes:
+  -0.25: Win (win), Draw (half loss), Loss (full loss)
+  -0.5: Win (win), Draw/Loss (lose)
+  -0.75: Win by 2+ (full win), Win by 1 (half win), Draw/Loss (full loss)
+  -1.0: Win by 2+ (win), Win by 1 (push), Draw/Loss (lose)
+  -1.5: Win by 2+ (win), Win by 1/Draw/Loss (lose)
+
+2. European Handicap (3-Way Handicap)
+
+· The Core Concept: Uses whole numbers and offers three outcomes: Home Win, Draw, or Away Win after the handicap is applied. There is no push or split stake.
+· How It Works: The handicap (e.g., -1, -2, +1) is applied to the final score to create a new "handicap result."
+· Example in Practice (European -1):
+  · Match: Manchester City (-1) vs. Everton. The market is: 1 (City wins by 2+), X (City wins by exactly 1), 2 (Everton does not lose).
+  · Final Score: Man City 1 - 0 Everton. Handicap result: (1 - 1) = 0-0 → a Draw. Your bet on 1 LOSES (the X would have won).
+
+3. Winning Margin
+
+· The Core Concept: A bet on how many goals a team will win by. It combines the "who wins" and "by how much" questions.
+· Common Options:
+  · Home to win by exactly 1 goal
+  · Away to win by 2 or more goals
+  · Any Team to win by exactly 2 goals

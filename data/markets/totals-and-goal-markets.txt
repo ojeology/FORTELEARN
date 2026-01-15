@@ -1,0 +1,41 @@
+1. Over/Under (Total Goals) - Full Match
+
+· The Core Concept: You are betting on whether the total number of goals scored by both teams combined will be over or under a number set by the bookmaker (the "line").
+· How It Works: The most common line is 2.5 goals. The .5 is crucial—it eliminates the possibility of a push (tie).
+  · Over 2.5: You win if the total goals are 3 or more. (e.g., 2-1, 3-0, 2-2).
+  · Under 2.5: You win if the total goals are 2 or fewer. (e.g., 1-0, 0-0, 2-0).
+· Other Common Lines: 1.5, 3.5, 4.5. The principle is the same.
+· Example in Practice:
+  · Match: Bayern Munich vs. Borussia Dortmund. The line is Over/Under 3.5.
+  · You bet $10 on Over 3.5 goals at odds of 2.00.
+  · If the result is: 3-2 (5 goals) → You WIN. Return = $10 x 2.00 = $20.
+  · If the result is: 2-1 (3 goals) → You LOSE. 3 is under 3.5.
+· Agent Insight: This is hugely popular. Explain the .5 clearly! A line of "3.0" would mean exactly 3 goals causes a refund, which is rare. Fortebet almost always uses .5 lines for clear outcomes.
+
+2. Over/Under - First Half
+
+· The Core Concept: Identical to the full-match version, but you are betting only on goals scored in the 1st half (usually minutes 1-45 plus added time).
+· How It Works: Common lines are 0.5, 1.5, or 2.5 goals for the first half only.
+  · Over 0.5 First Half: You win if at least 1 goal is scored before halftime.
+  · Under 1.5 First Half: You win if there is 0 or 1 goal in the first half.
+· Agent Insight: Useful for customers who have a strong view on a team's early strategy or slow starters. Stress that 2nd half goals do not count for this bet.
+
+3. Both Teams To Score (BTTS)
+
+· The Core Concept: A simple "Yes" or "No" bet on whether both teams will score at least one goal each during the match.
+· How It Works:
+  · Yes: You win if both the home and away team score. The final score doesn't matter (e.g., 1-1, 2-1, 3-2).
+  · No: You win if at least one team fails to score (e.g., 1-0, 0-0, 3-0).
+· Example in Practice:
+  · Match: AC Milan vs. Inter Milan.
+  · You bet $10 on BTTS: Yes at odds of 1.80.
+  · If the result is: 2-1, 1-1, 2-2 → You WIN.
+  · If the result is: 1-0, 0-0, 2-0 → You LOSE.
+· Agent Insight: This market is about both teams' attacking and defensive form, not who wins. A common advanced combination is BTTS & Over 2.5 Goals, which requires a minimum scoreline like 2-1.
+
+4. Combination Markets (e.g., "Over 2.5 & BTTS: Yes")
+
+· The Core Concept: A single bet that combines two conditions. Both must happen to win.
+· How It Works: It's a popular pre-made selection.
+  · To win "Over 2.5 & BTTS: Yes": The match must have 3+ goals AND both teams must score. (e.g., 2-1, 3-1, 2-2). A 3-0 score has Over 2.5 but NOT BTTS, so the bet loses.
+· Agent Insight: These combos offer higher odds due to increased difficulty. Make sure the customer understands it's an "AND" condition, not an "OR."

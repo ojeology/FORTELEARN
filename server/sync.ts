@@ -30,7 +30,7 @@ async function syncFilesToDb() {
 
       // Check if subsection already exists to update or create
       const sectionWithSubs = await storage.getSectionBySlug(sectionSlug);
-      const existingSub = sectionWithSubs?.subsections.find(s => s.title.toLowerCase() === title.toLowerCase());
+      const existingSub = sectionWithSubs?.subsections?.find(s => s.title.toLowerCase() === title.toLowerCase());
 
       if (existingSub) {
         // We don't have an updateSubsection method in storage.ts, so we'll just skip or you can add it

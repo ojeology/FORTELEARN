@@ -1,0 +1,28 @@
+1. Slot Machine Basics
+
+Each branch slot machine contains 12 unique games. Winnings are calculated based on paylines—specific patterns across the reels where matching symbols must land. Mystery/Wild Symbols are special symbols that can substitute for others to create winning combinations, often disregarding standard payline rules.
+
+2. Operational Guidelines & Troubleshooting
+
+· Power or Game Interruption: If the power fails during a bonus round, all customer winnings are calculated and paid out in full. If a machine goes offline, all remaining credits are automatically refunded to the customer's linked card.
+· Resolving Disputed Transactions:
+  1. Use the slot keys to access the operator menu.
+  2. Check the Financial Transaction log to find the exact amount and type of the last transaction.
+  3. Review the Game History log to verify all gameplay and withdrawal activity.
+· Reporting a Faulty Machine: Report in the dedicated slot issue group with: Branch Name, Slot Machine ID, clear photo, and description of the issue.
+
+3. Game Specifications & Controls
+
+· Mad Mechanic, Bonus Joker, Rich Fish: 5 paylines
+  · Gangster World: 20 paylines
+  · Smiling Joker, Wild Fruits, Horus Eyes: 27 paylines
+  · Crystal Miners: 40 paylines
+  · Midnight Fruits, Turbo Slots, Slot Birds: 81 paylines
+· Button Functions: START, AUTO START, MAX BET, PAY OUT/BACK, + / -.
+
+4. Jackpots & Special Features
+
+· Gold Jackpot: Statewide pool (Lagos), resets to ₦100,000.
+· Silver Jackpot: State-level prize, resets to ₦10,000.
+· Bronze Jackpot: Branch-specific prize, resets to ₦1,000.
+· Risk (Gamble) Feature: Attempt to double winnings up to 5 times in a row by guessing a card color.
