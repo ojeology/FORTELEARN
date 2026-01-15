@@ -15,6 +15,7 @@ export interface IStorage {
   getSectionsWithSubsections(): Promise<SectionWithSubsections[]>;
   createSection(section: InsertSection): Promise<Section>;
   createSubsection(subsection: InsertSubsection): Promise<Subsection>;
+  updateSubsection(id: number, subsection: Partial<InsertSubsection>): Promise<Subsection>;
   clearData(): Promise<void>;
   
   // Quiz
@@ -58,6 +59,16 @@ export class DatabaseStorage implements IStorage {
 
   async createSubsection(insertSubsection: InsertSubsection): Promise<Subsection> {
     const [subsection] = await db.insert(subsections).values(insertSubsection).returning();
+    return subsection;
+  }
+
+  async updateSubsection(id: number, update: Partial<InsertSubsection>): Promise<Subsection> {
+    const [subsection] = await db
+      .update(subsections)
+      .set(update)
+      .where(eq(subsections.id, id))
+      .returning();
+    if (!subsection) throw new Error("Subsection not found");
     return subsection;
   }
 

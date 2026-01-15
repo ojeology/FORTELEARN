@@ -1,28 +1,41 @@
+
 1. Slot Machine Basics
 
-Each branch slot machine contains 12 unique games. Winnings are calculated based on paylines—specific patterns across the reels where matching symbols must land. Mystery/Wild Symbols are special symbols that can substitute for others to create winning combinations, often disregarding standard payline rules.
+Each branch slot machine contains 12 unique games. Winnings are calculated based on paylines鈥攕pecific patterns across the reels where matching symbols must land. Mystery/Wild Symbols are special symbols that can substitute for others to create winning combinations, often disregarding standard payline rules.
 
 2. Operational Guidelines & Troubleshooting
 
-· Power or Game Interruption: If the power fails during a bonus round, all customer winnings are calculated and paid out in full. If a machine goes offline, all remaining credits are automatically refunded to the customer's linked card.
-· Resolving Disputed Transactions:
-  1. Use the slot keys to access the operator menu.
-  2. Check the Financial Transaction log to find the exact amount and type of the last transaction.
-  3. Review the Game History log to verify all gameplay and withdrawal activity.
-· Reporting a Faulty Machine: Report in the dedicated slot issue group with: Branch Name, Slot Machine ID, clear photo, and description of the issue.
+These procedures ensure customer funds are always protected and issues are resolved correctly.
+
+路 Power or Game Interruption: If the power fails during a bonus round, all customer winnings are calculated and paid out in full. If a machine goes offline, all remaining credits are automatically refunded to the customer's linked card.
+路 Resolving Disputed Transactions: If a customer reports missing funds due to a network glitch:
+  1. Use the slot keys to access the operator menu, ensuring the game is not in demo mode.
+  2. Check the Financial Transaction log to find the exact amount and type (deposit/withdrawal) of the last transaction.
+  3. Review the Game History log to verify all gameplay and withdrawal activity, allowing you to confirm the account balance and rectify the issue.
+路 Reporting a Faulty Machine: If a slot machine has network issues or will not start:
+  1. Report it in the dedicated slot issue group.
+  2. Include: Branch Name, Slot Machine ID, a clear photo of the machine, and a description of the issue.
 
 3. Game Specifications & Controls
 
-· Mad Mechanic, Bonus Joker, Rich Fish: 5 paylines
-  · Gangster World: 20 paylines
-  · Smiling Joker, Wild Fruits, Horus Eyes: 27 paylines
-  · Crystal Miners: 40 paylines
-  · Midnight Fruits, Turbo Slots, Slot Birds: 81 paylines
-· Button Functions: START, AUTO START, MAX BET, PAY OUT/BACK, + / -.
+路 Common Games & Paylines:
+  路 Mad Mechanic, Bonus Joker, Rich Fish: 5 paylines
+  路 Gangster World: 20 paylines
+  路 Smiling Joker, Wild Fruits, Horus Eyes: 27 paylines
+  路 Crystal Miners: 40 paylines
+  路 Midnight Fruits, Turbo Slots, Slot Birds: 81 paylines
+路 Machine Button Functions:
+  路 START: Spins the reels once.
+  路 AUTO START: Activates a set number of automatic spins.
+  路 MAX BET: Instantly places the maximum allowed bet.
+  路 PAY OUT/BACK: Initiates a cash-out, returning credits to the card.
+  路 + / -: Buttons to increase or decrease the bet amount per line.
 
 4. Jackpots & Special Features
 
-· Gold Jackpot: Statewide pool (Lagos), resets to ₦100,000.
-· Silver Jackpot: State-level prize, resets to ₦10,000.
-· Bronze Jackpot: Branch-specific prize, resets to ₦1,000.
-· Risk (Gamble) Feature: Attempt to double winnings up to 5 times in a row by guessing a card color.
+路 Tiered Jackpot System:
+  路 馃 Gold Jackpot: The major prize for all ForteBet customers. It is a statewide pool (currently active across Lagos) and resets to 鈧�100,000 after being won.
+  路 馃 Silver Jackpot: A state-level prize for customers playing slots at any branch within that state. Resets to 鈧�10,000.
+  路 馃 Bronze Jackpot: A branch-specific prize for customers playing at that particular location. Resets to 鈧�1,000.
+路 Residual Gambling: If your balance is below the minimum stake, you can gamble it on a red/black color pick. A correct guess increases your balance to the minimum stake; a wrong guess results in a loss.
+路 Risk (Gamble) Feature: After a win, a side game may appear allowing you to double your winnings by guessing a card color. You can attempt this up to 5 times in a row and may collect half or all of your winnings after any successful round.
