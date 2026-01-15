@@ -28,15 +28,17 @@ async function syncFilesToDb() {
       const title = fileName.replace(".txt", "").replace(/-/g, " ");
       const content = fs.readFileSync(path.join(sectionPath, fileName), "utf-8");
 
-      // Check if subsection already exists to update or create
+      // Get section with subsections to find the existing one
       const sectionWithSubs = await storage.getSectionBySlug(sectionSlug);
       const existingSub = sectionWithSubs?.subsections?.find(s => s.title.toLowerCase() === title.toLowerCase());
 
       if (existingSub) {
+        console.log(`Sync: Updating subsection "${title}" in section "${sectionSlug}"`);
         await storage.updateSubsection(existingSub.id, {
           content: content,
         });
       } else {
+        console.log(`Sync: Creating new subsection "${title}" in section "${sectionSlug}"`);
         await storage.createSubsection({
           sectionId: section!.id,
           title: title.charAt(0).toUpperCase() + title.slice(1),
