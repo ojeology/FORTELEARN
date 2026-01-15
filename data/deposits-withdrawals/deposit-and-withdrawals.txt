@@ -1,3 +1,9 @@
+Deposits and Withdrawals at ForteBet
+
+You can fund your account or withdraw winnings through several convenient methods. Please find the details for each option below.
+
+---
+
 How to Deposit
 
 There are four ways to deposit money into your ForteBet account.
@@ -58,3 +64,43 @@ There are four ways to deposit money into your ForteBet account.
   · Maximum: Limited by your personal OPay wallet limits.
   · Processing Time: Instant.
   · Fees: Only applicable wallet/bank fees apply. No fees from ForteBet.
+
+---
+
+How to Withdraw
+
+1. Withdrawal via Bank Transfer
+
+· Prerequisite: To withdraw via bank transfer, you must have first deposited using Bank Transfer or Bank Card. The name registered from that first deposit will be used for all withdrawals.
+· Process:
+  1. Fill in the withdrawal form with your bank account details and click "WITHDRAW".
+  2. An OTP will be sent to your registered mobile number to authorize the request.
+  3. Confirm all bank details are correct to initiate the withdrawal.
+  4. The requested amount will be debited from your ForteBet account, and the request will be marked as pending.
+· Important: All withdrawals are subject to approval. Processing should not exceed 24 hours.
+· Support: For guidance, call 0800 009 009 009.
+· Limits & Fees:
+  · Minimum: ₦200.00
+  · Maximum: ₦10,000,000.00 per 24 hours.
+  · Processing Time: Typically within 5 minutes, but we reserve the right to review transactions within 24 hours.
+  · Fees: Only your bank's standard charges apply. No fees from ForteBet.
+
+2. Withdrawal at a Branch
+
+· Process:
+  1. Visit any ForteBet branch.
+  2. Provide the operator with your registered username and the 4-digit authorization code sent to your registered phone number.
+  3. The operator will process the "Client Cash Out" and ask for the code.
+  4. You will receive your winnings in cash.
+· Limits:
+  · Minimum: ₦200.00 per transaction.
+  · Maximum: ₦10,000,000.00 per transaction.
+
+---
+
+Summary of Key Points:
+
+· Instant Processing: Most deposits are credited instantly.
+· No ForteBet Fees: We do not charge fees for deposits or withdrawals; only your financial provider's standard fees may apply.
+· Name Verification: Your first deposit method sets your account name for secure withdrawals.
+· 24/7 Support: For any transaction issues, contact us toll-free at 0800 009 009 009 or email info@fortebet.ng.

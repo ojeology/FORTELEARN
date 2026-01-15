@@ -2,7 +2,7 @@ COMMMON BRANCH ISSUES..
 
 WHEN A CUSTOMER IS NOT RECEIVING OTP.
 Restart the phone
-Check if the SIM card number matches the number on the number on the account.
+Check if the SIM card number matches the number on the account.
 Check if the phone isn't on DND
 Check if the phone storage isn't full
 If all above process has been done and customer isn't receiving otp then you out pick up the CUG(the company phone inside the branch)and make report in the issue group.
@@ -48,3 +48,6 @@ HOW TO CHECK TICKET THAT FAILED TO PRINT OUT..
 
 
 Control + alternate+p
+
+
+HOW TO LOG OUT

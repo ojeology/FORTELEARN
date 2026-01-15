@@ -1,4 +1,8 @@
-1X2 (The Match Result / Full-Time Result)
+🎯 MILESTONE 1: THE 1X2 SYSTEM & BASIC VARIATIONS
+
+This system defines the three possible outcomes of a match. Every other bet is built upon this logic.
+
+1. 1X2 (The Match Result / Full-Time Result)
 
 · The Core Concept: This is the simplest and most common bet. You are predicting the official result of the match after regular time (typically 90 minutes plus added time). Extra time and penalties do not count unless specifically stated.
 · The Symbols Explained:
@@ -12,7 +16,7 @@
   · If the result is: Draw 1-1 or Chelsea wins 0-1 → You LOSE your $10 stake.
 · Agent Insight: This is often the first bet a new customer will place. Ensure they understand that 1 is always the team listed first/on the left, which is the home team.
 
-Draw No Bet (DNB)
+2. Draw No Bet (DNB)
 
 · The Core Concept: This is a safer version of the 1X2 bet. It removes the possibility of a draw from the equation. You are betting on a team to win, and if the match ends in a draw, your stake is returned (a "push").
 · How It Works: It's presented as two options: Home or Away.
@@ -26,7 +30,7 @@ Draw No Bet (DNB)
   · If the result is: Tottenham wins 0-1 → You LOSE your $10 stake.
 · Agent Insight: Recommend this to customers who are confident a team won't lose but want insurance against a draw. The odds are lower than the standard 1 or 2 in the 1X2 market because of the safety net.
 
-Double Chance (DC)
+3. Double Chance (DC)
 
 · The Core Concept: This bet allows you to cover two of the three possible outcomes in a single bet, significantly increasing your chance of winning (but with lower odds).
 · The Combinations:

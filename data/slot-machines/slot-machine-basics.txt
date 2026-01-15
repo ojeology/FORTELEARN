@@ -1,0 +1,40 @@
+1. Slot Machine Basics
+
+Each branch slot machine contains 12 unique games. Winnings are calculated based on paylines—specific patterns across the reels where matching symbols must land. Mystery/Wild Symbols are special symbols that can substitute for others to create winning combinations, often disregarding standard payline rules.
+
+2. Operational Guidelines & Troubleshooting
+
+These procedures ensure customer funds are always protected and issues are resolved correctly.
+
+· Power or Game Interruption: If the power fails during a bonus round, all customer winnings are calculated and paid out in full. If a machine goes offline, all remaining credits are automatically refunded to the customer's linked card.
+· Resolving Disputed Transactions: If a customer reports missing funds due to a network glitch:
+  1. Use the slot keys to access the operator menu, ensuring the game is not in demo mode.
+  2. Check the Financial Transaction log to find the exact amount and type (deposit/withdrawal) of the last transaction.
+  3. Review the Game History log to verify all gameplay and withdrawal activity, allowing you to confirm the account balance and rectify the issue.
+· Reporting a Faulty Machine: If a slot machine has network issues or will not start:
+  1. Report it in the dedicated slot issue group.
+  2. Include: Branch Name, Slot Machine ID, a clear photo of the machine, and a description of the issue.
+
+3. Game Specifications & Controls
+
+· Common Games & Paylines:
+  · Mad Mechanic, Bonus Joker, Rich Fish: 5 paylines
+  · Gangster World: 20 paylines
+  · Smiling Joker, Wild Fruits, Horus Eyes: 27 paylines
+  · Crystal Miners: 40 paylines
+  · Midnight Fruits, Turbo Slots, Slot Birds: 81 paylines
+· Machine Button Functions:
+  · START: Spins the reels once.
+  · AUTO START: Activates a set number of automatic spins.
+  · MAX BET: Instantly places the maximum allowed bet.
+  · PAY OUT/BACK: Initiates a cash-out, returning credits to the card.
+  · + / -: Buttons to increase or decrease the bet amount per line.
+
+4. Jackpots & Special Features
+
+· Tiered Jackpot System:
+  · 🥇 Gold Jackpot: The major prize for all ForteBet customers. It is a statewide pool (currently active across Lagos) and resets to ₦100,000 after being won.
+  · 🥈 Silver Jackpot: A state-level prize for customers playing slots at any branch within that state. Resets to ₦10,000.
+  · 🥉 Bronze Jackpot: A branch-specific prize for customers playing at that particular location. Resets to ₦1,000.
+· Residual Gambling: If your balance is below the minimum stake, you can gamble it on a red/black color pick. A correct guess increases your balance to the minimum stake; a wrong guess results in a loss.
+· Risk (Gamble) Feature: After a win, a side game may appear allowing you to double your winnings by guessing a card color. You can attempt this up to 5 times in a row and may collect half or all of your winnings after any successful round.

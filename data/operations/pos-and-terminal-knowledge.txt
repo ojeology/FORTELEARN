@@ -1,3 +1,5 @@
+POS/TERMINAL KNOWLEDGE )
+
 F1 🔘 
 
 Client cash in
@@ -70,8 +72,7 @@ Cancel last..
 Paid out tickets and cancelled tickets are expected to be trashed and not returned to customers..
 
 
-F4 BUTTON 🔘 
-
+F4 BUTTON 🔘 ( To collect / Cash in pos / Cash out POS / Transfer / Day report / Show )
 To collect 
 this shows the total balance available in the shop and it's also used for the collection of reports.
 

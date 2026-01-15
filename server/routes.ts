@@ -9,6 +9,7 @@ const LEVELS = [
 ];
 
 async function seedDatabase() {
+  await storage.clearData();
   await syncFilesToDb().catch(console.error);
   const existingSections = await storage.getSections();
   if (existingSections.length > 0) return;

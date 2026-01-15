@@ -1,3 +1,7 @@
+🎯 MILESTONE 2: TOTALS (OVER/UNDER) & GOAL-RELATED MARKETS
+
+These bets focus on the total number of goals scored in the match, regardless of which team wins.
+
 1. Over/Under (Total Goals) - Full Match
 
 · The Core Concept: You are betting on whether the total number of goals scored by both teams combined will be over or under a number set by the bookmaker (the "line").

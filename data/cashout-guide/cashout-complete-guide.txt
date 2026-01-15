@@ -1,3 +1,5 @@
+ForteBet Cashout: Complete Guide
+
 What is Cashout?
 
 Cashout is a dynamic betting feature that allows you to settle your bet before all events on your ticket are completed. Instead of waiting for the final outcomes, you can lock in a profit or minimize losses based on live match situations and current odds.
@@ -84,21 +86,29 @@ We're the first in the market to offer fully transparent cashout calculations. U
 
 The Calculation Formula:
 
+```
 Cashout Value = (Potential Winnings ÷ Total Current Odds) - 1% Processing Fee
+```
 
 Understanding Each Component:
 
 Potential Winnings: Your total return if all remaining selections win
 
+```
 Example: ₦1,000 bet at 10.00 odds = ₦10,000 potential winnings
+```
 
 Total Current Odds: Live combined odds of all remaining selections
 
+```
 Example: If original 10.00 odds drop to 5.00 due to match developments
+```
 
 1% Processing Fee: Small charge for instant settlement service
 
+```
 Example: ₦100 fee on ₦10,000 cashout value
+```
 
 Verification Process:
 
@@ -153,3 +163,48 @@ Cashout is temporarily suspended in these specific scenarios:
 · Indicates: No significant match developments or pricing updates
 · Cashout becomes available when at least one selection's odds change
 · Ensures cashout values reflect actual match conditions
+
+Strategic Cashout Considerations
+
+When to Consider Cashout:
+
+· Secure Profits: When your bet is winning but remaining matches are risky
+· Minimize Losses: When early matches lose, but partial recovery is possible
+· Capital Reallocation: When better betting opportunities emerge
+· Uncertain Conditions: Weather changes, team news, or unexpected developments
+
+When to Avoid Cashout:
+
+· Strong Position: When all results are going as predicted
+· Early Stages: When most matches haven't started or are in early phases
+· Value Preservation: When cashout value doesn't reflect true probability
+· VIP Points Considerations: When maintaining VIP status is important
+
+Technical Notes
+
+System Updates:
+
+· Cashout values update every 10-15 seconds
+· Values can fluctuate rapidly during key match moments
+· "Cashout Now" button locks the displayed value for 5 seconds
+· If match events occur during confirmation, offer may be re-calculated
+
+Limitations:
+
+· Minimum cashout: Any amount displayed 
+· Maximum cashout: ₦200,000,000 per transaction
+· Only full cashout available (no partial cashouts)
+· One cashout attempt per ticket
+
+Troubleshooting:
+
+If cashout is unavailable but should be:
+
+1. Refresh your screen
+2. Check all matches are live
+3. Verify VIP points balance
+4. Contact support if issue persists: 0800 009 009 009
+
+---
+
+Remember: Cashout is a strategic tool, not a guaranteed feature. Use it wisely to enhance your betting experience while understanding its limitations and requirements. Always consider the VIP points implications before placing bets you might want to cash out early.
