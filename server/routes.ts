@@ -2,12 +2,14 @@ import type { Express } from "express";
 import type { Server } from "http";
 import { storage } from "./storage";
 import { api } from "@shared/routes";
+import { syncFilesToDb } from "./sync";
 
 const LEVELS = [
   "Beginner", "Trainee", "Easy", "Medium", "Intermediate", "Hard", "Boss", "Legend", "World Class"
 ];
 
 async function seedDatabase() {
+  await syncFilesToDb().catch(console.error);
   const existingSections = await storage.getSections();
   if (existingSections.length > 0) return;
 
