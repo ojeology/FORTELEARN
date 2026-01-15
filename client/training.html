@@ -276,19 +276,154 @@
                         <li>Check if the phone storage isn't full</li>
                     </ul>
                     <p>If all above process has been done and customer isn't receiving otp then you pick up the CUG (the company phone inside the branch) and make report in the issue group.</p>
-                    <p><strong>Report Format:</strong> Branch name, Customer phone number, Customer service provider, Customer username, then state the issue.</p>
+                    <p><strong>Report Format:</strong><br>Branch name<br>Customer phone number<br>Customer service provider<br>Customer username<br>Then state the issue.</p>
 
                     <h3>WHEN A TICKET FAILED TO PRINT OUT COMPLETELY</h3>
-                    <p><strong>Report Format:</strong> Branch name, POS id, Type of ticket (prematch or virtual), Ticket id, Reason why it failed (e.g., network glitch).</p>
+                    <p><strong>Report Format:</strong><br>The branch name<br>The POS id<br>The type of ticket (prematch or virtual)<br>The ticket id<br>The reason why the ticket failed to print out completely. (e.g., Pre match ticket failed to print out completely due to network glitch kindly assist).</p>
 
                     <h3>WHEN THE NETWORK AT THE BRANCH IS NOT STABLE</h3>
-                    <p><strong>Report Format:</strong> Branch name, then state the issue (e.g., Branch is currently offline because the router isn't receiving network).</p>
+                    <p><strong>Report Format:</strong><br>The branch name<br>Then you state the issue. (e.g., Branch is currently offline because the router at the branch isn't receiving network) Kindly assist.</p>
 
                     <h3>WHEN A NEW ITEM IS PURCHASED AT THE BRANCH</h3>
-                    <p>Take a picture of the purchased item and the receipt if available and post it with description in the problem group.</p>
+                    <p>You take a picture of the purchasee item and the receipt if available and post it with description in the problem group.</p>
 
                     <h3>HOW TO SEND TO COLLECT</h3>
-                    <p>The operator on the main terminal prints out the collection by going to the 'To collect', prints it out and sends a report of the total cash, opay balance, and total balance available in the shop to his manager.</p>
+                    <p>The operator on the main terminal prints out the collection by going to the 'To collect' print it's out and send a report of the total cash, opay balance, and total balance available in the shop to his manager who sent it to the manager group.</p>
+
+                    <h3>HOW TO CHECK TICKET THAT FAILED TO PRINT OUT</h3>
+                    <p><strong>Control + alternate + p</strong></p>
+                `
+            },
+            'Betting Markets': {
+                subtitle: 'BETTING OPTIONS & MILESTONES',
+                content: `
+                    <h3>🎯 MILESTONE 1: THE 1X2 SYSTEM & BASIC VARIATIONS</h3>
+                    <h4>1. 1X2 (The Match Result / Full-Time Result)</h4>
+                    <p>Prediction of official result after regular time (90m + added time).</p>
+                    <ul>
+                        <li><strong>1:</strong> Home Team Win</li>
+                        <li><strong>X:</strong> Draw</li>
+                        <li><strong>2:</strong> Away Team Win</li>
+                    </ul>
+
+                    <h4>2. Draw No Bet (DNB)</h4>
+                    <p>Safer version: if match is a draw, stake is returned.</p>
+
+                    <h4>3. Double Chance (DC)</h4>
+                    <ul>
+                        <li>1X : Home Win OR Draw.</li>
+                        <li>12 : Home Win OR Away Win.</li>
+                        <li>X2 : Draw OR Away Win.</li>
+                    </ul>
+
+                    <h3>🎯 MILESTONE 2: TOTALS (OVER/UNDER) & GOALS</h3>
+                    <h4>1. Over/Under (Total Goals)</h4>
+                    <p>Over 2.5: 3+ goals wins. Under 2.5: 0-2 goals wins.</p>
+
+                    <h4>2. Both Teams To Score (BTTS)</h4>
+                    <p>Yes: Both teams score. No: At least one fails.</p>
+
+                    <h3>🎯 MILESTONE 3: HANDICAP BETTING (SPREADS)</h3>
+                    <h4>1. Asian Handicap</h4>
+                    <p>Uses .25, .75 splits to avoid draws. -1.5 means favorite must win by 2+ goals.</p>
+
+                    <h4>2. European Handicap (3-Way)</h4>
+                    <p>Whole numbers only (-1, -2). 1-0 win with -1 handicap is a draw.</p>
+
+                    <h3>🎯 MILESTONE 4: HT/FT & SPECIALS</h3>
+                    <h4>1. Half-Time / Full-Time (HT/FT)</h4>
+                    <p>Predictions for both periods. 9 combinations (1/1, X/1, etc).</p>
+                    <h4>2. Anytime Goal Scorer</h4>
+                    <p>Player scores at any time (own goals don't count).</p>
+                `
+            },
+            'Stakes': {
+                subtitle: 'MINIMUM AND MAXIMUM STAKES',
+                content: `
+                    <h3>Minimum Stake Amounts</h3>
+                    <ul>
+                        <li>Slot Online: ₦20</li>
+                        <li>Slot at Branch: ₦50</li>
+                        <li>Aviator: ₦100</li>
+                        <li>Prematch at Branch: ₦200</li>
+                        <li>In-Play Online: ₦200</li>
+                        <li>Prematch Online: ₦200</li>
+                        <li>Virtual Games Online: ₦200</li>
+                        <li>Virtual Games at Branch: ₦100,000</li>
+                    </ul>
+
+                    <h3>Maximum Stake Amounts</h3>
+                    <ul>
+                        <li>Aviator: ₦100,000</li>
+                        <li>Slot Online: ₦20,000</li>
+                        <li>Slot at Branch: ₦8,000</li>
+                        <li>Virtual Games Online: ₦1,000,000</li>
+                        <li>Virtual Games at Branch: ₦100,000</li>
+                        <li>Prematch Online: ₦1,000,000</li>
+                        <li>Prematch at Branch: ₦1,000,000</li>
+                    </ul>
+
+                    <h3>Maximum Winnings & Payout Rules</h3>
+                    <ul>
+                        <li>Aviator: ₦50,000,000</li>
+                        <li>Prematch at Branch: ₦200,000,000</li>
+                        <li>Virtual Games at Branch: ₦200,000,000</li>
+                    </ul>
+                    <p><strong>Note:</strong> System won't allow potential win to exceed ₦200,000,000 on one slip. Stake may be reduced automatically.</p>
+                `
+            },
+            'Slots': {
+                subtitle: 'SLOT MACHINE KNOWLEDGE',
+                content: `
+                    <h3>1. Slot Machine Basics</h3>
+                    <p>12 unique games per machine. Winnings based on paylines. Mystery/Wild symbols substitute for others.</p>
+                    
+                    <h3>2. Operational Guidelines</h3>
+                    <p><strong>Power failure:</strong> All winnings are calculated and paid. If machine goes offline, credits are refunded to card.</p>
+                    <p><strong>Troubleshooting:</strong> Use slot keys to check Financial Transaction log and Game History log.</p>
+
+                    <h3>3. Game Specifications</h3>
+                    <ul>
+                        <li><strong>5 paylines:</strong> Mad Mechanic, Bonus Joker, Rich Fish</li>
+                        <li><strong>20 paylines:</strong> Gangster World</li>
+                        <li><strong>27 paylines:</strong> Smiling Joker, Wild Fruits</li>
+                        <li><strong>81 paylines:</strong> Midnight Fruits, Turbo Slots, Slot Birds</li>
+                    </ul>
+
+                    <h3>4. Jackpots</h3>
+                    <ul>
+                        <li>🥇 <strong>Gold:</strong> Statewide pool, resets to ₦100,000</li>
+                        <li>🥈 <strong>Silver:</strong> State-level prize, resets to ₦10,000</li>
+                        <li>🥉 <strong>Bronze:</strong> Branch-specific, resets to ₦1,000</li>
+                    </ul>
+                `
+            },
+            'Tickets': {
+                subtitle: 'PREMATCH AND VIRTUAL TICKETS',
+                content: `
+                    <h3>Virtual Sports Betting</h3>
+                    <p>Computer-simulated events every 5 minutes (288 per 24h).</p>
+                    <ul>
+                        <li>Available online and at terminals.</li>
+                        <li>Online players earn VIP points.</li>
+                    </ul>
+
+                    <h3>Operator Procedures: Cancelling Bets</h3>
+                    <ol>
+                        <li>Cancel Last: Void most recent bet.</li>
+                        <li>Scan Barcode & Cancel.</li>
+                        <li>Enter Code Manually.</li>
+                    </ol>
+
+                    <h3>Failed Ticket Print</h3>
+                    <p>Report to issue group: Branch Name, POS ID, Ticket Type, Ticket ID, Reason.</p>
+                    
+                    <h3>Important Rules</h3>
+                    <ul>
+                        <li>No credit betting for customers.</li>
+                        <li>Virtual tickets can be cancelled before event starts.</li>
+                        <li>Virtual cancellation is operator-only.</li>
+                    </ul>
                 `
             }
         };
@@ -313,7 +448,11 @@
                 'Cashout': 'cashout-quiz.html',
                 'Work Ethics': 'ethics-quiz.html',
                 'Deposits & Withdrawals': 'deposits-quiz.html',
-                'Common Issues': 'issues-quiz.html'
+                'Common Issues': 'issues-quiz.html',
+                'Betting Markets': 'bonuses-quiz.html',
+                'Stakes': 'pos-quiz.html',
+                'Slots': 'pos-quiz.html',
+                'Tickets': 'pos-quiz.html'
             };
             
             // Get the current module name
