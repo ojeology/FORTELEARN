@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ForteBet Training Pro | Complete Guide</title>
+    <style>
+        /* ==== PROFESSIONAL STYLES ==== */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background: linear-gradient(135deg, #0a1a3a 0%, #1a3a7a 100%); color: #333; min-height: 100vh; padding: 20px; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; border-radius: 20px; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25); overflow: hidden; }
+
+        /* HEADER */
+        header { background: linear-gradient(to right, #1e3c72, #2a5298); color: white; padding: 30px; text-align: center; }
+        header h1 { font-size: 2.8rem; margin-bottom: 10px; color: #FFD700; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        header p { font-size: 1.2rem; opacity: 0.9; max-width: 800px; margin: 0 auto 20px; }
+
+        /* AD PLACEMENTS */
+        .ad-slot { margin: 25px auto; padding: 15px; background: #f8f9fa; border-radius: 10px; border: 2px dashed #3498db; text-align: center; min-height: 100px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #7f8c8d; }
+
+        /* CARDS GRID */
+        .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; padding: 40px; }
+        .card { background: white; border-radius: 15px; padding: 25px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); border-left: 5px solid #2a5298; transition: all 0.3s ease; cursor: pointer; position: relative; overflow: hidden; }
+        .card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15); border-left-color: #FFD700; }
+        .card h3 { color: #2c3e50; margin-bottom: 15px; font-size: 1.5rem; display: flex; align-items: center; gap: 12px; }
+        .card h3::before { content: "📘"; font-size: 1.8rem; }
+        .card p { color: #555; font-size: 0.95rem; margin-bottom: 20px; min-height: 60px; }
+        .card-btn { display: block; background: #2a5298; color: white; padding: 12px 20px; border-radius: 50px; text-decoration: none; font-weight: 600; text-align: center; transition: background 0.3s; border: none; cursor: pointer; }
+        .card-btn:hover { background: #1e3c72; }
+
+        /* CONTENT VIEWER */
+        .content-viewer { padding: 40px; max-width: 900px; margin: 0 auto; }
+        .back-btn { display: inline-flex; align-items: center; gap: 8px; background: #7f8c8d; color: white; padding: 10px 20px; border-radius: 50px; text-decoration: none; margin-bottom: 30px; transition: background 0.3s; }
+        .back-btn:hover { background: #95a5a6; }
+        .content-display { background: #f8f9fa; padding: 30px; border-radius: 15px; line-height: 1.8; white-space: pre-line; margin: 25px 0; font-size: 1.05rem; border-left: 4px solid #2a5298; }
+        .content-title { color: #2c3e50; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 2px solid #eee; }
+
+        /* FOOTER */
+        footer { background: #2c3e50; color: #ecf0f1; text-align: center; padding: 25px; margin-top: 40px; }
+        footer p { opacity: 0.8; margin-top: 15px; font-size: 0.9rem; }
+
+        /* LOADER */
+        .loader { text-align: center; padding: 40px; font-size: 1.2rem; color: #7f8c8d; }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .cards-grid { grid-template-columns: 1fr; padding: 20px; }
+            header h1 { font-size: 2.2rem; }
+            .content-viewer { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <header>
+            <h1>🎯 ForteBet Training Pro</h1>
+            <p>Master operations, bonuses, slots, betting markets, and procedures. The complete guide for agents and operators.</p>
+            <!-- AD SLOT 1: Top Banner -->
+            <div class="ad-slot" id="ad-top">
+                [ Adsterra Top Banner Ad Placeholder ]
+            </div>
+        </header>
+
+        <!-- MAIN CONTENT AREA -->
+        <main>
+            <div id="app-content">
+                <!-- Content loads here dynamically -->
+                <div class="loader">Loading ForteBet Training Modules...</div>
+            </div>
+        </main>
+
+        <!-- FOOTER -->
+        <footer>
+            <!-- AD SLOT 2: Bottom Banner -->
+            <div class="ad-slot" id="ad-bottom">
+                [ Adsterra Bottom Banner Ad Placeholder ]
+            </div>
+            <p>© 2024 ForteBet Training Guide | For official training use only</p>
+        </footer>
+    </div>
+
+    <!-- ==== JAVASCRIPT ==== -->
+    <script>
+        // 1. LIST OF YOUR 11 TRAINING FILES
+        const trainingFiles = [
+            { id: 1, name: "Betting Markets", file: "betting markets.txt", desc: "Master 1X2, handicaps, totals, and all betting options." },
+            { id: 2, name: "Bonuses", file: "BONUS.txt", desc: "Welcome bonus, cashback, VIP points, multiple boosters explained." },
+            { id: 3, name: "Slot Machines", file: "SLOT MANCHINES.txt", desc: "Operation, paylines, jackpots, and troubleshooting." },
+            { id: 4, name: "POS/Terminal Knowledge", file: "POS and terminal knowledge.txt", desc: "F1, F2, F4 functions and terminal operations." },
+            { id: 5, name: "Deposit & Withdrawals", file: "deposit and withdrawals.txt", desc: "All funding methods, limits, and procedures." },
+            { id: 6, name: "Min/Max Stakes", file: "MINIMUM AND MAXIMUM STAKES.txt", desc: "Stake limits for all games and payout rules." },
+            { id: 7, name: "Prematch & Virtual Tickets", file: "PREMATCH AND VIRTUAL TICKETS.txt", desc: "Ticket types, cancellation, and virtual sports." },
+            { id: 8, name: "Standard & Fair Cashout", file: "STANDARD CASHOUT AND FAIR CASHOUT.txt", desc: "Complete cashout guide with calculations." },
+            { id: 9, name: "Common Branch Issues", file: "common branch issues.txt", desc: "Solving OTP, ticket print, and network problems." },
+            { id: 10, name: "Work Ethics", file: "Work ethics.txt", desc: "Branch operations, rules, and professional conduct." },
+            { id: 11, name: "Quick Start Guide", file: "QUICK START GUIDE.txt", desc: "Essential first-day knowledge for new operators." }
+        ];
+
+        // 2. FUNCTION TO DISPLAY ALL CARDS ON HOMEPAGE
+        function displayHomepage() {
+            const app = document.getElementById('app-content');
+            let cardsHTML = `<div class="cards-grid">`;
+            
+            trainingFiles.forEach(card => {
+                cardsHTML += `
+                    <div class="card">
+                        <h3>${card.name}</h3>
+                        <p>${card.desc}</p>
+                        <button class="card-btn" onclick="loadCard('${card.file}', '${card.name}')">
+                            Read Full Module →
+                        </button>
+                    </div>
+                `;
+            });
+            
+            cardsHTML += `</div>`;
+            app.innerHTML = cardsHTML;
+        }
+
+        // 3. FUNCTION TO LOAD AND DISPLAY A SINGLE CARD'S CONTENT
+        async function loadCard(filename, cardTitle) {
+            const app = document.getElementById('app-content');
+            app.innerHTML = `<div class="loader">Loading "${cardTitle}"...</div>`;
+            
+            try {
+                const response = await fetch(`data/${encodeURIComponent(filename)}`);
+                if (!response.ok) throw new Error('File not found');
+                const content = await response.text();
+                
+                // DISPLAY THE FULL CONTENT
+                app.innerHTML = `
+                    <div class="content-viewer">
+                        <a href="javascript:displayHomepage()" class="back-btn">← Back to All Modules</a>
+                        <h2 class="content-title">${cardTitle}</h2>
+                        
+                        <!-- AD SLOT 3: In-content Banner -->
+                        <div class="ad-slot" style="margin: 30px auto;">
+                            [ Adsterra In-content Ad Placeholder ]
+                        </div>
+                        
+                        <div class="content-display">${content.replace(/\n/g, '<br>')}</div>
+                        
+                        <div style="text-align: center; margin: 40px 0;">
+                            <button class="card-btn" style="background: #27ae60;" onclick="takeQuiz('${cardTitle}')">
+                                🧠 Take Quiz on This Topic
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                // TRIGGER POP-UNDER WHEN GOING BACK TO HOMEPAGE
+                document.querySelector('.back-btn').addEventListener('click', function() {
+                    if (typeof triggerPopUnder === 'function') triggerPopUnder();
+                });
+                
+                // SCROLL TO TOP
+                window.scrollTo(0, 0);
+                
+            } catch (error) {
+                app.innerHTML = `
+                    <div class="content-viewer" style="text-align: center;">
+                        <h2>Error Loading Content</h2>
+                        <p>Could not load "${cardTitle}". Please try again.</p>
+                        <button class="card-btn" onclick="displayHomepage()">Return to Homepage</button>
+                    </div>
+                `;
+            }
+        }
+
+        // 4. QUIZ FUNCTION (PLACEHOLDER FOR YOUR QUIZ SYSTEM)
+        function takeQuiz(cardTitle) {
+            // TRIGGER POP-UNDER BEFORE QUIZ
+            if (typeof triggerPopUnder === 'function') triggerPopUnder();
+            alert(`🎯 Quiz for "${cardTitle}" would launch here!\n\nThis is where your A/B/C/D question formats will go.`);
+            // Future: window.location.href = `quiz.html?topic=${cardTitle}`;
+        }
+
+        // 5. AD FUNCTION PLACEHOLDERS (REPLACE WITH YOUR ADSTERRA CODE)
+        function triggerPopUnder() {
+            console.log('Pop-under ad triggered');
+            // PASTE YOUR ADSTERRA POP-UNDER CODE HERE
+        }
+        function loadBannerAds() {
+            console.log('Banner ads loaded');
+            // PASTE YOUR ADSTERRA BANNER CODES IN THE AD-SLOT DIVS
+        }
+
+        // 6. INITIALIZE THE APP WHEN PAGE LOADS
+        document.addEventListener('DOMContentLoaded', function() {
+            displayHomepage();
+            loadBannerAds();
+        });
+    </script>
+</body>
+</html>
