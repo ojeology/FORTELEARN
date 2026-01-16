@@ -6,26 +6,14 @@
 · How It Works: The nine possible combinations are: 1/1, 1/X, 1/2, X/1, X/X, X/2, 2/1, 2/X, 2/2.
   · The first letter is the Half-Time result.
   · The second letter is the Full-Time result.
-· Example in Practice:
-  · Match: Chelsea vs. Arsenal. You expect a tight first half but Chelsea to pull ahead later.
-  · You bet $10 on X/1 (Draw at Half-Time / Chelsea Win at Full-Time) at odds of 5.00.
-  · If the match is: 0-0 at halftime, and ends 2-0 to Chelsea → You WIN. Return = $10 x 5.00 = $50.
-  · If Chelsea is already winning at halftime, or if they don't win, your bet loses.
-· Agent Insight: This market has higher odds due to difficulty. It's perfect for customers who understand a team's "game plan" (e.g., a team known for strong second-half performances).
+· Example: X/1 means Draw at Half-Time / Home Win at Full-Time.
 
 2. Anytime Goal Scorer
 
-· The Core Concept: You are betting that a specific player will score at least one goal at any time during the match (including own goals? No. Own goals do not count for any player).
-· How It Works: Odds are listed for each player (usually starters and key substitutes). The bet wins if the player scores once. Scoring twice doesn't pay more.
-· Example in Practice:
-  · Match: Barcelona vs. Real Betis.
-  · You bet $10 on "Robert Lewandowski - Anytime Goal Scorer" at odds of 1.90.
-  · If Lewandowski scores in the 7th, 55th, or 90th minute → You WIN.
-  · If he plays but doesn't score, or doesn't play at all → You LOSE.
-· Agent Insight: Always check the team sheet before placing! If a player doesn't start, the bet is usually void (check Fortebet rules). This is a fan-favorite bet.
+· The Core Concept: You are betting that a specific player will score at least one goal at any time during the match. Own goals do not count for any player.
+· How It Works: The bet wins if the player scores once. Scoring twice doesn't pay more.
 
 3. First Goal Scorer
 
-· The Core Concept: A higher-risk version. You are betting that a specific player will score the first goal of the match. If another player scores first, your bet loses—even if your player scores later.
-· How It Works: Odds are higher than "Anytime." Some books offer "Last Goal Scorer" as well.
+· The Core Concept: You are betting that a specific player will score the first goal of the match. If another player scores first, your bet loses—even if your player scores later.
 · Key Rule: If the player you select does not start the match, bets are typically void. If no goals are scored, bets are also void.
