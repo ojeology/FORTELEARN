@@ -1,343 +1,324 @@
 <!DOCTYPE html>
-<!-- Fix for Netlify routing -->
-<html>
+<html lang="en">
 <head>
-    <title>Fortebet Training</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script type="text/javascript">
-      // Robust mock for Start.io to ensure ads or placeholders always show
-      window.startapp = window.startapp || {};
-      window.startapp.init = window.startapp.init || function(config, success, failure) {
-        console.log("Start.io SDK init called", config);
-        if (success) setTimeout(success, 500);
-      };
-      window.startapp.banner = window.startapp.banner || {
-        display: function(config) {
-          console.log("Start.io SDK banner requested", config);
-          const container = document.getElementById(config.containerId);
-          if (container) {
-            // Check if already has an ad to avoid duplicates
-            if (container.querySelector('.fortebet-ad-unit')) return;
-            
-            const adUnit = document.createElement('div');
-            adUnit.className = 'fortebet-ad-unit';
-            adUnit.style.width = '100%';
-            adUnit.style.maxWidth = (config.width || 320) + 'px';
-            adUnit.style.height = (config.height || 50) + 'px';
-            adUnit.style.background = 'linear-gradient(90deg, #d35400, #e67e22)';
-            adUnit.style.color = 'white';
-            adUnit.style.display = 'flex';
-            adUnit.style.flexDirection = 'column';
-            adUnit.style.alignItems = 'center';
-            adUnit.style.justifyContent = 'center';
-            adUnit.style.borderRadius = '6px';
-            adUnit.style.margin = '10px auto';
-            adUnit.style.cursor = 'pointer';
-            adUnit.style.boxShadow = '0 2px 4px rgba(0,0,0,0.2)';
-            adUnit.style.fontFamily = 'sans-serif';
-            
-            adUnit.innerHTML = `
-              <div style="font-weight: bold; font-size: 14px;">Fortebet Premium Partner</div>
-              <div style="font-size: 10px; opacity: 0.9;">Exclusive Agent Training Rewards</div>
-            `;
-            
-            adUnit.onclick = () => window.open('https://www.fortebet.ug', '_blank');
-            
-            container.innerHTML = ''; // Clear "Ad will load here..."
-            container.appendChild(adUnit);
-            
-            const status = document.getElementById('ad-status');
-            if (status) {
-              status.style.color = '#27ae60';
-              status.textContent = '✅ Ads active';
-            }
-          }
-        }
-      };
-    </script>
-    <script async type="text/javascript" src="https://cdn.startapp.com/sdk/init.js" onload="console.log('Start.io SDK Loaded Successfully')" onerror="console.log('Start.io SDK Blocked - Using Fallback')"></script>
-    <script src="ads.js"></script>
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
-
-    <!-- Your Firebase Config -->
-    <script src="firebase-config.js"></script>
-    <link rel="manifest" href="/manifest.json">
-    <!-- Adsterra Popunder Script -->
-    <script src="https://pl28475199.effectivegatecpm.com/77/58/59/77585920ed45e358bf69d1a7e14259ac.js"></script>
-    <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          // Use a stable registration without timestamp query for now to avoid spam
-          navigator.serviceWorker.register('/sw.js')
-            .then(reg => {
-              console.log('PWA: Service Worker registered');
-              
-              // Detect updates
-              reg.onupdatefound = () => {
-                const installingWorker = reg.installing;
-                installingWorker.onstatechange = () => {
-                  if (installingWorker.state === 'installed') {
-                    if (navigator.serviceWorker.controller) {
-                      // New content is available, show refresh prompt
-                      // We use a custom confirm to ensure we only ask once
-                      if (!window.updateConfirmed && confirm('A new version of Fortebet Training is available! Refresh now to update?')) {
-                        window.updateConfirmed = true;
-                        if (reg.waiting) {
-                          reg.waiting.postMessage({ type: 'SKIP_WAITING' });
-                        }
-                      }
-                    }
-                  }
-                };
-              };
-            })
-            .catch(err => console.log('PWA: Service Worker registration failed', err));
-        });
-        
-        let refreshing = false;
-        navigator.serviceWorker.addEventListener('controllerchange', () => {
-          if (!refreshing) {
-            window.location.reload();
-            refreshing = true;
-          }
-        });
-      }
-    </script>
-</head>
-<body onload="loadPageBanners()">
-    <!-- Top Banner Container -->
-    <div id="banner-container-top" style="width: 100%; min-height: 250px; text-align: center; background: #f0f0f0; margin-bottom: 10px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
-        <!-- Adsterra Standard Banners (Triple) -->
-        <div class="ad-slot">
-            <script>
-              atOptions = { 'key' : '18b321be1840c563456273ca9c38d54a', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} };
-            </script>
-            <script src="https://www.highperformanceformat.com/18b321be1840c563456273ca9c38d54a/invoke.js"></script>
-        </div>
-        <div class="ad-slot">
-            <script>
-              atOptions = { 'key' : '18b321be1840c563456273ca9c38d54a', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} };
-            </script>
-            <script src="https://www.highperformanceformat.com/18b321be1840c563456273ca9c38d54a/invoke.js"></script>
-        </div>
-    </div>
-
-    <header>
-        <div class="header-content">
-            <div class="logo-section">
-                <h1><i class="fas fa-graduation-cap"></i> Fortebet Agent Training</h1>
-                <p>Master everything to become an expert Fortebet agent</p>
-            </div>
-            
-            <div class="progress-section">
-                <div class="progress-circle">
-                    <div class="circle" id="progressCircle">
-                        <span class="progress-value" id="progressValue">0%</span>
-                    </div>
-                </div>
-                <div class="progress-text">
-                    <h3>Your Progress</h3>
-                    <p id="progressStatusText">Start your first module!</p>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <main>
-        <div class="cards-container">
-            <div class="card">
-                <div class="card-icon" style="background-color: #2ecc71;">
-                    <i class="fas fa-gift"></i>
-                </div>
-                <h3>Bonuses</h3>
-                <p>Learn all about our bonus system and incentives for agents.</p>
-                <a href="javascript:void(0)" onclick="event.preventDefault(); window.triggerInterstitial ? window.triggerInterstitial(() => window.location.href='training.html?module=Bonuses') : window.location.href='training.html?module=Bonuses';">Start Learning →</a>
-            </div>
-
-            <div class="card">
-                <div class="card-icon" style="background-color: #3498db;">
-                    <i class="fas fa-terminal"></i>
-                </div>
-                <h3>POS / Terminal</h3>
-                <p>Master terminal operations and troubleshooting.</p>
-                <a href="javascript:void(0)" onclick="event.preventDefault(); window.triggerInterstitial ? window.triggerInterstitial(() => window.location.href='training.html?module=POS/Terminal') : window.location.href='training.html?module=POS/Terminal';">Start Learning →</a>
-            </div>
-
-            <div class="card">
-                <div class="card-icon" style="background-color: #9b59b6;">
-                    <i class="fas fa-money-bill-wave"></i>
-                </div>
-                <h3>Cashout</h3>
-                <p>Step-by-step procedures for customer cashouts.</p>
-                <a href="javascript:void(0)" onclick="event.preventDefault(); window.triggerInterstitial ? window.triggerInterstitial(() => window.location.href='training.html?module=Cashout') : window.location.href='training.html?module=Cashout';">Start Learning →</a>
-            </div>
-
-            <div class="card">
-                <div class="card-icon" style="background-color: #e74c3c;">
-                    <i class="fas fa-handshake"></i>
-                </div>
-                <h3>Work Ethics</h3>
-                <p>Professional conduct and company guidelines.</p>
-                <a href="javascript:void(0)" onclick="event.preventDefault(); window.triggerInterstitial ? window.triggerInterstitial(() => window.location.href='training.html?module=Work Ethics') : window.location.href='training.html?module=Work Ethics';">Start Learning →</a>
-            </div>
-
-            <div class="card">
-                <div class="card-icon" style="background-color: #f39c12;">
-                    <i class="fas fa-exchange-alt"></i>
-                </div>
-                <h3>Deposits & Withdrawals</h3>
-                <p>Handle customer transactions securely and efficiently.</p>
-                <a href="javascript:void(0)" onclick="event.preventDefault(); window.triggerInterstitial ? window.triggerInterstitial(() => window.location.href='training.html?module=Deposits%20%26%20Withdrawals') : window.location.href='training.html?module=Deposits%20%26%20Withdrawals';">Start Learning →</a>
-            </div>
-
-            <div class="card">
-                <div class="card-icon" style="background-color: #1abc9c;">
-                    <i class="fas fa-exclamation-triangle"></i>
-                </div>
-                <h3>Common Issues</h3>
-                <p>Solutions for frequent branch problems and FAQs.</p>
-                <a href="javascript:void(0)" onclick="event.preventDefault(); window.triggerInterstitial ? window.triggerInterstitial(() => window.location.href='training.html?module=Common Issues') : window.location.href='training.html?module=Common Issues';">Start Learning →</a>
-            </div>
-
-            <div class="card">
-                <div class="card-icon" style="background-color: #34495e;">
-                    <i class="fas fa-chart-line"></i>
-                </div>
-                <h3>Betting Markets</h3>
-                <p>Master 1X2, DNB, Handicap, and other betting options.</p>
-                <a href="javascript:void(0)" onclick="event.preventDefault(); window.triggerInterstitial ? window.triggerInterstitial(() => window.location.href='training.html?module=Betting%20Markets') : window.location.href='training.html?module=Betting%20Markets';">Start Learning →</a>
-            </div>
-
-            <div class="card">
-                <div class="card-icon" style="background-color: #e67e22;">
-                    <i class="fas fa-coins"></i>
-                </div>
-                <h3>Min/Max Stakes</h3>
-                <p>Limits for slots, prematch, virtuals, and payouts.</p>
-                <a href="javascript:void(0)" onclick="event.preventDefault(); window.triggerInterstitial ? window.triggerInterstitial(() => window.location.href='training.html?module=Stakes') : window.location.href='training.html?module=Stakes';">Start Learning →</a>
-            </div>
-
-            <div class="card">
-                <div class="card-icon" style="background-color: #7f8c8d;">
-                    <i class="fas fa-microchip"></i>
-                </div>
-                <h3>Slot Machines</h3>
-                <p>Learn about machine games, troubleshooting, and jackpots.</p>
-                <a href="javascript:void(0)" onclick="event.preventDefault(); window.triggerInterstitial ? window.triggerInterstitial(() => window.location.href='training.html?module=Slots') : window.location.href='training.html?module=Slots';">Start Learning →</a>
-            </div>
-
-            <div class="card">
-                <div class="card-icon" style="background-color: #27ae60;">
-                    <i class="fas fa-ticket-alt"></i>
-                </div>
-                <h3>Tickets & Virtuals</h3>
-                <p>Prematch and virtual sports betting procedures.</p>
-                <a href="javascript:void(0)" onclick="event.preventDefault(); window.triggerInterstitial ? window.triggerInterstitial(() => window.location.href='training.html?module=Tickets') : window.location.href='training.html?module=Tickets';">Start Learning →</a>
-            </div>
-
-            <div class="card">
-                <div class="card-icon" style="background: linear-gradient(135deg, #9b59b6, #8e44ad);">
-                    <i class="fas fa-crown"></i>
-                </div>
-                <h3>Operator Challenge</h3>
-                <p>Take the ultimate test! 30 or 100 questions with timer and leaderboard.</p>
-                <a href="javascript:void(0)" onclick="event.preventDefault(); window.location.href='operator-test.html';">Start Challenge →</a>
-            </div>
-        </div>
-    </main>
-
-    <div id="ad-banner-container" style="margin: 20px auto; text-align: center; min-height: 100px; background-color: #f0f0f0; border: 1px solid #ccc; border-radius: 8px; padding: 10px; position: relative;">
-      <p id="ad-status" style="margin-bottom: 10px;">Ad will load here...</p>
-      <button onclick="retryAds()" style="padding: 5px 10px; cursor: pointer; background: #007bff; color: white; border: none; border-radius: 4px; font-size: 12px;">Retry Ad Loading</button>
-    </div>
-
-    <!-- Bottom Banner Container -->
-    <div id="banner-container-bottom" style="width: 100%; min-height: 250px; text-align: center; background: #f0f0f0; margin-top: 20px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
-        <!-- Adsterra Standard Banners -->
-        <div class="ad-slot">
-            <script>
-              atOptions = { 'key' : '18b321be1840c563456273ca9c38d54a', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} };
-            </script>
-            <script src="https://www.highperformanceformat.com/18b321be1840c563456273ca9c38d54a/invoke.js"></script>
-        </div>
-    </div>
-
-    <footer>
-        <p>© 2024 Fortebet Training Portal</p>
-    </footer>
-
-    <!-- Floating Install Button -->
-    <button id="installBtn" style="display: none; position: fixed; bottom: 80px; right: 20px; background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; width: 60px; height: 60px; border-radius: 50%; cursor: pointer; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4); z-index: 9999; font-size: 24px; animation: pulse 2s infinite;">📲</button>
-
-    <!-- Install Instructions Modal -->
-    <div id="installModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 2147483647; align-items: center; justify-content: center;">
-      <div style="background: white; padding: 30px; border-radius: 20px; max-width: 400px; width: 90%; text-align: center;">
-        <div style="font-size: 60px; margin-bottom: 15px;">📱</div>
-        <h2 style="margin: 0 0 10px 0; color: #333;">Install Fortebet Training</h2>
-        <p style="color: #666; line-height: 1.5;">Get the full app experience with auto-updates!</p>
-        
-        <div id="installSteps" style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 20px 0; text-align: left; color: #333;"></div>
-        
-        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-          <button id="installNowBtn" style="background: #2ecc71; color: white; border: none; padding: 14px 30px; border-radius: 25px; cursor: pointer; font-weight: bold; min-width: 160px;">Install Now</button>
-          <button onclick="document.getElementById('installModal').style.display='none'" style="background: transparent; color: #666; border: 1px solid #ddd; padding: 14px 20px; border-radius: 25px; cursor: pointer;">Maybe Later</button>
-        </div>
-      </div>
-    </div>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎯 ForteBet Training Pro</title>
     <style>
-    #installBtn {
-      display: flex !important;
-      position: fixed !important;
-      top: 20px !important;
-      right: 20px !important;
-      background: #ff0000 !important;
-      color: #ffffff !important;
-      border: 4px solid #ffffff !important;
-      width: 90px !important;
-      height: 90px !important;
-      border-radius: 50% !important;
-      cursor: pointer !important;
-      box-shadow: 0 0 20px rgba(0,0,0,0.7) !important;
-      z-index: 2147483647 !important;
-      font-size: 40px !important;
-      animation: pulse 1.5s infinite !important;
-      align-items: center !important;
-      justify-content: center !important;
-      visibility: visible !important;
-      opacity: 1 !important;
-    }
-    @keyframes pulse {
-      0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
-      70% { transform: scale(1.15); box-shadow: 0 0 0 20px rgba(255, 0, 0, 0); }
-      100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
-    }
+        /* === ALL STYLES === */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
+        body { background: linear-gradient(135deg, #0a1a3a 0%, #1a3a7a 100%); color: #333; min-height: 100vh; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.25); overflow: hidden; }
+        
+        header { background: linear-gradient(to right, #1e3c72, #2a5298); color: white; padding: 30px; text-align: center; }
+        header h1 { font-size: 2.8rem; margin-bottom: 10px; color: #FFD700; }
+        header p { font-size: 1.2rem; opacity: 0.9; max-width: 800px; margin: 0 auto 20px; }
+        
+        .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; padding: 40px; }
+        .card { background: white; border-radius: 15px; padding: 25px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); border-left: 5px solid #2a5298; transition: all 0.3s ease; cursor: pointer; }
+        .card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0,0,0,0.15); border-left-color: #FFD700; }
+        .card h3 { color: #2c3e50; margin-bottom: 15px; font-size: 1.4rem; display: flex; align-items: center; gap: 10px; }
+        .card h3::before { content: "📘"; font-size: 1.6rem; }
+        .card p { color: #555; font-size: 0.95rem; margin-bottom: 20px; min-height: 60px; }
+        .card-btn { display: inline-block; background: #2a5298; color: white; padding: 10px 20px; border-radius: 50px; text-decoration: none; font-weight: 600; border: none; cursor: pointer; width: 100%; text-align: center; }
+        .card-btn:hover { background: #1e3c72; }
+        
+        .content-viewer { padding: 40px; max-width: 900px; margin: 0 auto; }
+        .back-btn { display: inline-flex; align-items: center; gap: 8px; background: #7f8c8d; color: white; padding: 10px 20px; border-radius: 50px; text-decoration: none; margin-bottom: 30px; }
+        .back-btn:hover { background: #95a5a6; }
+        .content-display { background: #f8f9fa; padding: 30px; border-radius: 15px; line-height: 1.8; white-space: pre-line; margin: 25px 0; border-left: 4px solid #2a5298; }
+        
+        /* === QUIZ STYLES === */
+        .quiz-container { padding: 30px; max-width: 800px; margin: 0 auto; }
+        .quiz-question { background: #f8f9fa; padding: 20px; margin: 20px 0; border-radius: 10px; border-left: 4px solid #3498db; }
+        .quiz-option { display: block; width: 100%; padding: 15px; margin: 10px 0; background: white; border: 2px solid #ddd; border-radius: 8px; text-align: left; cursor: pointer; }
+        .quiz-option:hover { border-color: #3498db; }
+        .quiz-option.correct { background: #d4edda; border-color: #28a745; }
+        .quiz-option.incorrect { background: #f8d7da; border-color: #dc3545; }
+        
+        /* === POPUP STYLES === */
+        .popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center; }
+        .popup-content { background: white; padding: 30px; border-radius: 15px; max-width: 500px; width: 90%; }
+        
+        footer { background: #2c3e50; color: #ecf0f1; text-align: center; padding: 25px; margin-top: 40px; }
+        
+        @media (max-width: 768px) { .cards-grid { grid-template-columns: 1fr; padding: 20px; } }
     </style>
-    <button id="installBtn" onclick="showInstallModal()">📲</button>
-    
-    <aside style="margin: 20px; text-align: center;">
-        <h3 style="color: #333; margin-bottom: 10px;">Recommended:</h3>
-        <div id="container-8dad73bc7e8130eecbd47f6459e66a46"></div>
-    </aside>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎯 ForteBet Training Pro</h1>
+            <p>Master operations, bonuses, slots, betting markets, and procedures. The complete guide for agents and operators.</p>
+        </header>
+        
+        <!-- MAIN CONTENT AREA -->
+        <div id="app-content">
+            <div class="cards-grid" id="cardsContainer">
+                <!-- Cards load here -->
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2024 ForteBet Training Guide | For official training use only</p>
+        </footer>
+    </div>
 
-    <!-- Adsterra Native Banner Script -->
-    <script async="async" data-cfasync="false" src="https://pl28475141.effectivegatecpm.com/8dad73bc7e8130eecbd47f6459e66a46/invoke.js"></script>
-    <script src="install-manager.js"></script>
+    <!-- === POPUP: DOWNLOAD PWA === -->
+    <div id="pwaPopup" class="popup-overlay">
+        <div class="popup-content">
+            <h2 style="color: #2a5298; margin-bottom: 20px;">📱 Install ForteBet PWA</h2>
+            <p>Install this as a Progressive Web App for offline access and notifications!</p>
+            <p><strong>Features:</strong></p>
+            <ul style="margin: 15px 0; padding-left: 20px;">
+                <li>Works offline</li>
+                <li>Fast loading</li>
+                <li>Push notifications for updates</li>
+                <li>Home screen icon</li>
+            </ul>
+            <button onclick="installPWA()" style="background: #4CAF50; color: white; padding: 12px 24px; border: none; border-radius: 8px; width: 100%; margin: 10px 0; font-size: 1.1rem;">📥 Install Now</button>
+            <button onclick="closePopup('pwaPopup')" style="background: #777; color: white; padding: 10px; border: none; border-radius: 8px; width: 100%;">Maybe Later</button>
+        </div>
+    </div>
+
+    <!-- === POPUP: SUPPORT GAMES === -->
+    <div id="gamePopup" class="popup-overlay">
+        <div class="popup-content">
+            <h2 style="color: #FF5722; margin-bottom: 20px;">🎮 Support & Unlock</h2>
+            <p>Download our games to support this free training site!</p>
+            
+            <div style="background: #f0f8ff; padding: 15px; border-radius: 10px; margin: 15px 0;">
+                <h3>🌈 Color Switch Challenge</h3>
+                <p>Fast-paced color matching. <strong>Reach Level 10 to unlock Pro Quiz!</strong></p>
+                <button onclick="downloadGame('color-switch')" style="background: #8b5cf6; color: white; padding: 10px 20px; border: none; border-radius: 6px; width: 100%; margin-top: 10px;">Download & Unlock Quiz</button>
+            </div>
+            
+            <div style="background: #fff8e1; padding: 15px; border-radius: 10px; margin: 15px 0;">
+                <h3>🧱 Stack 'Em Up</h3>
+                <p>Build the tallest tower. Simple, addictive!</p>
+                <button onclick="downloadGame('stack')" style="background: #FF9800; color: white; padding: 10px 20px; border: none; border-radius: 6px; width: 100%; margin-top: 10px;">Download to Support</button>
+            </div>
+            
+            <button onclick="closePopup('gamePopup')" style="background: #777; color: white; padding: 10px; border: none; border-radius: 8px; width: 100%;">Close</button>
+        </div>
+    </div>
+
+    <!-- === JAVASCRIPT === -->
     <script>
-        // Trigger fancy install popup on first visit
-        window.addEventListener('load', () => {
-            if (!localStorage.getItem('install_popup_shown')) {
-                setTimeout(() => {
-                    if (typeof showInstallModal === 'function') {
-                        showInstallModal();
-                        localStorage.setItem('install_popup_shown', 'true');
-                    }
-                }, 2000);
+        // 1. TRAINING FILES
+        const trainingFiles = [
+            { name: "Betting Markets", file: "data/betting markets.txt", desc: "Master 1X2, handicaps, totals, and all betting options.", quiz: "betting_markets_quiz" },
+            { name: "Bonuses", file: "data/bonus.txt", desc: "Welcome bonus, cashback, VIP points, multiple boosters explained.", quiz: "bonuses_quiz" },
+            { name: "Slot Machines", file: "data/SLOT MANCHINES.txt", desc: "Operation, paylines, jackpots, and troubleshooting.", quiz: "slots_quiz" },
+            { name: "POS/Terminal Knowledge", file: "data/POS and terminal knowledge.txt", desc: "F1, F2, F4 functions and terminal operations.", quiz: "pos_quiz" },
+            { name: "Deposit & Withdrawals", file: "data/deposit and withdrawals.txt", desc: "All funding methods, limits, and procedures.", quiz: "deposit_quiz" },
+            { name: "Min/Max Stakes", file: "data/MINIMUM AND MAXIMUM STAKES.txt", desc: "Stake limits for all games and payout rules.", quiz: "stakes_quiz" },
+            { name: "Prematch & Virtual Tickets", file: "data/PREMATCH AND VIRTUAL TICKETS.txt", desc: "Ticket types, cancellation, and virtual sports.", quiz: "tickets_quiz" },
+            { name: "Standard & Fair Cashout", file: "data/STANDARD CASHOUT AND FAIR CASHOUT.txt", desc: "Complete cashout guide with calculations.", quiz: "cashout_quiz" },
+            { name: "Common Branch Issues", file: "data/common branch issues.txt", desc: "Solving OTP, ticket print, and network problems.", quiz: "issues_quiz" },
+            { name: "Work Ethics", file: "data/Work ethics.txt", desc: "Branch operations, rules, and professional conduct.", quiz: "ethics_quiz" },
+            { name: "Quick Start Guide", file: "data/QUICK START GUIDE.txt", desc: "Essential first-day knowledge for new operators.", quiz: "quickstart_quiz" },
+            { name: "Operator Quiz (100+ Qs)", file: "quizzes/operator_quiz.txt", desc: "Complete operator certification test with 100 questions.", quiz: "operator_master_quiz" }
+        ];
+
+        // 2. DISPLAY HOMEPAGE CARDS
+        function displayHomepage() {
+            const container = document.getElementById('cardsContainer');
+            container.innerHTML = '';
+            
+            trainingFiles.forEach(card => {
+                const cardElement = document.createElement('div');
+                cardElement.className = 'card';
+                cardElement.innerHTML = `
+                    <h3>${card.name}</h3>
+                    <p>${card.desc}</p>
+                    <button class="card-btn" onclick="loadCard('${card.file}', '${card.name}', '${card.quiz}')">
+                        Read & Take Quiz →
+                    </button>
+                `;
+                container.appendChild(cardElement);
+            });
+            
+            // Show PWA popup on first visit
+            if(!localStorage.getItem('pwaShown')) {
+                setTimeout(() => showPopup('pwaPopup'), 3000);
+                localStorage.setItem('pwaShown', 'true');
             }
-        });
+        }
+
+        // 3. LOAD CARD CONTENT + QUIZ BUTTON
+        async function loadCard(filename, cardTitle, quizType) {
+            try {
+                const response = await fetch(filename);
+                const content = await response.text();
+                
+                document.getElementById('app-content').innerHTML = `
+                    <div class="content-viewer">
+                        <a href="javascript:displayHomepage()" class="back-btn">← Back to All Modules</a>
+                        <h2>${cardTitle}</h2>
+                        <div class="content-display">${content.replace(/\n/g, '<br>')}</div>
+                        
+                        <!-- POST-READING TEST (True/False) -->
+                        <div style="margin: 40px 0; padding: 20px; background: #e8f4f8; border-radius: 10px;">
+                            <h3>✅ Quick Knowledge Check</h3>
+                            <p>Test your understanding with 3 True/False questions:</p>
+                            <div id="trueFalseQuiz"></div>
+                            <button onclick="generateTrueFalseQuiz('${quizType}')" style="background: #3498db; color: white; padding: 10px 20px; border: none; border-radius: 8px; margin-top: 15px;">
+                                Start Quick Test
+                            </button>
+                        </div>
+                        
+                        <!-- FULL QUIZ (A/B/C/D Format) -->
+                        <div style="margin: 40px 0; padding: 20px; background: #f9f0e8; border-radius: 10px;">
+                            <h3>🧠 Full Quiz (A/B/C/D Format)</h3>
+                            <p>Take the complete quiz with multiple choice questions:</p>
+                            <button onclick="loadFullQuiz('${quizType}')" style="background: #e74c3c; color: white; padding: 12px 24px; border: none; border-radius: 8px; margin: 10px 0;">
+                                Start Full Quiz →
+                            </button>
+                            <div id="fullQuizContainer"></div>
+                        </div>
+                        
+                        <!-- SUPPORT BUTTON -->
+                        <div style="text-align: center; margin: 40px 0;">
+                            <button onclick="showPopup('gamePopup')" style="background: linear-gradient(to right, #FF5722, #FF9800); color: white; padding: 15px 30px; border: none; border-radius: 50px; font-size: 1.1rem;">
+                                🎮 Download Games to Support
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                // Generate sample True/False questions
+                generateTrueFalseQuiz(quizType);
+                
+            } catch (error) {
+                document.getElementById('app-content').innerHTML = `
+                    <div style="text-align: center; padding: 40px;">
+                        <h2>Error Loading Content</h2>
+                        <button class="card-btn" onclick="displayHomepage()">Return to Homepage</button>
+                    </div>
+                `;
+            }
+        }
+
+        // 4. QUIZ SYSTEM (A/B/C/D Formats)
+        const quizDatabase = {
+            betting_markets_quiz: [
+                { type: "truefalse", question: "In 1X2 betting, 'X' means the home team wins.", answer: false },
+                { type: "truefalse", question: "Asian Handicap eliminates the possibility of a draw.", answer: true },
+                { type: "multiple", question: "What does 'BTTS: Yes' mean?", options: ["Both teams score", "Home team wins", "Total goals over 2.5", "Match ends in draw"], answer: 0 },
+                { type: "multiple", question: "In Double Chance betting, which combination covers 'Home win or Draw'?", options: ["1X", "12", "X2", "1"], answer: 0 }
+            ],
+            bonuses_quiz: [
+                { type: "truefalse", question: "Welcome Bonus is 300% of the first deposit.", answer: true },
+                { type: "truefalse", question: "VIP points can only be earned by playing online.", answer: true },
+                { type: "multiple", question: "What is the maximum Welcome Bonus amount?", options: ["₦500,000", "₦750,000", "₦1,000,000", "₦2,000,000"], answer: 2 },
+                { type: "multiple", question: "How many events minimum for Multiple Booster bonus?", options: ["3", "5", "7", "10"], answer: 1 }
+            ],
+            // Add more quiz sets for each module...
+        };
+
+        // 5. TRUE/FALSE QUIZ GENERATOR
+        function generateTrueFalseQuiz(quizType) {
+            const container = document.getElementById('trueFalseQuiz');
+            if(!quizDatabase[quizType]) return;
+            
+            const tfQuestions = quizDatabase[quizType].filter(q => q.type === "truefalse");
+            let html = '';
+            
+            tfQuestions.slice(0, 3).forEach((q, index) => {
+                html += `
+                    <div class="quiz-question">
+                        <p><strong>Q${index+1}:</strong> ${q.question}</p>
+                        <button class="quiz-option" onclick="checkTrueFalse(this, ${q.answer})">✅ True</button>
+                        <button class="quiz-option" onclick="checkTrueFalse(this, ${!q.answer})">❌ False</button>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html || '<p>No True/False questions available for this topic.</p>';
+        }
+
+        function checkTrueFalse(button, isCorrect) {
+            const buttons = button.parentElement.querySelectorAll('.quiz-option');
+            buttons.forEach(btn => {
+                btn.disabled = true;
+                if(btn === button) {
+                    btn.classList.add(isCorrect ? 'correct' : 'incorrect');
+                }
+            });
+        }
+
+        // 6. FULL QUIZ LOADER (A/B/C/D)
+        function loadFullQuiz(quizType) {
+            const container = document.getElementById('fullQuizContainer');
+            if(!quizDatabase[quizType]) {
+                container.innerHTML = '<p>Quiz questions coming soon!</p>';
+                return;
+            }
+            
+            const mcQuestions = quizDatabase[quizType].filter(q => q.type === "multiple");
+            let html = '<h4>Multiple Choice Quiz:</h4>';
+            
+            mcQuestions.forEach((q, index) => {
+                html += `
+                    <div class="quiz-question">
+                        <p><strong>Q${index+1}:</strong> ${q.question}</p>
+                        ${q.options.map((opt, optIndex) => `
+                            <button class="quiz-option" onclick="checkMultipleChoice(this, ${optIndex}, ${q.answer})">
+                                ${String.fromCharCode(65 + optIndex)}) ${opt}
+                            </button>
+                        `).join('')}
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        function checkMultipleChoice(button, selectedIndex, correctIndex) {
+            const buttons = button.parentElement.querySelectorAll('.quiz-option');
+            buttons.forEach((btn, idx) => {
+                btn.disabled = true;
+                if(idx === correctIndex) {
+                    btn.classList.add('correct');
+                } else if(idx === selectedIndex && idx !== correctIndex) {
+                    btn.classList.add('incorrect');
+                }
+            });
+        }
+
+        // 7. POPUP FUNCTIONS
+        function showPopup(popupId) {
+            document.getElementById(popupId).style.display = 'flex';
+        }
+        
+        function closePopup(popupId) {
+            document.getElementById(popupId).style.display = 'none';
+        }
+        
+        function installPWA() {
+            if('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(() => {
+                        alert('✅ PWA ready to install! Look for "Add to Home Screen" in your browser menu.');
+                        closePopup('pwaPopup');
+                    })
+                    .catch(err => {
+                        alert('PWA installation failed: ' + err.message);
+                    });
+            } else {
+                alert('Your browser does not support PWA installation.');
+            }
+        }
+        
+        function downloadGame(gameName) {
+            alert(`🎮 ${gameName} download would start here!\n(Replace with actual .apk link)`);
+            // window.open(`https://your-site.com/downloads/${gameName}.apk`, '_blank');
+            closePopup('gamePopup');
+        }
+
+        // 8. INITIALIZE
+        document.addEventListener('DOMContentLoaded', displayHomepage);
     </script>
 </body>
 </html>
