@@ -64,20 +64,30 @@ export default function SectionDetails() {
         </div>
       </header>
 
-      <main className="max-w-xl mx-auto p-6 space-y-12 pb-32">
-        <div className="space-y-8">
+      <main className="max-w-xl mx-auto p-6 space-y-12 pb-32 overflow-visible">
+        <div className="space-y-8 overflow-visible">
           {section.subsections.map((sub, index) => (
             <motion.section
               key={sub.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
-              className="space-y-4"
+              className="space-y-4 overflow-visible"
             >
               <h2 className="text-2xl font-black tracking-tight uppercase border-l-4 border-primary pl-4" data-testid={`text-subsection-title-${sub.id}`}>
                 {sub.title}
               </h2>
-              <div className="text-neutral-400 text-base leading-relaxed whitespace-pre-wrap font-medium overflow-visible" data-testid={`text-subsection-content-${sub.id}`}>
+              <div 
+                className="text-neutral-400 text-base leading-relaxed whitespace-pre-wrap font-medium overflow-visible" 
+                data-testid={`text-subsection-content-${sub.id}`}
+                style={{ 
+                  display: 'block', 
+                  height: 'auto', 
+                  minHeight: '100%',
+                  maxHeight: 'none',
+                  wordBreak: 'break-word'
+                }}
+              >
                 {sub.content}
               </div>
 
