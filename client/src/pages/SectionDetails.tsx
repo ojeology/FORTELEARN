@@ -77,7 +77,7 @@ export default function SectionDetails() {
               <h2 className="text-2xl font-black tracking-tight uppercase border-l-4 border-primary pl-4" data-testid={`text-subsection-title-${sub.id}`}>
                 {sub.title}
               </h2>
-              <div className="text-neutral-400 text-base leading-relaxed whitespace-pre-wrap font-medium" data-testid={`text-subsection-content-${sub.id}`}>
+              <div className="text-neutral-400 text-base leading-relaxed whitespace-pre-wrap font-medium overflow-visible" data-testid={`text-subsection-content-${sub.id}`}>
                 {sub.content}
               </div>
 
