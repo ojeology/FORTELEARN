@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<!-- Fix for Netlify routing -->
+<html>
+<head>
+    <title>Fortebet Training</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script type="text/javascript">
+      // Robust mock for Start.io to ensure ads or placeholders always show
+      window.startapp = window.startapp || {};
+      window.startapp.init = window.startapp.init || function(config, success, failure) {
+        console.log("Start.io SDK init called", config);
+        if (success) setTimeout(success, 500);
+      };
+      window.startapp.banner = window.startapp.banner || {
+        display: function(config) {
+          console.log("Start.io SDK banner requested", config);
+          const container = document.getElementById(config.containerId);
+          if (container) {
+            // Check if already has an ad to avoid duplicates
+            if (container.querySelector('.fortebet-ad-unit')) return;
+            
+            const adUnit = document.createElement('div');
+            adUnit.className = 'fortebet-ad-unit';
+            adUnit.style.width = '100%';
+            adUnit.style.maxWidth = (config.width || 320) + 'px';
+            adUnit.style.height = (config.height || 50) + 'px';
+            adUnit.style.background = 'linear-gradient(90deg, #d35400, #e67e22)';
+            adUnit.style.color = 'white';
+            adUnit.style.display = 'flex';
+            adUnit.style.flexDirection = 'column';
+            adUnit.style.alignItems = 'center';
+            adUnit.style.justifyContent = 'center';
+            adUnit.style.borderRadius = '6px';
+            adUnit.style.margin = '10px auto';
+            adUnit.style.cursor = 'pointer';
+            adUnit.style.boxShadow = '0 2px 4px rgba(0,0,0,0.2)';
+            adUnit.style.fontFamily = 'sans-serif';
+            
+            adUnit.innerHTML = `
+              <div style="font-weight: bold; font-size: 14px;">Fortebet Premium Partner</div>
+              <div style="font-size: 10px; opacity: 0.9;">Exclusive Agent Training Rewards</div>
+            `;
+            
+            adUnit.onclick = () => window.open('https://www.fortebet.ug', '_blank');
+            
+            container.innerHTML = ''; // Clear "Ad will load here..."
+            container.appendChild(adUnit);
+            
+            const status = document.getElementById('ad-status');
+            if (status) {
+              status.style.color = '#27ae60';
+              status.textContent = '✅ Ads active';
+            }
+          }
+        }
+      };
+    </script>
+    <script async type="text/javascript" src="https://cdn.startapp.com/sdk/init.js" onload="console.log('Start.io SDK Loaded Successfully')" onerror="console.log('Start.io SDK Blocked - Using Fallback')"></script>
+    <script src="ads.js"></script>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+
+    <!-- Your Firebase Config -->
+    <script src="firebase-config.js"></script>
+    <link rel="manifest" href="/manifest.json">
+    <!-- Adsterra Popunder Script -->
+    <script src="https://pl28475199.effectivegatecpm.com/77/58/59/77585920ed45e358bf69d1a7e14259ac.js"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          // Use a stable registration without timestamp query for now to avoid spam
+          navigator.serviceWorker.register('/sw.js')
+            .then(reg => {
+              console.log('PWA: Service Worker registered');
+              
+              // Detect updates
+              reg.onupdatefound = () => {
+                const installingWorker = reg.installing;
+                installingWorker.onstatechange = () => {
+                  if (installingWorker.state === 'installed') {
+                    if (navigator.serviceWorker.controller) {
+                      // New content is available, show refresh prompt
+                      // We use a custom confirm to ensure we only ask once
+                      if (!window.updateConfirmed && confirm('A new version of Fortebet Training is available! Refresh now to update?')) {
+                        window.updateConfirmed = true;
+                        if (reg.waiting) {
+                          reg.waiting.postMessage({ type: 'SKIP_WAITING' });
+                        }
+                      }
+                    }
+                  }
+                };
+              };
+            })
+            .catch(err => console.log('PWA: Service Worker registration failed', err));
+        });
+        
+        let refreshing = false;
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+          if (!refreshing) {
+            window.location.reload();
+            refreshing = true;
+          }
+        });
+      }
+    </script>
+</head>
+<body onload="loadPageBanners()">
+    <!-- Top Banner Container -->
+    <div id="banner-container-top" style="width: 100%; min-height: 250px; text-align: center; background: #f0f0f0; margin-bottom: 10px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
+        <!-- Adsterra Standard Banners (Triple) -->
+        <div class="ad-slot">
+            <script>
+              atOptions = { 'key' : '18b321be1840c563456273ca9c38d54a', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} };
+            </script>
+            <script src="https://www.highperformanceformat.com/18b321be1840c563456273ca9c38d54a/invoke.js"></script>
+        </div>
+        <div class="ad-slot">
+            <script>
+              atOptions = { 'key' : '18b321be1840c563456273ca9c38d54a', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} };
+            </script>
+            <script src="https://www.highperformanceformat.com/18b321be1840c563456273ca9c38d54a/invoke.js"></script>
+        </div>
+    </div>
+
+    <header>
+        <div class="header-content">
+            <div class="logo-section">
+                <h1><i class="fas fa-graduation-cap"></i> Fortebet Agent Training</h1>
+                <p>Master everything to become an expert Fortebet agent</p>
+            </div>
+            
+            <div class="progress-section">
+                <div class="progress-circle">
+                    <div class="circle" id="progressCircle">
+                        <span class="progress-value" id="progressValue">0%</span>
+                    </div>
+                </div>
+                <div class="progress-text">
+                    <h3>Your Progress</h3>
+                    <p id="progressStatusText">Start your first module!</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="cards-container">
+            <div class="card">
+                <div class="card-icon" style="background-color: #2ecc71;">
+                    <i class="fas fa-gift"></i>
+                </div>
+                <h3>Bonuses</h3>
+                <p>Learn all about our bonus system and incentives for agents.</p>
+                <a href="javascript:void(0)" onclick="event.preventDefault(); window.triggerInterstitial ? window.triggerInterstitial(() => window.location.href='training.html?module=Bonuses') : window.location.href='training.html?module=Bonuses';">Start Learning →</a>
+            </div>
+
+            <div class="card">
+                <div class="card-icon" style="background-color: #3498db;">
+                    <i class="fas fa-terminal"></i>
+                </div>
+                <h3>POS / Terminal</h3>
+                <p>Master terminal operations and troubleshooting.</p>
+                <a href="javascript:void(0)" onclick="event.preventDefault(); window.triggerInterstitial ? window.triggerInterstitial(() => window.location.href='training.html?module=POS/Terminal') : window.location.href='training.html?module=POS/Terminal';">Start Learning →</a>
+            </div>
+
+            <div class="card">
+                <div class="card-icon" style="background-color: #9b59b6;">
+                    <i class="fas fa-money-bill-wave"></i>
+                </div>
+                <h3>Cashout</h3>
+                <p>Step-by-step procedures for customer cashouts.</p>
+                <a href="javascript:void(0)" onclick="event.preventDefault(); window.triggerInterstitial ? window.triggerInterstitial(() => window.location.href='training.html?module=Cashout') : window.location.href='training.html?module=Cashout';">Start Learning →</a>
+            </div>
+
+            <div class="card">
+                <div class="card-icon" style="background-color: #e74c3c;">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <h3>Work Ethics</h3>
+                <p>Professional conduct and company guidelines.</p>
+                <a href="javascript:void(0)" onclick="event.preventDefault(); window.triggerInterstitial ? window.triggerInterstitial(() => window.location.href='training.html?module=Work Ethics') : window.location.href='training.html?module=Work Ethics';">Start Learning →</a>
+            </div>
+
+            <div class="card">
+                <div class="card-icon" style="background-color: #f39c12;">
+                    <i class="fas fa-exchange-alt"></i>
+                </div>
+                <h3>Deposits & Withdrawals</h3>
+                <p>Handle customer transactions securely and efficiently.</p>
+                <a href="javascript:void(0)" onclick="event.preventDefault(); window.triggerInterstitial ? window.triggerInterstitial(() => window.location.href='training.html?module=Deposits%20%26%20Withdrawals') : window.location.href='training.html?module=Deposits%20%26%20Withdrawals';">Start Learning →</a>
+            </div>
+
+            <div class="card">
+                <div class="card-icon" style="background-color: #1abc9c;">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <h3>Common Issues</h3>
+                <p>Solutions for frequent branch problems and FAQs.</p>
+                <a href="javascript:void(0)" onclick="event.preventDefault(); window.triggerInterstitial ? window.triggerInterstitial(() => window.location.href='training.html?module=Common Issues') : window.location.href='training.html?module=Common Issues';">Start Learning →</a>
+            </div>
+
+            <div class="card">
+                <div class="card-icon" style="background-color: #34495e;">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Betting Markets</h3>
+                <p>Master 1X2, DNB, Handicap, and other betting options.</p>
+                <a href="javascript:void(0)" onclick="event.preventDefault(); window.triggerInterstitial ? window.triggerInterstitial(() => window.location.href='training.html?module=Betting%20Markets') : window.location.href='training.html?module=Betting%20Markets';">Start Learning →</a>
+            </div>
+
+            <div class="card">
+                <div class="card-icon" style="background-color: #e67e22;">
+                    <i class="fas fa-coins"></i>
+                </div>
+                <h3>Min/Max Stakes</h3>
+                <p>Limits for slots, prematch, virtuals, and payouts.</p>
+                <a href="javascript:void(0)" onclick="event.preventDefault(); window.triggerInterstitial ? window.triggerInterstitial(() => window.location.href='training.html?module=Stakes') : window.location.href='training.html?module=Stakes';">Start Learning →</a>
+            </div>
+
+            <div class="card">
+                <div class="card-icon" style="background-color: #7f8c8d;">
+                    <i class="fas fa-microchip"></i>
+                </div>
+                <h3>Slot Machines</h3>
+                <p>Learn about machine games, troubleshooting, and jackpots.</p>
+                <a href="javascript:void(0)" onclick="event.preventDefault(); window.triggerInterstitial ? window.triggerInterstitial(() => window.location.href='training.html?module=Slots') : window.location.href='training.html?module=Slots';">Start Learning →</a>
+            </div>
+
+            <div class="card">
+                <div class="card-icon" style="background-color: #27ae60;">
+                    <i class="fas fa-ticket-alt"></i>
+                </div>
+                <h3>Tickets & Virtuals</h3>
+                <p>Prematch and virtual sports betting procedures.</p>
+                <a href="javascript:void(0)" onclick="event.preventDefault(); window.triggerInterstitial ? window.triggerInterstitial(() => window.location.href='training.html?module=Tickets') : window.location.href='training.html?module=Tickets';">Start Learning →</a>
+            </div>
+
+            <div class="card">
+                <div class="card-icon" style="background: linear-gradient(135deg, #9b59b6, #8e44ad);">
+                    <i class="fas fa-crown"></i>
+                </div>
+                <h3>Operator Challenge</h3>
+                <p>Take the ultimate test! 30 or 100 questions with timer and leaderboard.</p>
+                <a href="javascript:void(0)" onclick="event.preventDefault(); window.location.href='operator-test.html';">Start Challenge →</a>
+            </div>
+        </div>
+    </main>
+
+    <div id="ad-banner-container" style="margin: 20px auto; text-align: center; min-height: 100px; background-color: #f0f0f0; border: 1px solid #ccc; border-radius: 8px; padding: 10px; position: relative;">
+      <p id="ad-status" style="margin-bottom: 10px;">Ad will load here...</p>
+      <button onclick="retryAds()" style="padding: 5px 10px; cursor: pointer; background: #007bff; color: white; border: none; border-radius: 4px; font-size: 12px;">Retry Ad Loading</button>
+    </div>
+
+    <!-- Bottom Banner Container -->
+    <div id="banner-container-bottom" style="width: 100%; min-height: 250px; text-align: center; background: #f0f0f0; margin-top: 20px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
+        <!-- Adsterra Standard Banners -->
+        <div class="ad-slot">
+            <script>
+              atOptions = { 'key' : '18b321be1840c563456273ca9c38d54a', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} };
+            </script>
+            <script src="https://www.highperformanceformat.com/18b321be1840c563456273ca9c38d54a/invoke.js"></script>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2024 Fortebet Training Portal</p>
+    </footer>
+
+    <!-- Floating Install Button -->
+    <button id="installBtn" style="display: none; position: fixed; bottom: 80px; right: 20px; background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; width: 60px; height: 60px; border-radius: 50%; cursor: pointer; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4); z-index: 9999; font-size: 24px; animation: pulse 2s infinite;">📲</button>
+
+    <!-- Install Instructions Modal -->
+    <div id="installModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 2147483647; align-items: center; justify-content: center;">
+      <div style="background: white; padding: 30px; border-radius: 20px; max-width: 400px; width: 90%; text-align: center;">
+        <div style="font-size: 60px; margin-bottom: 15px;">📱</div>
+        <h2 style="margin: 0 0 10px 0; color: #333;">Install Fortebet Training</h2>
+        <p style="color: #666; line-height: 1.5;">Get the full app experience with auto-updates!</p>
+        
+        <div id="installSteps" style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 20px 0; text-align: left; color: #333;"></div>
+        
+        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+          <button id="installNowBtn" style="background: #2ecc71; color: white; border: none; padding: 14px 30px; border-radius: 25px; cursor: pointer; font-weight: bold; min-width: 160px;">Install Now</button>
+          <button onclick="document.getElementById('installModal').style.display='none'" style="background: transparent; color: #666; border: 1px solid #ddd; padding: 14px 20px; border-radius: 25px; cursor: pointer;">Maybe Later</button>
+        </div>
+      </div>
+    </div>
+
+    <style>
+    #installBtn {
+      display: flex !important;
+      position: fixed !important;
+      top: 20px !important;
+      right: 20px !important;
+      background: #ff0000 !important;
+      color: #ffffff !important;
+      border: 4px solid #ffffff !important;
+      width: 90px !important;
+      height: 90px !important;
+      border-radius: 50% !important;
+      cursor: pointer !important;
+      box-shadow: 0 0 20px rgba(0,0,0,0.7) !important;
+      z-index: 2147483647 !important;
+      font-size: 40px !important;
+      animation: pulse 1.5s infinite !important;
+      align-items: center !important;
+      justify-content: center !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
+      70% { transform: scale(1.15); box-shadow: 0 0 0 20px rgba(255, 0, 0, 0); }
+      100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
+    }
+    </style>
+    <button id="installBtn" onclick="showInstallModal()">📲</button>
+    
+    <aside style="margin: 20px; text-align: center;">
+        <h3 style="color: #333; margin-bottom: 10px;">Recommended:</h3>
+        <div id="container-8dad73bc7e8130eecbd47f6459e66a46"></div>
+    </aside>
+
+    <!-- Adsterra Native Banner Script -->
+    <script async="async" data-cfasync="false" src="https://pl28475141.effectivegatecpm.com/8dad73bc7e8130eecbd47f6459e66a46/invoke.js"></script>
+    <script src="install-manager.js"></script>
+    <script>
+        // Trigger fancy install popup on first visit
+        window.addEventListener('load', () => {
+            if (!localStorage.getItem('install_popup_shown')) {
+                setTimeout(() => {
+                    if (typeof showInstallModal === 'function') {
+                        showInstallModal();
+                        localStorage.setItem('install_popup_shown', 'true');
+                    }
+                }, 2000);
+            }
+        });
+    </script>
+</body>
+</html>

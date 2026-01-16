@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Operator Test - Fortebet</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="test-header">
+        <a href="index.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Back to Training
+        </a>
+        <h1><i class="fas fa-crown"></i> Fortebet Operator Challenge</h1>
+        <p class="subtitle">Test your knowledge like a pro operator!</p>
+    </div>
+
+    <main class="test-selection">
+        <!-- Name Input -->
+        <div class="name-section">
+            <h2><i class="fas fa-user"></i> Enter Your Name</h2>
+            <input type="text" id="playerName" placeholder="Enter your agent name..." maxlength="20">
+            <p class="hint">This name will appear on the leaderboard</p>
+        </div>
+
+        <!-- Test Options -->
+        <div class="test-options">
+            <div class="test-card" data-questions="30">
+                <div class="test-badge">POPULAR</div>
+                <div class="test-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3>Operator Test</h3>
+                <h2>30 Questions</h2>
+                <ul class="test-features">
+                    <li><i class="fas fa-check-circle"></i> 10-second timer per question</li>
+                    <li><i class="fas fa-check-circle"></i> Progressive difficulty</li>
+                    <li><i class="fas fa-check-circle"></i> Certificate at 70% score</li>
+                    <li><i class="fas fa-check-circle"></i> Instant leaderboard entry</li>
+                </ul>
+                <div class="test-stats">
+                    <span><i class="fas fa-clock"></i> ~5-7 minutes</span>
+                    <span><i class="fas fa-trophy"></i> 2000 points</span>
+                </div>
+                <button class="start-btn" id="start30">
+                    START 30-QUESTION TEST
+                </button>
+            </div>
+
+            <div class="test-card premium" data-questions="100">
+                <div class="test-badge">EXPERT</div>
+                <div class="test-icon">
+                    <i class="fas fa-fire"></i>
+                </div>
+                <h3>Master Operator Test</h3>
+                <h2>100 Questions</h2>
+                <ul class="test-features">
+                    <li><i class="fas fa-check-circle"></i> 10-second timer per question</li>
+                    <li><i class="fas fa-check-circle"></i> Full knowledge coverage</li>
+                    <li><i class="fas fa-check-circle"></i> Elite certificate at 80% score</li>
+                    <li><i class="fas fa-check-circle"></i> Double leaderboard points</li>
+                    <li><i class="fas fa-check-circle"></i> Unlock expert badge</li>
+                </ul>
+                <div class="test-stats">
+                    <span><i class="fas fa-clock"></i> ~15-20 minutes</span>
+                    <span><i class="fas fa-trophy"></i> 5000 points</span>
+                </div>
+                <button class="start-btn premium-btn" id="start100">
+                    START 100-QUESTION TEST
+                </button>
+            </div>
+        </div>
+
+        <!-- Leaderboard Preview -->
+        <div class="leaderboard-preview">
+            <h2><i class="fas fa-chart-line"></i> Top 10 Leaderboard</h2>
+            <div class="leaderboard-table">
+                <div class="leaderboard-header">
+                    <span>Rank</span>
+                    <span>Name</span>
+                    <span>Score</span>
+                    <span>Test</span>
+                </div>
+                <div class="leaderboard-rows" id="leaderboardPreview">
+                    <!-- Will be filled by JavaScript -->
+                    <div class="leaderboard-row">
+                        <span class="rank">1</span>
+                        <span class="name">David</span>
+                        <span class="score">95%</span>
+                        <span class="test-type">100Q</span>
+                    </div>
+                    <div class="leaderboard-row">
+                        <span class="rank">2</span>
+                        <span class="name">Sarah</span>
+                        <span class="score">92%</span>
+                        <span class="test-type">30Q</span>
+                    </div>
+                    <div class="leaderboard-row">
+                        <span class="rank">3</span>
+                        <span class="name">Mike</span>
+                        <span class="score">90%</span>
+                        <span class="test-type">100Q</span>
+                    </div>
+                </div>
+            </div>
+            <p class="leaderboard-note">Complete any test to appear here!</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>Note: Your progress will be saved automatically. You can resume anytime.</p>
+    </footer>
+
+    <!-- Your Firebase Config -->
+    <script src="firebase-config.js"></script>
+    <script>
+        // Store player name
+        const playerNameInput = document.getElementById('playerName');
+        const start30Btn = document.getElementById('start30');
+        const start100Btn = document.getElementById('start100');
+
+        // Start 30-question test
+        start30Btn.addEventListener('click', function() {
+            const name = playerNameInput.value.trim();
+            if (!name) {
+                alert('Please enter your name to start the test!');
+                playerNameInput.focus();
+                return;
+            }
+            localStorage.setItem('playerName', name);
+            localStorage.setItem('testType', '30');
+            window.location.href = 'quiz-game.html?test=30';
+        });
+
+        // Start 100-question test
+        start100Btn.addEventListener('click', function() {
+            const name = playerNameInput.value.trim();
+            if (!name) {
+                alert('Please enter your name to start the test!');
+                playerNameInput.focus();
+                return;
+            }
+            localStorage.setItem('playerName', name);
+            localStorage.setItem('testType', '100');
+            window.location.href = 'quiz-game.html?test=100';
+        });
+
+        // Load saved name
+        const savedName = localStorage.getItem('playerName');
+        if (savedName) {
+            playerNameInput.value = savedName;
+        }
+
+        // Update Leaderboard Preview
+        async function updateLeaderboardPreview() {
+            const previewContainer = document.getElementById('leaderboardPreview');
+            
+            try {
+                let leaderboard = [];
+                if (typeof loadLeaderboard === 'function') {
+                    leaderboard = await loadLeaderboard('100-questions');
+                }
+                
+                if (leaderboard.length === 0) {
+                    const localData = JSON.parse(localStorage.getItem('fortebetLeaderboard') || '[]');
+                    leaderboard = localData.slice(0, 5);
+                }
+
+                if (leaderboard.length === 0) {
+                    previewContainer.innerHTML = '<div class="leaderboard-row"><span style="grid-column: 1/-1; text-align: center;">No scores yet!</span></div>';
+                    return;
+                }
+
+                previewContainer.innerHTML = '';
+                leaderboard.slice(0, 5).forEach((entry, index) => {
+                    const row = document.createElement('div');
+                    row.className = 'leaderboard-row';
+                    row.innerHTML = `
+                        <span class="rank">${index + 1}</span>
+                        <span class="name">${entry.name}</span>
+                        <span class="score">${entry.score}%</span>
+                        <span class="test-type">${entry.testType === '100-questions' ? '100Q' : '30Q'}</span>
+                    `;
+                    row.style.cursor = 'pointer';
+                    row.onclick = () => window.location.href = 'leaderboard.html';
+                    previewContainer.appendChild(row);
+                });
+            } catch (e) {
+                console.error("Preview error:", e);
+            }
+        }
+        updateLeaderboardPreview();
+    </script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+package com.fortebet.agenttraining;
+
+import com.getcapacitor.BridgeActivity;
+
+public class MainActivity extends BridgeActivity {}

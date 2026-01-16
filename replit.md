@@ -1,10 +1,8 @@
-# ForteBet Training Pro
+# Fortebet Knowledge Base Application
 
 ## Overview
 
-ForteBet Training Pro is a static educational web application designed to train betting shop operators on ForteBet's products, procedures, and policies. The application serves as a comprehensive reference guide covering betting markets, bonus systems, POS/terminal operations, slot machines, virtual betting, deposits/withdrawals, and workplace ethics.
-
-The project is a simple client-side application with no backend - it consists of a single HTML file that displays training content stored in text files within a `data/` directory structure.
+This is a full-stack web application serving as a knowledge base for Fortebet, a sports betting platform. The application displays organized information about bonuses, POS/terminal knowledge, and other betting-related topics in an accordion-style interface. Built with React frontend and Express backend, using PostgreSQL for data persistence.
 
 ## User Preferences
 
@@ -13,44 +11,63 @@ Preferred communication style: Simple, everyday language.
 ## System Architecture
 
 ### Frontend Architecture
+- **Framework**: React 18 with TypeScript
+- **Routing**: Wouter (lightweight alternative to React Router)
+- **State Management**: TanStack React Query for server state
+- **Styling**: Tailwind CSS with shadcn/ui component library
+- **Animations**: Framer Motion for smooth UI transitions
+- **Build Tool**: Vite with HMR support
 
-- **Single-page HTML application**: The entire UI is contained in `index.html` with embedded CSS styles
-- **No JavaScript framework**: Pure vanilla HTML/CSS with inline styling
-- **Card-based navigation**: Training topics are displayed as clickable cards in a responsive grid layout
-- **Content viewer pattern**: Users click topic cards to view detailed training content
+The frontend follows a component-based architecture with:
+- Pages in `client/src/pages/`
+- Reusable UI components in `client/src/components/ui/`
+- Custom hooks in `client/src/hooks/`
+- Path aliases: `@/` maps to `client/src/`, `@shared/` maps to `shared/`
 
-### Content Management
+### Backend Architecture
+- **Framework**: Express.js with TypeScript
+- **Database**: PostgreSQL with Drizzle ORM
+- **API Pattern**: RESTful API endpoints under `/api/`
+- **Build**: esbuild for production bundling
 
-- **File-based content storage**: Training materials are stored as plain text files in the `data/` directory
-- **Hierarchical organization**: Content is organized into subdirectories by category:
-  - `data/bonuses/` - Bonus types (welcome, cashback, VIP points, multiple booster, online virtual)
-  - `data/markets/` - Betting market explanations (1X2, handicaps, totals, etc.)
-  - `data/operations/` - Branch operational procedures
-  - `data/slot-machines/` - Slot machine knowledge
-  - `data/virtual-betting/` - Virtual sports information
-  - `data/deposits-withdrawals/` - Payment procedures
-  - `data/work-ethics/` - Employee conduct guidelines
-  - `data/limits/` - Stake and payout limits
-  - `data/cashout-complete-guide/` - Cashout feature documentation
+The server follows a layered architecture:
+- `server/routes.ts` - API route definitions and database seeding
+- `server/storage.ts` - Data access layer with repository pattern
+- `server/db.ts` - Database connection configuration
+- `server/static.ts` - Static file serving for production
 
-### Design Decisions
+### Data Model
+Two main tables with a one-to-many relationship:
+- **sections** - Main categories (id, title, displayOrder)
+- **subsections** - Content items within sections (id, sectionId, title, content, displayOrder)
 
-1. **Static file approach**: Chosen for simplicity and offline capability - operators can access training materials without internet connectivity
-2. **No database required**: All content lives in text files, making updates straightforward without backend changes
-3. **Responsive grid layout**: Cards adapt to screen size for mobile/tablet use at betting branches
-4. **Professional betting theme**: Blue gradient color scheme with gold accents matching ForteBet branding
+Schema defined in `shared/schema.ts` using Drizzle ORM with Zod validation via drizzle-zod.
+
+### Shared Code
+The `shared/` directory contains code used by both frontend and backend:
+- `schema.ts` - Database schema and TypeScript types
+- `routes.ts` - API route definitions with Zod response schemas
+
+### Development vs Production
+- **Development**: Vite dev server with HMR, served through Express middleware
+- **Production**: Pre-built static files served from `dist/public/`, bundled server from `dist/index.cjs`
 
 ## External Dependencies
 
-### Current State
-- **None**: The application has zero external dependencies - no npm packages, no CDN libraries, no APIs, no database connections
-- **Self-contained**: Everything runs from static files that can be served by any web server or opened directly in a browser
+### Database
+- **PostgreSQL** - Primary database, connection via `DATABASE_URL` environment variable
+- **Drizzle ORM** - Type-safe database queries and migrations
+- **drizzle-kit** - Database migration tooling (run with `npm run db:push`)
 
-### Content Sources
-- Training content is manually authored and stored in `.txt` files
-- `attached_assets/` directory contains source/reference materials used to create the training content
+### UI Components
+- **shadcn/ui** - Pre-built accessible React components (configured in `components.json`)
+- **Radix UI primitives** - Underlying accessible component primitives
+- **Lucide React** - Icon library
 
-### Potential Future Integrations (Referenced in attached assets)
-- Firebase integration was planned for cloud-based leaderboard storage (see `Pasted-Step-10-Update-quiz-game-html-Save-Function-javascript_*.txt`)
-- LocalStorage is mentioned for offline score tracking
-- These features are not currently implemented in the codebase
+### Fonts
+- Google Fonts: Inter (body text), Oswald (headers) - loaded via CDN in index.html
+
+### Replit-specific
+- `@replit/vite-plugin-runtime-error-modal` - Error overlay in development
+- `@replit/vite-plugin-cartographer` - Development tooling
+- `@replit/vite-plugin-dev-banner` - Development banner
