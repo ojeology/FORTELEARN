@@ -1,0 +1,301 @@
+OPERATOR TEST QUESTIONS (100+)
+
+1. How is the Welcome Bonus initially calculated?
+Correct Answer: 300% of the first deposit
+
+2. What is the maximum Welcome Bonus amount a customer can receive?
+Correct Answer: 1,000,000
+
+3. What is the minimum stake for Prematch at the branch?
+Correct Answer: ₦200
+
+4. What is Fortebet's toll-free customer line?
+Correct Answer: 0800 009 009 009
+
+5. What percentage of the stake is moved from the Welcome Bonus per qualifying bet?
+Correct Answer: 2%
+
+6. When does the Welcome Bonus expire?
+Correct Answer: 90 days
+
+7. What is the minimum requirement for the Multiple Booster Bonus?
+Correct Answer: 5 events, 1.25 odds
+
+8. What is the maximum win on a single bet slip?
+Correct Answer: ₦200M
+
+9. What happens if a Draw No Bet ends in a draw?
+Correct Answer: Full stake returned (push)
+
+10. What is the minimum OPay deposit?
+Correct Answer: ₦100
+
+11. What is the maximum Multiple Booster bonus percentage?
+Correct Answer: 250%
+
+12. How many events must meet requirements for 250% booster?
+Correct Answer: 50
+
+13. What is the minimum stake for Slot online?
+Correct Answer: ₦20
+
+14. How many virtual games are played in 24 hours?
+Correct Answer: 288
+
+15. In 'Win Both Halves', if HT is 2-0 and FT is 3-1, did the team win both halves?
+Correct Answer: No
+
+16. What is the maximum Online Virtual Bonus?
+Correct Answer: 3%
+
+17. What is the formula for Fair Cashout?
+Correct Answer: Winnings / Total Current Odds - 1% Fee
+
+18. What happens to cashout if one event is settled as void?
+Correct Answer: Suspended until recalibration
+
+19. What is the maximum deposit via card per 24 hours?
+Correct Answer: ₦1,000,000
+
+20. What POS key is used for payout/cancel?
+Correct Answer: F2
+
+21. What POS key is used for 'To Collect'?
+Correct Answer: F4
+
+22. What letter is used to rebet a ticket?
+Correct Answer: T
+
+23. How many paylines does 'Mad Mechanic' have?
+Correct Answer: 5
+
+24. What is the reset value for Gold Jackpot?
+Correct Answer: ₦100,000
+
+25. How many times can you double winnings in Risk feature?
+Correct Answer: 5
+
+26. What is the exact requirement for Cashback 3x?
+Correct Answer: Remaining odds 300+
+
+27. If a player confirmation code is missing, what should be checked first?
+Correct Answer: All of the above (Network, SIM card matches registered number, Phone storage)
+
+28. What is the minimum stake for Slot at the branch?
+Correct Answer: ₦50
+
+29. What is the minimum stake for Aviator?
+Correct Answer: ₦100
+
+30. What is the maximum stake for Aviator?
+Correct Answer: ₦100,000
+
+31. What is the maximum winning for Aviator?
+Correct Answer: ₦50,000,000
+
+32. What is the maximum stake for Slot online?
+Correct Answer: ₦20,000
+
+33. What is the maximum stake for Slot at the branch?
+Correct Answer: ₦8,000
+
+34. What is the maximum stake for Virtual Games online?
+Correct Answer: ₦1,000,000
+
+35. What is the maximum stake for Virtual Games at the branch?
+Correct Answer: ₦100,000
+
+36. What is the maximum stake for Prematch online?
+Correct Answer: ₦1,000,000
+
+37. What is the maximum stake for Prematch at the branch?
+Correct Answer: ₦1,000,000
+
+38. What is the maximum winning for Prematch at the branch?
+Correct Answer: ₦200,000,000
+
+39. What is the maximum winning for Virtual Games at the branch?
+Correct Answer: ₦200,000,000
+
+40. What happens if a potential win exceeds ₦200,000,000?
+Correct Answer: Stake is reduced or selections must be removed
+
+41. What is F1 used for on the POS?
+Correct Answer: Client cash in/out and Slot in/out
+
+42. What is F12 used for on the POS?
+Correct Answer: Finish transactions (clear homepage)
+
+43. What is the 'Edit' function used for on the POS?
+Correct Answer: View customer information and assign VIP cards
+
+44. What is the letter 'N' used for on the POS?
+Correct Answer: Enter customer username
+
+45. What is the letter 'K' used for on the POS?
+Correct Answer: Enter slot card numbers
+
+46. Can you see a customer's account balance from the POS?
+Correct Answer: No, only VIP points and slot balance
+
+47. How long do you have to cancel a prematch ticket?
+Correct Answer: Within 10 minutes, if no event has started
+
+48. On which terminal can a prematch ticket be cancelled?
+Correct Answer: Only on the same terminal it was played
+
+49. When can a virtual ticket be cancelled?
+Correct Answer: Anytime as long as no event has started
+
+50. What should be done with paid out and cancelled tickets?
+Correct Answer: Trashed and not returned to customers
+
+51. What is 'Cash in pos' (F4) used for?
+Correct Answer: Receive money from head office and other sources
+
+52. What is 'Cash out POS' (F4) used for?
+Correct Answer: Send reports and money to head office
+
+53. What is 'Transfer' (F4) used for?
+Correct Answer: Send money between POS at the branch
+
+54. What does 'Day report' (F4) show?
+Correct Answer: Summary of transactions and POS balance
+
+55. What does 'Show' (F4) display?
+Correct Answer: Full transaction history of the POS
+
+56. How many games does a branch slot machine contain?
+Correct Answer: 12 unique games
+
+57. What are 'Mystery/Wild Symbols' in slots?
+Correct Answer: Symbols that substitute for others to create wins
+
+58. What happens if power fails during a slot bonus round?
+Correct Answer: Winnings are calculated and paid in full
+
+59. What happens if a machine goes offline?
+Correct Answer: Credits are automatically refunded to the linked card
+
+60. How do you resolve missing funds on a slot machine?
+Correct Answer: Check Financial Transaction and Game History logs
+
+61. What should be included when reporting a faulty machine?
+Correct Answer: Branch Name, Slot ID, Photo, and Description
+
+62. How many paylines do 'Gangster World' have?
+Correct Answer: 20
+
+63. How many paylines do 'Crystal Miners' have?
+Correct Answer: 40
+
+64. How many paylines do 'Turbo Slots' have?
+Correct Answer: 81
+
+65. What does the 'MAX BET' button do?
+Correct Answer: Places the maximum allowed bet instantly
+
+66. What is the reset value for Silver Jackpot?
+Correct Answer: ₦10,000
+
+67. What is the reset value for Bronze Jackpot?
+Correct Answer: ₦1,000
+
+68. What is the 'Residual Gambling' feature?
+Correct Answer: Color pick to reach minimum stake
+
+69. What is the 'Risk (Gamble)' feature?
+Correct Answer: Double winnings by guessing card color
+
+70. What is 1X2 in betting?
+Correct Answer: Match result (1=Home, X=Draw, 2=Away)
+
+71. Does extra time count in a standard 1X2 bet?
+Correct Answer: No, unless specifically stated
+
+72. What is Draw No Bet (DNB)?
+Correct Answer: Stake is returned if the match ends in a draw
+
+73. What is Double Chance 12?
+Correct Answer: Home Win or Away Win (No Draw)
+
+74. What is Over 2.5 goals?
+Correct Answer: 3 or more goals are scored
+
+75. What is Under 2.5 goals?
+Correct Answer: 0, 1, or 2 goals are scored
+
+76. What is BTTS (Both Teams To Score)?
+Correct Answer: Both teams score at least one goal
+
+77. What is HT/FT betting?
+Correct Answer: Predicting results at both Halftime and Fulltime
+
+78. Does an Anytime Goal Scorer bet win if a player scores an own goal?
+Correct Answer: No
+
+79. What is Winning Margin?
+Correct Answer: Predicting how many goals a team wins by
+
+80. What is the minimum deposit at a branch?
+Correct Answer: ₦200
+
+81. What is the correction window for branch deposits?
+Correct Answer: 10 minutes
+
+82. What is the maximum card deposit per transaction?
+Correct Answer: ₦250,000
+
+83. What name is used for bank withdrawals?
+Correct Answer: The name from the first bank deposit
+
+84. How long does bank withdrawal processing typically take?
+Correct Answer: Typically 5 mins, up to 24 hours review
+
+85. What is needed for branch cash out?
+Correct Answer: Username and 4-digit authorization code
+
+86. When is cashout unavailable?
+Correct Answer: When critical moments occur (penalties, VAR, etc.)
+
+87. What is the VIP points rule for cashout?
+Correct Answer: Must maintain same points earned from the bet
+
+88. Is cashout available for shop tickets?
+Correct Answer: No, only online/mobile tickets
+
+89. When is cashout suspended?
+Correct Answer: When an event is void or odds exceed 10.00
+
+90. What time should day shift operators be at the branch?
+Correct Answer: 7:00 AM
+
+91. What time should the branch be online?
+Correct Answer: 7:30 AM
+
+92. Can operators bet while on duty?
+Correct Answer: No, it is prohibited
+
+93. What is the shop cash limit?
+Correct Answer: 250k unless valid reason
+
+94. What time do branch operations close?
+Correct Answer: 11:30 PM or after
+
+95. Is the CUG phone allowed to leave the branch?
+Correct Answer: No, never
+
+96. When should operators request for fuel?
+Correct Answer: When tank is half and no reserve
+
+97. What should be done before cashing out money on POS?
+Correct Answer: First seek approval
+
+98. What is the shortcut to check failed ticket prints?
+Correct Answer: Control + Alternate + P
+
+99. What is the maximum number of events on a ticket?
+Correct Answer: 150
+
+100. How many events are needed for 100% booster bonus?
+Correct Answer: 25

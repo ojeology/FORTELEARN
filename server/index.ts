@@ -95,8 +95,10 @@ app.use((req, res, next) => {
     res.sendFile(path.resolve(import.meta.dirname, "..", "index.html"));
   });
 
-  // Serve the data folder
-  app.use("/data", express.static(path.resolve(import.meta.dirname, "..", "data")));
+  // Serve consolidated data files from root
+  app.get("/data_*.txt", (req, res) => {
+    res.sendFile(path.resolve(import.meta.dirname, "..", req.path.slice(1)));
+  });
 
   httpServer.listen(
     {
