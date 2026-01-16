@@ -1,7 +1,6 @@
 import fs from "fs";
 import path from "path";
 import { storage } from "./storage";
-import { type Section, type SectionWithSubsections } from "@shared/schema";
 
 async function syncFilesToDb() {
   const dataDir = path.resolve(process.cwd(), "data");
@@ -13,14 +12,13 @@ async function syncFilesToDb() {
     const sectionPath = path.join(dataDir, sectionSlug);
     if (!fs.statSync(sectionPath).isDirectory()) continue;
 
-    let section: SectionWithSubsections | undefined = await storage.getSectionBySlug(sectionSlug);
+    let section = await storage.getSectionBySlug(sectionSlug);
     if (!section) {
-      const newSection = await storage.createSection({
+      section = await storage.createSection({
         title: sectionSlug.toUpperCase().replace(/-/g, " "),
         slug: sectionSlug,
         displayOrder: 1,
       });
-      section = { ...newSection, subsections: [] };
     }
 
     const files = fs.readdirSync(sectionPath);
@@ -30,7 +28,9 @@ async function syncFilesToDb() {
       const title = fileName.replace(".txt", "").replace(/-/g, " ");
       const content = fs.readFileSync(path.join(sectionPath, fileName), "utf-8");
 
-      const existingSub = section.subsections?.find(s => s.title.toLowerCase() === title.toLowerCase());
+      // Get section with subsections to find the existing one
+      const sectionWithSubs = await storage.getSectionBySlug(sectionSlug);
+      const existingSub = sectionWithSubs?.subsections?.find(s => s.title.toLowerCase() === title.toLowerCase());
 
       if (existingSub) {
         console.log(`Sync: Updating subsection "${title}" in section "${sectionSlug}" (content length: ${content.length})`);
@@ -40,7 +40,7 @@ async function syncFilesToDb() {
       } else {
         console.log(`Sync: Creating new subsection "${title}" in section "${sectionSlug}" (content length: ${content.length})`);
         await storage.createSubsection({
-          sectionId: section.id,
+          sectionId: section!.id,
           title: title.charAt(0).toUpperCase() + title.slice(1),
           content: content,
           displayOrder: 1,

@@ -91,8 +91,7 @@ These bets focus on the total number of goals scored in the match, regardless of
   · To win "Over 2.5 & BTTS: Yes": The match must have 3+ goals AND both teams must score. (e.g., 2-1, 3-1, 2-2). A 3-0 score has Over 2.5 but NOT BTTS, so the bet loses.
 · Agent Insight: These combos offer higher odds due to increased difficulty. Make sure the customer understands it's an "AND" condition, not an "OR."
 
----
-🎯 MILESTONE 3: HANDICAP BETTING (SPREADS)
+ MILESTONE 3: HANDICAP BETTING (SPREADS)
 
 Handicaps give a virtual advantage or disadvantage to a team to make betting on a one-sided match more balanced and interesting.
 
@@ -102,14 +101,14 @@ Handicaps give a virtual advantage or disadvantage to a team to make betting on 
 · How It Works: A team is given a negative handicap (they must overcome it) or a positive handicap (they receive it).
 · Common Lines & Outcomes:
 
-Handicap | What It Means | How to Read the Result
--0.25 | The favorite must win. A draw results in a half loss. | Win: Team wins. Draw: Lose half stake. Loss: Lose full stake.
--0.5 | The favorite must win. Simple. | Win: Bet wins. Draw or Loss: Bet loses.
--0.75 | The favorite must win by 2+ goals for full win. A 1-goal win is a half win. | Win by 2+: Full win. Win by 1: Half stake wins, half is refunded. Draw/Loss: Full loss.
--1.0 | The favorite must win by at least 2 goals. A 1-goal win is a push (refund). | Win by 2+: Win. Win by 1: Stake refunded. Draw/Loss: Lose.
--1.25 | Favorite must win by 2+ for full win. A 1-goal win is a half loss. | Win by 2+: Full win. Win by 1: Half stake lost. Draw/Loss: Full loss.
--1.5 | The favorite must win by 2 or more goals. | Win by 2+: Win. Win by 1, Draw, Loss: Lose.
-+0.25, +0.5, etc. | The opposite logic applies for the underdog. A +1.5 means the team can lose by 1 goal and your bet still wins. |
+Handicap What It Means How to Read the Result
+-0.25 The favorite must win. A draw results in a half loss. Win: Team wins. Draw: Lose half stake. Loss: Lose full stake.
+-0.5 The favorite must win. Simple. Win: Bet wins. Draw or Loss: Bet loses.
+-0.75 The favorite must win by 2+ goals for full win. A 1-goal win is a half win. Win by 2+: Full win. Win by 1: Half stake wins, half is refunded. Draw/Loss: Full loss.
+-1.0 The favorite must win by at least 2 goals. A 1-goal win is a push (refund). Win by 2+: Win. Win by 1: Stake refunded. Draw/Loss: Lose.
+-1.25 Favorite must win by 2+ for full win. A 1-goal win is a half loss. Win by 2+: Full win. Win by 1: Half stake lost. Draw/Loss: Full loss.
+-1.5 The favorite must win by 2 or more goals. Win by 2+: Win. Win by 1, Draw, Loss: Lose.
++0.25, +0.5, etc. The opposite logic applies for the underdog. A +1.5 means the team can lose by 1 goal and your bet still wins. 
 
 · Example in Practice (Asian -1.5):
   · Match: Brazil (-1.5) vs. Peru. Odds: 1.90.
@@ -145,7 +144,8 @@ Handicap | What It Means | How to Read the Result
   · Result 1-0: You LOSE (only won by 1).
 · Agent Insight: This is a good bridge between simple 1X2 and full handicap betting. It's intuitive for customers who have a strong feeling about a team's dominance
 
----
+
+
 🎯 MILESTONE 4: HALF-TIME/FULL-TIME, GOAL SCORERS & SPECIALS
 
 1. Half-Time / Full-Time (HT/FT)
@@ -204,6 +204,7 @@ Handicap | What It Means | How to Read the Result
 · Agent Insight: This is a pure 50/50 chance (excluding the 0-0 draw effect), so odds are very low (~1.90). It's often used as a fun add-on to another bet.
 
 ---
+
 🎯 MILESTONE 5: FORTEBET COMBO BETS EXPLAINED
 
 These bets have two conditions. Both must be correct for the bet to win.
@@ -250,19 +251,16 @@ Based on their promotions, look out for automated combo buttons like:
 · "Away Win & BTTS: Yes": Adds all matches where the away team is expected to win but both teams score.
 
 
----
-📋 Betting Markets Master Checklist
+ Betting Markets Master Checklist
 
-| Market Name | Covered In Milestone? | Core Explanation & Winning Conditions |
-|-------------|-----------------------|--------------------------------------|
-| Home Team to Score | Yes (Implied in BTTS). | Betting "Yes" wins if the home team scores at least one goal, regardless of the final result. A 1-0, 2-1, or 1-1 scoreline all win. |
-| Away Team to Score | Yes (Implied in BTTS). | Betting "Yes" wins if the away team scores at least one goal. A 0-1, 2-2, or 1-2 scoreline all win. |
-| Both Teams to Score (BTTS / "GG") | Yes (Milestone 2, Section 3). | Yes: Both home AND away team score (e.g., 1-1, 2-1). No: At least one team fails to score (e.g., 1-0, 0-0). |
-| Win Either Half | Yes (Mentioned in Double Chance context). | Betting on a team to win either the 1st OR the 2nd half (the 45-minute period). They can lose the other half or draw it. The full-time result doesn't matter. |
-| Win Both Halves | Needs Detail. | Betting on a team to win both the 1st AND the 2nd half (based on the score in each 45-minute segment). This usually requires a strong dominance. |
-| Half Time / Full Time (HT/FT) | Yes (Milestone 4, Section 1). | Predicting the result at Halftime (1/X/2) AND at Full-Time (1/X/2). The 9 combos (1/1, 1/X, 1/2, X/1, X/X, X/2, 2/1, 2/X, 2/2) were explained. |
+Market Name Covered In Milestone? Core Explanation & Winning Conditions
+Home Team to Score Yes (Implied in BTTS). Betting "Yes" wins if the home team scores at least one goal, regardless of the final result. A 1-0, 2-1, or 1-1 scoreline all win.
+Away Team to Score Yes (Implied in BTTS). Betting "Yes" wins if the away team scores at least one goal. A 0-1, 2-2, or 1-2 scoreline all win.
+Both Teams to Score (BTTS / "GG") Yes (Milestone 2, Section 3). Yes: Both home AND away team score (e.g., 1-1, 2-1). No: At least one team fails to score (e.g., 1-0, 0-0).
+Win Either Half Yes (Mentioned in Double Chance context). Betting on a team to win either the 1st OR the 2nd half (the 45-minute period). They can lose the other half or draw it. The full-time result doesn't matter.
+Win Both Halves Needs Detail. Betting on a team to win both the 1st AND the 2nd half (based on the score in each 45-minute segment). This usually requires a strong dominance.   Example: A team winning 1-0 at HT and 2-0 at FT won both halves (1-0, then 1-0 in 2nd). A team drawing 0-0 at HT but winning 2-0 at FT did NOT win both halves.
+Half Time / Full Time (HT/FT) Yes (Milestone 4, Section 1). Predicting the result at Halftime (1/X/2) AND at Full-Time (1/X/2). The 9 combos (1/1, 1/X, 1/2, X/1, X/X, X/2, 2/1, 2/X, 2/2) were explained.
 
----
 🔍 Deep Dive: Win Both Halves
 
 · The Core Concept: You are not betting on the full-time score. You are betting on a team to outscore their opponent in each separate 45-minute half.
@@ -283,18 +281,12 @@ Based on their promotions, look out for automated combo buttons like:
     · Analysis: City won the 1st half (1-0) AND won the 2nd half (3-0). Therefore, the bet WINS.
 
 
----
-Summary Table
-
-| Bet | Symbols | What It Means | Wins If... | Classic Example |
-|-----|---------|---------------|------------|-----------------|
-| 1X2 | 1, X, 2 | 1=Home Win, X=Draw, 2=Away Win | Your selected outcome is the final result after 90 mins. | Match: Arsenal vs. Spurs. Bet 1 (Arsenal). Win: 2-0, 3-1. Lose: 1-1, 0-1. |
-| Draw No Bet | Home or Away | Home or Away to win. Draw = Money Back. | Your team wins. If draw, stake is refunded. | Bet: Arsenal (Home). Win: 1-0. Push (Refund): 0-0. Lose: 0-1. |
-| Double Chance | 1X, 12, X2 | Cover 2 of 3 outcomes. | 1X: Home wins or draws. 12: Either team wins. X2: Away wins or draws. | Bet: 1X (Arsenal). Win: 1-0, 0-0. Lose: 0-1. |
+E = Home Win X = Draw 2 = Away Win Your selected outcome is the final result after 90 mins. Match: Arsenal vs. Spurs. Bet 1 (Arsenal). Win: 2-0, 3-1. Lose: 1-1, 0-1.
+Draw No Bet Home or Away to win. Draw = Money Back. Your team wins. If draw, stake is refunded. Bet: Arsenal (Home). Win: 1-0. Push (Refund): 0-0. Lose: 0-1.
+Double Chance Cover 2 of 3 outcomes. 1X: Home wins or draws. 12: Either team wins. X2: Away wins or draws. Bet: 1X (Arsenal). Win: 1-0, 0-0. Lose: 0-1.
 
 Category 2: Goal-Based Markets (How Many? Who Scores?)
 
-| Market | Your Bet | Means... | Wins If... | Classic Example |
-|--------|----------|----------|------------|-----------------|
-| Over/Under (e.g., 2.5) | Over/Under | Total goals in match. | Over 2.5: 3+ goals scored. Under 2.5: 0,1, or 2 goals. | Line: Over 2.5. Win: 2-1, 3-0. Lose: 1-0, 1-1. |
-| Both Teams to Score (BTTS) | Yes/No | Both teams score at least one goal. | Yes: Both teams score. No: At least one fails. | Win: 1-1, 2-1. Lose: 1-0, 0-0. |
+Market Your Bet Means... Wins If... Classic Example
+Over/Under (e.g., 2.5) Total goals in match. Over 2.5: 3+ goals scored. Under 2.5: 0,1, or 2 goals. Line: Over 2.5. Win: 2-1, 3-0. Lose: 1-0, 1-1.
+Both Teams to Score (BTTS) Yes/No. Yes: Both teams score. No: At least one fails. Win: 1-1, 2-1. Lose: 1-0, 0-0.

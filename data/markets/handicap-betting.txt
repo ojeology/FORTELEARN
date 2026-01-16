@@ -1,0 +1,52 @@
+🎯 MILESTONE 3: HANDICAP BETTING (SPREADS)
+
+Handicaps give a virtual advantage or disadvantage to a team to make betting on a one-sided match more balanced and interesting.
+
+1. Asian Handicap (The Most Common in Soccer)
+
+· The Core Concept: This handicap uses quarter-goal increments (.25, .75) to eliminate the possibility of a draw (a "push"). Your stake is either fully won or fully lost. The .25 split means half your stake goes on one line and half on another.
+· How It Works: A team is given a negative handicap (they must overcome it) or a positive handicap (they receive it).
+· Common Lines & Outcomes:
+
+Handicap What It Means How to Read the Result
+-0.25 The favorite must win. A draw results in a half loss. Win: Team wins. Draw: Lose half stake. Loss: Lose full stake.
+-0.5 The favorite must win. Simple. Win: Bet wins. Draw or Loss: Bet loses.
+-0.75 The favorite must win by 2+ goals for full win. A 1-goal win is a half win. Win by 2+: Full win. Win by 1: Half stake wins, half is refunded. Draw/Loss: Full loss.
+-1.0 The favorite must win by at least 2 goals. A 1-goal win is a push (refund). Win by 2+: Win. Win by 1: Stake refunded. Draw/Loss: Lose.
+-1.25 Favorite must win by 2+ for full win. A 1-goal win is a half loss. Win by 2+: Full win. Win by 1: Half stake lost. Draw/Loss: Full loss.
+-1.5 The favorite must win by 2 or more goals. Win by 2+: Win. Win by 1, Draw, Loss: Lose.
++0.25, +0.5, etc. The opposite logic applies for the underdog. A +1.5 means the team can lose by 1 goal and your bet still wins. 
+
+· Example in Practice (Asian -1.5):
+  · Match: Brazil (-1.5) vs. Peru. Odds: 1.90.
+  · You bet $10 on Brazil -1.5. Brazil starts the game "down" 0-1.5.
+  · Final Score: Brazil 3 - 0 Peru. Brazil's "handicap score" is (3 - 1.5) = 1.5 to 0. You WIN. Return = $10 x 1.90 = $19.
+  · Final Score: Brazil 2 - 1 Peru. Handicap score is (2 - 1.5) = 0.5 to 1. You LOSE. Brazil only won by 1 goal on the field.
+· Agent Insight: This is the most important handicap system to master. Use it to advise customers on strong favorites. Explain: "You're not just betting on Brazil to win, but to win comfortably."
+
+2. European Handicap (3-Way Handicap)
+
+· The Core Concept: Uses whole numbers and offers three outcomes: Home Win, Draw, or Away Win after the handicap is applied. There is no push or split stake.
+· How It Works: The handicap (e.g., -1, -2, +1) is applied to the final score to create a new "handicap result."
+· Example in Practice (European -1):
+  · Match: Manchester City (-1) vs. Everton. The market is: 1 (City wins by 2+), X (City wins by exactly 1), 2 (Everton does not lose).
+  · You bet $10 on 1 (City -1 to win) at odds of 2.10.
+  · Final Score: Man City 2 - 0 Everton. Apply handicap: (2 - 1) = 1 to 0. Handicap Result: Man City wins. Your bet on 1 WINS.
+  · Final Score: Man City 1 - 0 Everton. Handicap result: (1 - 1) = 0-0 → a Draw. Your bet on 1 LOSES (the X would have won).
+  · Final Score: Man City 0 - 0 Everton. Handicap result: (0 - 1) = -1 to 0 → an Everton win. Your bet on 1 LOSES.
+· Agent Insight: Simpler for beginners to understand than Asian splits, as it mirrors the 1X2 market. Point out the key difference: "A -1 handicap means a 1-0 win for the favorite results in a draw for your bet."
+
+3. Winning Margin
+
+· The Core Concept: A bet on how many goals a team will win by. It combines the "who wins" and "by how much" questions.
+· How It Works: You select a band or exact margin of victory for either team.
+· Common Options:
+  · Home to win by exactly 1 goal
+  · Away to win by 2 or more goals
+  · Any Team to win by exactly 2 goals
+· Example in Practice:
+  · Match: Liverpool vs. Aston Villa.
+  · You bet $10 on "Liverpool to win by 2 or more goals."
+  · Result 3-0 or 2-0: You WIN.
+  · Result 1-0: You LOSE (only won by 1).
+· Agent Insight: This is a good bridge between simple 1X2 and full handicap betting. It's intuitive for customers who have a strong feeling about a team's dominance

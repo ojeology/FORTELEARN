@@ -1,0 +1,45 @@
+🎯 MILESTONE 1: THE 1X2 SYSTEM & BASIC VARIATIONS
+
+This system defines the three possible outcomes of a match. Every other bet is built upon this logic.
+
+1. 1X2 (The Match Result / Full-Time Result)
+
+· The Core Concept: This is the simplest and most common bet. You are predicting the official result of the match after regular time (typically 90 minutes plus added time). Extra time and penalties do not count unless specifically stated.
+· The Symbols Explained:
+  · 1 : This represents the Home Team. A bet on 1 wins if the home team wins the match.
+  · X : This represents a Draw. A bet on X wins if the match ends with both teams scoring the same number of goals.
+  · 2 : This represents the Away Team. A bet on 2 wins if the away team wins the match.
+· Example in Practice:
+  · Match: Manchester United (1) vs. Chelsea (2)
+  · You bet $10 on 1 (Home) at odds of 2.50.
+  · If the result is: Manchester United wins 2-1 → You WIN. Your return is $10 x 2.50 = $25.
+  · If the result is: Draw 1-1 or Chelsea wins 0-1 → You LOSE your $10 stake.
+· Agent Insight: This is often the first bet a new customer will place. Ensure they understand that 1 is always the team listed first/on the left, which is the home team.
+
+2. Draw No Bet (DNB)
+
+· The Core Concept: This is a safer version of the 1X2 bet. It removes the possibility of a draw from the equation. You are betting on a team to win, and if the match ends in a draw, your stake is returned (a "push").
+· How It Works: It's presented as two options: Home or Away.
+  · Bet on "Home": You win if the home team wins. You get your money back if it's a draw.
+  · Bet on "Away": You win if the away team wins. You get your money back if it's a draw.
+· Example in Practice:
+  · Match: Arsenal (Home) vs. Tottenham (Away). You think Arsenal will win but a draw is possible.
+  · You bet $10 on "Home" (Draw No Bet) at odds of 1.90.
+  · If the result is: Arsenal wins 1-0 → You WIN. Return = $10 x 1.90 = $19.
+  · If the result is: Draw 2-2 → You GET YOUR STAKE BACK. You receive $10.
+  · If the result is: Tottenham wins 0-1 → You LOSE your $10 stake.
+· Agent Insight: Recommend this to customers who are confident a team won't lose but want insurance against a draw. The odds are lower than the standard 1 or 2 in the 1X2 market because of the safety net.
+
+3. Double Chance (DC)
+
+· The Core Concept: This bet allows you to cover two of the three possible outcomes in a single bet, significantly increasing your chance of winning (but with lower odds).
+· The Combinations:
+  · 1X : Home Win OR Draw. You win if the home team does not lose.
+  · 12 : Home Win OR Away Win. You win if the match does not end in a draw. (Sometimes called "To Win Either Half" in a different context, but here it's simply "No Draw").
+  · X2 : Draw OR Away Win. You win if the away team does not lose.
+· Example in Practice:
+  · Match: Liverpool (1) vs. Manchester City (2). It's a tight game.
+  · You bet $10 on 1X (Double Chance) at odds of 1.30.
+  · If the result is: Liverpool wins (1) OR the match is a draw (X) → You WIN. Return = $10 x 1.30 = $13.
+  · If the result is: Only if Manchester City wins (2) → You LOSE your $10.
+· Agent Insight: This is a popular "safer" bet for customers. It's crucial to explain that covering two outcomes means the potential payout is much smaller than betting on a single outcome.
