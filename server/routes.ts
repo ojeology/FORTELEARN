@@ -51,51 +51,27 @@ async function seedDatabase() {
   const markets = await storage.createSection({ title: "BETTING MARKETS", slug: "markets", displayOrder: 2 });
   await storage.createSubsection({ 
     sectionId: markets.id, 
-    title: "1X2 & Basic Variations", 
-    content: "1X2 (Match Result): 1=Home, X=Draw, 2=Away. Regular time only.\nDraw No Bet (DNB): Removes draw. Win = payout, Draw = stake returned (push).\nDouble Chance (DC): 1X (Home/Draw), 12 (Home/Away), X2 (Draw/Away). Lower odds but safer.", 
+    title: "MILESTONE 1: THE 1X2 SYSTEM & BASIC VARIATIONS", 
+    content: "1. 1X2 (The Match Result / Full-Time Result)\nPrediction of official result after regular time (90m + added time).\n\n· 1: Home Team Win\n· X: Draw\n· 2: Away Team Win\n2. Draw No Bet (DNB)\nSafer version: if match is a draw, stake is returned.\n\n3. Double Chance (DC)\n· 1X : Home Win OR Draw.\n· 12 : Home Win OR Away Win.\n· X2 : Draw OR Away Win.", 
     displayOrder: 1 
   });
   await storage.createSubsection({ 
     sectionId: markets.id, 
-    title: "Totals (Over/Under)", 
-    content: "Full Match: Line e.g. 2.5. Over 2.5 (3+ goals), Under 2.5 (0-2 goals). .5 ensures no tie.\nFirst Half: Same logic but only for first 45 mins.\nBoth Teams To Score (BTTS/GG): Yes (both score), No (at least one fails).", 
+    title: "MILESTONE 2: TOTALS (OVER/UNDER) & GOALS", 
+    content: "1. Over/Under (Total Goals)\nOver 2.5: 3+ goals wins. Under 2.5: 0-2 goals wins.\n\n2. Both Teams To Score (BTTS)\nYes: Both teams score. No: At least one fails.", 
     displayOrder: 2 
   });
   await storage.createSubsection({ 
     sectionId: markets.id, 
-    title: "Handicap Betting", 
-    content: "Asian Handicap: Quarter-goal increments. -0.25 (Win: win, Draw: half loss). -0.75 (Win by 2: full win, Win by 1: half win). -1.5 (Must win by 2+).\nEuropean Handicap: 3-way result after applying whole number handicap. -1 means 1-0 result is a Draw.", 
+    title: "MILESTONE 3: HANDICAP BETTING (SPREADS)", 
+    content: "1. Asian Handicap\nUses .25, .75 splits to avoid draws. -1.5 means favorite must win by 2+ goals.\n\n2. European Handicap (3-Way)\nWhole numbers only (-1, -2). 1-0 win with -1 handicap is a draw.", 
     displayOrder: 3 
   });
   await storage.createSubsection({ 
     sectionId: markets.id, 
-    title: "Combo Bets", 
-    content: "Both conditions must happen.\nWin & Over (e.g., 1 & Over 1.5): Team wins AND total goals >= 2.\nWin & GG: Team wins AND both teams score.\nOver & GG: 3+ goals AND both teams score.\nHT/FT Combos: Predict HT/FT result AND another market.", 
+    title: "MILESTONE 4: HT/FT & SPECIALS", 
+    content: "1. Half-Time / Full-Time (HT/FT)\nPredictions for both periods. 9 combinations (1/1, X/1, etc).\n\n2. Anytime Goal Scorer\nPlayer scores at any time (own goals don't count).", 
     displayOrder: 4 
-  });
-  await storage.createSubsection({ 
-    sectionId: markets.id, 
-    title: "Half-Time / Full-Time (HT/FT)", 
-    content: "Predict result at HT and FT. 9 combinations: 1/1, 1/X, 1/2, X/1, X/X, X/2, 2/1, 2/X, 2/2.\nExample: X/1 means Draw at HT, Home win at FT.", 
-    displayOrder: 5 
-  });
-  await storage.createSubsection({ 
-    sectionId: markets.id, 
-    title: "Goal Scorer & Specials", 
-    content: "Anytime Goal Scorer: Named player scores 1+ goals. Own goals don't count.\nFirst Goal Scorer: Named player scores first goal. Void if player doesn't start.\nTotal Corners/Cards: Over/Under on total awarded in match.", 
-    displayOrder: 6 
-  });
-  await storage.createSubsection({ 
-    sectionId: markets.id, 
-    title: "Win Both Halves", 
-    content: "Team must outscore opponent in 1st half AND outscore them in 2nd half separately.\nExample: HT 1-0, FT 2-0 means 2nd half score was 1-0 (won both).\nHT 2-0, FT 3-1 means 2nd half score was 1-1 (did NOT win both).", 
-    displayOrder: 7 
-  });
-  await storage.createSubsection({ 
-    sectionId: markets.id, 
-    title: "Winning Margin", 
-    content: "Bet on exact gap of victory. Options like 'Home by exactly 1', 'Away by 2 or more', 'Any team by exactly 2'.", 
-    displayOrder: 8 
   });
 
   // 3. CASHOUT
